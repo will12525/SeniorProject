@@ -46,10 +46,7 @@ public class Arrow extends Mob{
 				adjusted=true;
 			}
 		}
-
-
-		int xa=0;
-		int ya=0;
+		
 		if(facingDirection==0)
 		{
 			y--;

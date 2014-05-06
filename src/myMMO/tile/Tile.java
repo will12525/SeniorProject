@@ -1,4 +1,9 @@
-package myMMO;
+package myMMO.tile;
+
+import myMMO.Colours;
+import myMMO.Display;
+import myMMO.Level;
+import myMMO.entity.Entity;
 
 public class Tile {
 
@@ -18,7 +23,7 @@ public class Tile {
 	//public static final Tile CYCLE = new CycleTile(5,0,0,Colours.get(000, 000, 000, 000),0xFF000000);
 
 
-	protected byte id;
+	public byte id;
 	protected boolean solid;
 	protected boolean emitter;
 	private int levelColour;
@@ -78,7 +83,7 @@ public class Tile {
 	{
 		
 	}
-	public void hurt(Level level, int x, int y, Mob mob,int damage, int direction)
+	public void hurt(Level level, int x, int y, Entity entity, int damage, int direction)
 	{
 		
 	}

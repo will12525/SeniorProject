@@ -1,4 +1,7 @@
-package myMMO;
+package myMMO.tile;
+
+import myMMO.Display;
+import myMMO.Level;
 
 public class CycleTile extends Tile {
 	protected int tileId;

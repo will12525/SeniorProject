@@ -11,6 +11,10 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import myMMO.entity.Entity;
+import myMMO.entity.PlayerEntity;
+import myMMO.tile.Tile;
+
 public class Level {
 
 	private byte[]tiles;
@@ -41,6 +45,7 @@ public class Level {
 
 	};
 
+	@SuppressWarnings("unchecked")
 	public Level(Game game,String imagePath)
 	{
 		this.game=game;
@@ -57,6 +62,7 @@ public class Level {
 			this.generateLevel();
 		}
 		entitiesInTiles=new ArrayList[width*height];
+		
 		for(int i=0;i<width*height;i++)
 		{
 			entitiesInTiles[i]= new ArrayList<Entity>();
@@ -339,7 +345,7 @@ public class Level {
 		{
 			return;
 		}
-		tiles[x+y*width]=t.id;
+		tiles[x+y*width]= t.id;
 	}
 	public int searchForTile(int x,int y,Tile t)
 	{
@@ -372,7 +378,6 @@ public class Level {
 		}
 		entity.removed=false;
 		entities.add(entity);
-		entity.init(this);
 
 		insertEntity((entity.x>>3),(entity.y>>3),entity);
 	}

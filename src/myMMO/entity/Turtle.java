@@ -1,105 +1,155 @@
-package myMMO;
+package myMMO.entity;
 
 import java.awt.Rectangle;
 
-public class Skeleton extends Mob{
+import myMMO.Colours;
+import myMMO.Display;
+import myMMO.Level;
+import myMMO.tile.Tile;
+
+public class Turtle extends Entity {
+
 	private int tickCount;
-	private int colour=Colours.get(-1, 555, 500, 000);
+	private int colour=Colours.get(-1, 232, 040, 000);
+	private int timeToMove=0;
 	private long lastMove;
+	private boolean moveRight=false;
+	private boolean moveLeft=false;
+	private boolean moveUp=false;
+	private boolean moveDown=false;
 	protected int xOffset;
 	protected int yOffset;
-	private String message = "Ooh ooh ah ah!";
-	private int randomWalkTime=0;
-	private boolean stopMoving = false;
-	private int tryToFire=2000;
-	private long lastFire;
-	Arrow arrow;
+	private String message ="Yaawwnn...";
 
-	//Rectangle monkeyBox=new Rectangle();
-	public Skeleton(Level level, String name, int x, int y, int speed,boolean isSwimming) {
-		super(level, "Skelly", x, y, 1,isSwimming);
 
+	public Turtle(Level level, String name, int x, int y, int speed,boolean isSwimming) {
+		super(level, "turtle", x, y, 1, isSwimming);
 	}
+
+
 
 	public void tick() {
 		super.tick();
+		//int tile =Tile.WATER.getId();
 		int xa=0;
 		int ya=0;
-
-		if (level.player != null && randomWalkTime == 0) {
-			int xd = level.player.x - x;
-			int yd = level.player.y - y;
-			if ((xd * xd + yd * yd <= 80 * 80)&&(xd * xd + yd * yd >= 30 * 30)) {
-				xa = 0;
-				ya = 0;
-				if (xd < 0)
-				{
-					xa = -1;
-				}
-				if (xd > 0)
-				{
-					xa = +1;
-				}
-				if (yd < 0)
-				{
-					ya = -1;
-				}
-				if (yd > 0) 
-				{
-					ya = +1;
-				}
-			}
-			if((xd * xd + yd * yd >0)&&(xd * xd + yd * yd <= 80 * 80))
-			{
-				if((System.currentTimeMillis()-lastFire)>=tryToFire)
-				{
-					lastFire=System.currentTimeMillis();
-					//System.out.println("new arrow");
-					arrow =new Arrow(level, xOffset, yOffset, movingDirection);
-					level.addEntity(arrow);
-				}
-			}
+		Tile standingAt = level.getTile(x>>3, y>>3);
+		if(standingAt==Tile.LOG||standingAt==Tile.LEAVES)
+		{
+			//	level.setTile(x>>3, (y>>3), Tile.GRASS);
+		}
+		if(standingAt!=Tile.WATER||standingAt!=Tile.SAND)
+		{
+			level.searchForTile(x>>3,y>>3,Tile.WATER);
 		}
 
-
-		if (random.nextInt(200) == 0) {
-			randomWalkTime = 60;
-			xa = (random.nextInt(3) - 1) * random.nextInt(2);
-			ya = (random.nextInt(3) - 1) * random.nextInt(2);
+		if((x>>3)<=0)
+		{
+			xa++;
 		}
-		if (randomWalkTime > 0) randomWalkTime--;
-		if ((System.currentTimeMillis() - lastMove) >= (20)) {
+
+		if((x>>3)>=level.width)
+		{
+			xa--;
+		}
+		if((y>>3)>level.height)
+		{
+			ya--;
+		}
+		if((y>>3)<0)
+		{
+			ya++;
+		}
+		if ((System.currentTimeMillis() - lastMove) >= (timeToMove)) {
 			lastMove = System.currentTimeMillis();
-			if(!stopMoving)
+			int nextMove = (int) (Math.random()*5);
+			if(nextMove==0)
 			{
-				move(xa,ya);
+				moveRight=false;
+				moveLeft=false;
+				moveUp=true;
+				moveDown=false;
+				ya++;
 			}
-			stopMoving=false;
+			if(nextMove==1)
+			{
+				moveRight=false;
+				moveLeft=false;
+				moveUp=false;
+				moveDown=true;
+				ya--;
+			}
+			if(nextMove==2)
+			{
+				moveRight=false;
+				moveLeft=true;
+				moveUp=false;
+				moveDown=false;
+				xa--;
+			}
+			if(nextMove==3)
+			{
+				moveRight =true;
+				moveLeft=false;
+				moveUp=false;
+				moveDown=false;
+				xa++;
+			}
+			if(nextMove>=4)
+			{
+				moveRight=false;
+				moveLeft=false;
+				moveUp=false;
+				moveDown=false;
+				ya++;
+			}
+			timeToMove=3000+(int)(Math.random()*((8000-3000)+1));
+		}
+		
+		
+		switch((int)lastMove)
+		{
+		case 1: 
+			System.out.println(1);
+			break;
+		case 2:
+			System.out.println(2);
+			break;
 		}
 
-
-
-
+		if(moveDown)
+		{
+			ya--;
+		}
+		if(moveUp)
+		{
+			ya++;
+		}
+		if(moveLeft)
+		{
+			xa--;
+		}
+		if(moveRight)
+		{
+			xa++;
+		}
+		if(xa!=0||ya!=0)
+		{
+			move(xa,ya);
+			isMoving=true;
+		}
+		else
+		{
+			isMoving =false;
+		}
 		tickCount++;
-	}
 
-	
-
-	public void stopMoving(Mob mob)
-	{
-		stopMoving=true;
-	}
-
-
-	protected void die()
-	{
-		super.die();
 	}
 
 
 	public void render(Display display) {
 		int xTile=0;
-		int yTile=21;
+		int yTile=23;
 
 		int walkingSpeed =3;
 		int flipTopX=(numSteps>>walkingSpeed)&1;
@@ -110,7 +160,7 @@ public class Skeleton extends Mob{
 		int modifier =8*scale;
 		xOffset =x-modifier/2;
 		yOffset =y-modifier/2-4;
-		//Font.render((x>>3)+", "+(y>>3), display, x, y, Colours.get(-1, -1, -1, 555), 1);
+
 		if(movingDirection==1)
 		{
 			xTile+=2;
@@ -160,7 +210,13 @@ public class Skeleton extends Mob{
 			display.render(xOffset+modifier-(modifier*flipBottomL), yOffset+modifier, (xTile+1)+(yTile+1)*32, colour,flipBottomL,flipBottomR-1,scale);
 		}
 	}
-
+	public void stopMoving(Entity entity)
+	{
+		moveRight=false;
+		moveLeft=false;
+		moveUp=false;
+		moveDown=false;
+	}
 	public Rectangle getActionBounds()
 	{
 		return new Rectangle(x-2,y-2,12,12);
@@ -169,6 +225,7 @@ public class Skeleton extends Mob{
 	{
 		return message;
 	}
+
 	public int getMobX()
 	{
 		return xOffset;
@@ -179,10 +236,8 @@ public class Skeleton extends Mob{
 	}
 	public Rectangle getBounds()
 	{
-		return new Rectangle(x,y,8,8);
+		return new Rectangle(x-2,y-3,12,8);
 	}
-
-
 	public boolean hasCollided(int xa, int ya) {
 		int xMin = 0;
 		int xMax = 7;
@@ -214,7 +269,6 @@ public class Skeleton extends Mob{
 		}
 		return false;
 	}
-
 
 
 

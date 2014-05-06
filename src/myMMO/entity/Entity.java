@@ -1,11 +1,29 @@
-package myMMO;
+package myMMO.entity;
 
 import java.awt.Rectangle;
 import java.util.Random;
 
-public  class Mob extends Entity{
+import myMMO.Collision;
+import myMMO.Display;
+import myMMO.Level;
+import myMMO.tile.Tile;
 
 
+/**
+ * 
+ * Main constructor for all entities in the game
+ *
+ */
+public class Entity {
+
+	public int x;
+	public int y;
+	public int xr=6;
+	public int yr=6;
+	public boolean removed;
+
+	public Level level;
+	
 	protected String name;
 	protected int speed;
 	protected int numSteps=0;
@@ -16,22 +34,81 @@ public  class Mob extends Entity{
 	public int maxHealth=10;
 	public int health=maxHealth;
 
-Random random = new Random();
+	Random random = new Random();
 	Monkey monkey;
 	Turtle turtle;
 	PlayerEntity player;
 	Collision collision;
 
-
-	public Mob(Level level,String name,int x,int y,int speed,boolean swimming) {
-		super(level);
-		this.name=name;
-		this.x=x;
-		this.y=y;
-		this.speed=speed;
-		this.isSwimming=swimming;
+	public Entity(Level level)
+	{
+		this.level=level;
+	}
+	
+	public Entity(Level level, String name, int x, int y, int speed, boolean isSwimming)
+	{
+		this.level = level;
+		this.name = name;
+		this.x = x;
+		this.y = y;
+		this.speed = speed;
+		this.isSwimming = isSwimming;
 	}
 
+	public boolean intersects(int x1,int y1,int x2,int y2)
+	{
+		return !(x+xr<x1||y+yr<y1||x-xr>x2||y-yr>y2);
+	}
+
+	public void hurt(Entity entity, int dmg, int direction)
+	{	
+		
+	}
+	public void hurt(Tile tile, int x, int y, int dmg)
+	{
+
+	}
+
+	public boolean isBlockableBy(Entity entity)
+	{
+		return true;
+	}
+
+
+	public void die()
+	{
+		removed=true;
+	}
+
+	/**
+	 *
+	 * @param display = the display
+	 */
+	public void render(Display display) {
+	}
+
+
+	protected void touchedBy(Entity entity)
+	{
+
+	}
+	public int getMobX()
+	{
+		return 0;
+	}
+	public int getMobY()
+	{
+		return 0;
+	}
+
+	public int getLightRadius()
+	{
+		return 0;
+	}
+	//protected void touchedBy(Entity entity)
+
+
+	
 	public void move(int xa,int ya)
 	{
 		if(xa!= 0&&ya!=0)
@@ -86,11 +163,6 @@ Random random = new Random();
 		return e.isBlockableBy(this);
 	}
 
-	protected void die()
-	{
-		remove();
-	}
-
 	//public abstract Rectangle getBounds();
 
 	public boolean hasCollided(int xa,int ya) {
@@ -139,39 +211,29 @@ Random random = new Random();
 	}
 
 
-	public void render(Display display) {
-
-	}
+	
 	/**
 	 * stops mob from moving
 	 * @param mob
 	 */
-	public void stopMoving(Mob mob) {
-
+	public void stopMoving() {
+		
 	}
 	/**
 	 * returns the mobs x position
 	 * @return
 	 */
-	public int getMobX()
-	{
-		return 0;
-	}
-	public int getMobY()
-	{
-		return 0;
-	}
-
-	public boolean checkMobs(Mob mob1, Mob mob2) {
-		if(mob1.getBounds().intersects(mob2.getBounds()))
+	
+	public boolean checkMobs(Entity entity1, Entity entity2) {
+		if(entity1.getBounds().intersects(entity2.getBounds()))
 		{
 			return true;
 		}
 
 		return false;
 	}
-	public boolean checkMobsAction(Mob mob1, Mob mob2) {
-		if(mob1.getActionBounds().intersects(mob2.getActionBounds()))
+	public boolean checkMobsAction(Entity entity1, Entity entity2) {
+		if(entity1.getActionBounds().intersects(entity2.getActionBounds()))
 		{
 			return true;
 		}
@@ -194,9 +256,6 @@ Random random = new Random();
 	{
 		return "";
 	}
-
-
-
 
 
 }

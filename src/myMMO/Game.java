@@ -5,16 +5,22 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-
 import java.util.ArrayList;
-
 import java.util.Random;
 
 import javax.swing.JFrame;
+
+import myMMO.entity.Chicken;
+import myMMO.entity.Dogs;
+import myMMO.entity.Entity;
+import myMMO.entity.Monkey;
+import myMMO.entity.PlayerEntity;
+import myMMO.entity.Skeleton;
+import myMMO.entity.Turtle;
+import myMMO.tile.Tile;
 
 
 /**
@@ -38,7 +44,7 @@ public class Game extends Canvas implements Runnable{
 	//more important objects
 	private Display display;
 
-	private int daysSinceBegin=0;
+	//private int daysSinceBegin=0;
 	double cycle=0;
 	int holdingTime=0;
 	private boolean dayTime = true;
@@ -209,7 +215,7 @@ public class Game extends Canvas implements Runnable{
 		}
 
 		//calls the display class which reads every pixel from the path and generates 8x8 tiles (width of frame, height of frame, path to entitys)
-		display=new Display(WIDTH,HEIGHT,new spriteSheet("/sprites/spriteSheet.png"));
+		display=new Display(WIDTH,HEIGHT,new SpriteSheet("/sprites/spriteSheet.png"));
 
 		//sets up the inputhandler class
 		input = new KeyInputHandler(this);

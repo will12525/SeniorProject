@@ -1,10 +1,15 @@
-package myMMO;
+package myMMO.entity;
 
 import java.awt.Rectangle;
 
-public class Dogs extends Mob{
+import myMMO.Colours;
+import myMMO.Display;
+import myMMO.Level;
+import myMMO.tile.Tile;
+
+public class Chicken  extends Entity {
 	private int tickCount;
-	private int colour=Colours.get(-1, 321, 211, 000);
+	private int colour=Colours.get(-1, 000, 555, 500);
 	private int timeToMove=0;
 	private long lastMove;
 	private boolean moveRight=false;
@@ -13,19 +18,18 @@ public class Dogs extends Mob{
 	private boolean moveDown=false;
 	protected int xOffset;
 	protected int yOffset;
-	private String message = "We dogs are the police of the farm. Any laws passed by Mr.Jones are enforced by us."
-			+ " Theft, assault, and trampling crops are forbidden, and any animal caught doing any of these will "
-			+ "be given extra work as punishment.";
+	private String message = "Cluck!";
 
 	//Rectangle monkeyBox=new Rectangle();
-	public Dogs(Level level, String name, int x, int y, int speed,boolean isSwimming) {
-		super(level, "Dog", x, y, 0,isSwimming);
+	public Chicken(Level level, String name, int x, int y, int speed,boolean isSwimming) {
+		super(level, "Chicken", x, y, 0,isSwimming);
 
 	}
 	public String getName()
 	{
-		return "Dog";
+		return "Chicken";
 	}
+
 	public void tick() {
 		super.tick();
 
@@ -118,7 +122,7 @@ public class Dogs extends Mob{
 		}
 		if(xa!=0||ya!=0)
 		{
-		//	move(xa,ya);
+			//move(xa,ya);
 			isMoving=true;
 		}
 		else
@@ -134,7 +138,7 @@ public class Dogs extends Mob{
 
 	}
 
-	protected void die()
+	public void die()
 	{
 		super.die();
 	}
@@ -142,7 +146,7 @@ public class Dogs extends Mob{
 
 	public void render(Display display) {
 		int xTile=8;
-		int yTile=25;
+		int yTile=23;
 
 		int walkingSpeed =3;
 		int flipTopX=(numSteps>>walkingSpeed)&1;
@@ -150,7 +154,6 @@ public class Dogs extends Mob{
 		int flipBottomL=(numSteps>>walkingSpeed)&1;
 		int flipBottomR=(numSteps>>walkingSpeed)&1;
 
-		//int fixer=;
 		int modifier =8*scale;
 		xOffset =x-modifier/2;
 		yOffset =y-modifier/2-4;
@@ -204,7 +207,7 @@ public class Dogs extends Mob{
 			display.render(xOffset+modifier-(modifier*flipBottomL), yOffset+modifier, (xTile+1)+(yTile+1)*32, colour,flipBottomL,flipBottomR-1,scale);
 		}
 	}
-	public void stopMoving(Mob mob)
+	public void stopMoving(Entity entity)
 	{
 		moveRight=false;
 		moveLeft=false;

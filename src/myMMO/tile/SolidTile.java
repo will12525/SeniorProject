@@ -1,4 +1,7 @@
-package myMMO;
+package myMMO.tile;
+
+import myMMO.Level;
+import myMMO.entity.Entity;
 
 public class SolidTile extends BaseTile{
 

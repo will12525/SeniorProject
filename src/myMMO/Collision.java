@@ -4,7 +4,6 @@ import java.util.List;
 
 import myMMO.entity.Arrow;
 import myMMO.entity.Entity;
-import myMMO.entity.Mob;
 import myMMO.entity.PlayerEntity;
 
 public class Collision {
@@ -21,43 +20,43 @@ public class Collision {
 		{
 			for(int k=i+1;k<entities.size();k++)
 			{
-				Mob mob1 =(Mob) entities.get(i);
-				//mob2 is usually player
-				Mob mob2=(Mob) entities.get(k);
+				Entity entity1 = entities.get(i);
+				//entity2 is usually player
+				Entity entity2 = entities.get(k);
 				/*
 				 * handles collision of entities
 				 */
-				/*if((mob1 instanceof Arrow)||(mob2 instanceof Arrow))
+				/*if((entity1 instanceof Arrow)||(entity2 instanceof Arrow))
 				{
 					return false;
 				}*/
 
 
 
-				if(mob1.getBounds().intersects(mob2.getBounds()))
+				if(entity1.getBounds().intersects(entity2.getBounds()))
 				{
 					if(System.currentTimeMillis()-lastArrowHit>10)
 					{
 
 
 						//arrow removal
-						if(mob1 instanceof Arrow)
+						if(entity1 instanceof Arrow)
 						{
 							System.out.println("hi");
-							mob1.die();
-							//((Arrow) mob1).endArrowsLife(mob2);
-							//mob1.die();
-							mob2.health=mob2.health-1;
+							entity1.die();
+							//((Arrow) entity1).endArrowsLife(entity2);
+							//entity1.die();
+							entity2.health=entity2.health-1;
 
 						}
-						if(mob2 instanceof Arrow)
+						if(entity2 instanceof Arrow)
 						{
-							mob2.die();
+							entity2.die();
 							System.out.println("poo");
 
-							//((Arrow) mob2).endArrowsLife(mob1);
-							//mob2.die();
-							mob1.health=mob1.health-1;;
+							//((Arrow) entity2).endArrowsLife(entity1);
+							//entity2.die();
+							entity1.health=entity1.health-1;;
 
 						}
 						lastArrowHit=System.currentTimeMillis();
@@ -65,34 +64,34 @@ public class Collision {
 
 
 					//regular collision stuff
-					if(mob1.getClass()!=PlayerEntity.class)
+					if(entity1.getClass()!=PlayerEntity.class)
 					{
-						mob1.stopMoving(mob1);
+						entity1.stopMoving();
 					}
-					if(mob2.getClass()!=PlayerEntity.class)
+					if(entity2.getClass()!=PlayerEntity.class)
 					{
-						mob2.stopMoving(mob2);
+						entity2.stopMoving();
 					}
-					if(mob2.getMobX()>mob1.getMobX())
+					if(entity2.getMobX()>entity1.getMobX())
 					{
 
-						mob2.x=mob2.x+1;
-						mob1.x=mob1.x-1;
+						entity2.x=entity2.x+1;
+						entity1.x=entity1.x-1;
 					}
-					if(mob2.getMobX()<mob1.getMobX())
+					if(entity2.getMobX()<entity1.getMobX())
 					{
-						mob2.x=mob2.x-1;
-						mob1.x=mob1.x+1;
+						entity2.x=entity2.x-1;
+						entity1.x=entity1.x+1;
 					}
-					if(mob2.getMobY()>mob1.getMobY())
+					if(entity2.getMobY()>entity1.getMobY())
 					{
-						mob2.y=mob2.y+1;
-						mob1.y=mob1.y-1;
+						entity2.y=entity2.y+1;
+						entity1.y=entity1.y-1;
 					}
-					if(mob2.getMobY()<=mob1.getMobY())
+					if(entity2.getMobY()<=entity1.getMobY())
 					{
-						mob2.y=mob2.y-1;
-						mob1.y=mob1.y+1;
+						entity2.y=entity2.y-1;
+						entity1.y=entity1.y+1;
 					}
 					return true;
 				}
@@ -102,35 +101,36 @@ public class Collision {
 		return false;
 	}
 
-	public static Mob getEntityActedWith(List<Entity>entities)
+	public static Entity getEntityActedWith(List<Entity>entities)
 	{
 
 		for(int i=0;i<entities.size();i++)
 		{
 			for(int k=i+1;k<entities.size();k++)
 			{
-				Mob mob1 =(Mob) entities.get(i);
+				Entity entity1 = entities.get(i);
 
-				//mob2 is usually player
-				Mob mob2=(Mob) entities.get(k);
+				//entity2 is usually player
+				Entity entity2= entities.get(k);
 				/*
 				 * handles action of entities
 				 */
-				if(mob1.getClass()==PlayerEntity.class||mob2.getClass()==PlayerEntity.class)
+				if(entity1 instanceof PlayerEntity || entity2 instanceof PlayerEntity)
 				{
 
-					if(mob1.getActionBounds().intersects(mob2.getActionBounds()))
+					if(entity1.getActionBounds().intersects(entity2.getActionBounds()))
 					{
-						mob1.stopMoving(mob1);
-						mob2.stopMoving(mob2);
-						if(mob1 instanceof PlayerEntity)
+						entity1.stopMoving();
+						entity2.stopMoving();
+						
+						if(entity1 instanceof PlayerEntity)
 						{
 
-							return mob2;
+							return entity2;
 						}
-						if(mob2 instanceof PlayerEntity)
+						if(entity2 instanceof PlayerEntity)
 						{
-							return mob1;
+							return entity1;
 						}
 						return null;
 

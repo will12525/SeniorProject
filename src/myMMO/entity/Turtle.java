@@ -7,7 +7,7 @@ import myMMO.Display;
 import myMMO.Level;
 import myMMO.tile.Tile;
 
-public class Turtle extends Mob{
+public class Turtle extends Entity {
 
 	private int tickCount;
 	private int colour=Colours.get(-1, 232, 040, 000);
@@ -210,7 +210,7 @@ public class Turtle extends Mob{
 			display.render(xOffset+modifier-(modifier*flipBottomL), yOffset+modifier, (xTile+1)+(yTile+1)*32, colour,flipBottomL,flipBottomR-1,scale);
 		}
 	}
-	public void stopMoving(Mob mob)
+	public void stopMoving(Entity entity)
 	{
 		moveRight=false;
 		moveLeft=false;

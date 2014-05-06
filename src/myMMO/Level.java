@@ -378,7 +378,6 @@ public class Level {
 		}
 		entity.removed=false;
 		entities.add(entity);
-		entity.init(this);
 
 		insertEntity((entity.x>>3),(entity.y>>3),entity);
 	}

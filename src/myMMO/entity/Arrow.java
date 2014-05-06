@@ -6,7 +6,7 @@ import myMMO.Colours;
 import myMMO.Display;
 import myMMO.Level;
 
-public class Arrow extends Mob{
+public class Arrow extends Entity {
 	private int colours= Colours.get(-1,222,321,555);
 	private int facingDirection=0;
 	private int x,y;
@@ -110,10 +110,11 @@ public class Arrow extends Mob{
 		}
 
 	}
-	public void endArrowsLife(Mob mob)
+	public void endArrowsLife(Entity entity)
 	{
 		die();
-		mob.health=mob.health-1;
+		
+		entity.health=entity.health-1;
 	}
 	
 	public void die()

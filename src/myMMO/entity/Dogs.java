@@ -7,7 +7,7 @@ import myMMO.Display;
 import myMMO.Level;
 import myMMO.tile.Tile;
 
-public class Dogs extends Mob{
+public class Dogs extends Entity {
 	private int tickCount;
 	private int colour=Colours.get(-1, 321, 211, 000);
 	private int timeToMove=0;
@@ -209,7 +209,7 @@ public class Dogs extends Mob{
 			display.render(xOffset+modifier-(modifier*flipBottomL), yOffset+modifier, (xTile+1)+(yTile+1)*32, colour,flipBottomL,flipBottomR-1,scale);
 		}
 	}
-	public void stopMoving(Mob mob)
+	public void stopMoving(Entity entity)
 	{
 		moveRight=false;
 		moveLeft=false;

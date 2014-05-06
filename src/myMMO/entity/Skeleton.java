@@ -6,7 +6,7 @@ import myMMO.Colours;
 import myMMO.Display;
 import myMMO.Level;
 
-public class Skeleton extends Mob{
+public class Skeleton extends Entity {
 	private int tickCount;
 	private int colour=Colours.get(-1, 555, 500, 000);
 	private long lastMove;
@@ -84,7 +84,7 @@ public class Skeleton extends Mob{
 		tickCount++;
 	}
 
-	public void stopMoving(Mob mob)
+	public void stopMoving(Entity entity)
 	{
 		stopMoving=true;
 	}

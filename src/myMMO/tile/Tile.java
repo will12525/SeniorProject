@@ -4,7 +4,6 @@ import myMMO.Colours;
 import myMMO.Display;
 import myMMO.Level;
 import myMMO.entity.Entity;
-import myMMO.entity.Mob;
 
 public class Tile {
 
@@ -84,7 +83,7 @@ public class Tile {
 	{
 		
 	}
-	public void hurt(Level level, int x, int y, Mob mob,int damage, int direction)
+	public void hurt(Level level, int x, int y, Entity entity, int damage, int direction)
 	{
 		
 	}

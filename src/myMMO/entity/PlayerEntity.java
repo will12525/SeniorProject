@@ -13,7 +13,7 @@ import myMMO.Level;
 import myMMO.tile.Tile;
 
 
-public class PlayerEntity extends Mob{
+public class PlayerEntity extends Entity {
 
 	private KeyInputHandler input;
 	private int colour=Colours.get(-1, 125, 111, 543);
@@ -22,7 +22,7 @@ public class PlayerEntity extends Mob{
 	private String username;
 	protected int xOffset;
 	protected int yOffset;
-	Mob moby;
+	Entity entityY;
 
 	Game game;
 
@@ -100,14 +100,14 @@ public class PlayerEntity extends Mob{
 			
 			if(input.action.down)
 			{
-				moby = Collision.getEntityActedWith(level.entities);
-				if(moby==null)
+				entityY = Collision.getEntityActedWith(level.entities);
+				if(entityY==null)
 				{
 					return;
 				}
 				else
 				{
-					mobyTalks=moby.getMessage();
+					mobyTalks=entityY.getMessage();
 					game.setMenu(new ChatMenu(this,mobyTalks));
 					
 				}

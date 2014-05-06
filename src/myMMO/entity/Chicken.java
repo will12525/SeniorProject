@@ -7,7 +7,7 @@ import myMMO.Display;
 import myMMO.Level;
 import myMMO.tile.Tile;
 
-public class Chicken  extends Mob{
+public class Chicken  extends Entity {
 	private int tickCount;
 	private int colour=Colours.get(-1, 000, 555, 500);
 	private int timeToMove=0;
@@ -207,7 +207,7 @@ public class Chicken  extends Mob{
 			display.render(xOffset+modifier-(modifier*flipBottomL), yOffset+modifier, (xTile+1)+(yTile+1)*32, colour,flipBottomL,flipBottomR-1,scale);
 		}
 	}
-	public void stopMoving(Mob mob)
+	public void stopMoving(Entity entity)
 	{
 		moveRight=false;
 		moveLeft=false;

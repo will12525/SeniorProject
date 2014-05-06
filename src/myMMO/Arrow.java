@@ -106,6 +106,11 @@ public class Arrow extends Mob{
 		}
 
 	}
+	public void endArrowsLife(Mob mob)
+	{
+		die();
+		mob.health=mob.health-1;
+	}
 	protected void die()
 	{
 		super.die();

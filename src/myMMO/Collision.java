@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Collision {
 	//private Level level;
-
+	static long lastArrowHit=0;
 
 	public static boolean entityCollision(List<Entity>entities)
 	{
@@ -31,20 +31,32 @@ public class Collision {
 
 				if(mob1.getBounds().intersects(mob2.getBounds()))
 				{
-					//arrow removal
-					if(mob1 instanceof Arrow)
+					if(System.currentTimeMillis()-lastArrowHit>10)
 					{
-						mob1.die();
-						mob2.health=mob2.health-1;
-						
-					}
-					if(mob2 instanceof Arrow)
-					{
-						mob2.die();
-						mob1.health=mob1.health-1;;
-						
-					}
 
+
+						//arrow removal
+						if(mob1 instanceof Arrow)
+						{
+							System.out.println("hi");
+							mob1.die();
+							//((Arrow) mob1).endArrowsLife(mob2);
+							//mob1.die();
+							mob2.health=mob2.health-1;
+
+						}
+						if(mob2 instanceof Arrow)
+						{
+							mob2.die();
+							System.out.println("poo");
+
+							//((Arrow) mob2).endArrowsLife(mob1);
+							//mob2.die();
+							mob1.health=mob1.health-1;;
+
+						}
+						lastArrowHit=System.currentTimeMillis();
+					}
 
 
 					//regular collision stuff

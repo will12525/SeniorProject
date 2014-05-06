@@ -400,7 +400,7 @@ public class Level {
 		entitiesInTiles[x + y * width].add(e);
 	}
 
-
+//poopy nuggets
 	public void removeEntity(int x,int y,Entity entity)
 	{
 		if(x<0||x>=width||y<0||y>=height)
@@ -408,7 +408,6 @@ public class Level {
 			return;
 		}
 		entitiesInTiles[x+y*width].remove(entity);
-		//rowEntities.remove(entity);
 	}
 	/**
 	 * First cycles through each tile and calls the tiles tick, then cycles through all the entities and calls there tick. If the entities remove boolean is true then the method to remove the entity is called

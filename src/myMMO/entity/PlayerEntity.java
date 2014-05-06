@@ -87,7 +87,7 @@ public class PlayerEntity extends Entity {
 		if ((xa != 0 || ya != 0)&&!talking) {
 			move(xa, ya);
 			isMoving = true;
-
+//what to change I dunno
 
 		} 
 		else {

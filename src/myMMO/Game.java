@@ -38,7 +38,7 @@ public class Game extends Canvas implements Runnable{
 	//more important objects
 	private Display display;
 
-	private int daysSinceBegin=0;
+	//private int daysSinceBegin=0;
 	double cycle=0;
 	int holdingTime=0;
 	private boolean dayTime = true;

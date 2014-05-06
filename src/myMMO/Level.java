@@ -41,6 +41,7 @@ public class Level {
 
 	};
 
+	@SuppressWarnings("unchecked")
 	public Level(Game game,String imagePath)
 	{
 		this.game=game;
@@ -57,6 +58,7 @@ public class Level {
 			this.generateLevel();
 		}
 		entitiesInTiles=new ArrayList[width*height];
+		
 		for(int i=0;i<width*height;i++)
 		{
 			entitiesInTiles[i]= new ArrayList<Entity>();

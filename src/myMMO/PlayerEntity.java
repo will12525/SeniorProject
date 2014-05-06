@@ -2,8 +2,6 @@ package myMMO;
 
 import java.awt.Rectangle;
 
-import javax.swing.JOptionPane;
-
 
 public class PlayerEntity extends Mob{
 
@@ -21,11 +19,11 @@ public class PlayerEntity extends Mob{
 	private boolean talking = false;
 	private int waitForNextAction = 200;
 	private long lastAction;
-	private int  stringLimit=18;
-	private int lastStringLine=0;
+	//private int  stringLimit=18;
+	//private int lastStringLine=0;
 	String mobyTalks="";
 	String nextLine="";
-	private boolean moreText;
+	//private boolean moreText;
 //	private int r = 0;
 
 
@@ -43,10 +41,11 @@ public class PlayerEntity extends Mob{
 	{
 		return "I'm human";
 	}
-public void setLastAction(long last)
-{
-	this.lastAction=last;
-}
+	
+	public void setLastAction(long last)
+	{
+		this.lastAction=last;
+	}
 
 	public void tick() {
 		super.tick();

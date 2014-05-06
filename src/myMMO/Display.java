@@ -17,14 +17,14 @@ public class Display {
 	public int width;
 	public int height;
 
-	public spriteSheet sheet;
+	public SpriteSheet sheet;
 	/**
 	 * 
 	 * @param width = width of frame provided by main class
 	 * @param height = height of frame provided by main class
 	 * @param sheet = path to the sprite sheet
 	 */
-	public Display(int width,int height,spriteSheet sheet)
+	public Display(int width,int height,SpriteSheet sheet)
 	{
 		this.width=width;
 		this.height=height;

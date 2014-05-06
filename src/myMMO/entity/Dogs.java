@@ -1,6 +1,11 @@
-package myMMO;
+package myMMO.entity;
 
 import java.awt.Rectangle;
+
+import myMMO.Colours;
+import myMMO.Display;
+import myMMO.Level;
+import myMMO.tile.Tile;
 
 public class Dogs extends Mob{
 	private int tickCount;
@@ -134,7 +139,7 @@ public class Dogs extends Mob{
 
 	}
 
-	protected void die()
+	public void die()
 	{
 		super.die();
 	}

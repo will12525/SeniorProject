@@ -1,4 +1,8 @@
-package myMMO;
+package myMMO.tile;
+
+import myMMO.Display;
+import myMMO.Level;
+import myMMO.entity.Entity;
 
 public class FenceTile extends BaseTile {
 	private int[][] animationTileCoords;

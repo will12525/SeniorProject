@@ -1,6 +1,16 @@
-package myMMO;
+package myMMO.entity;
 
 import java.awt.Rectangle;
+
+import myMMO.ChatMenu;
+import myMMO.Collision;
+import myMMO.Colours;
+import myMMO.Display;
+import myMMO.Font;
+import myMMO.Game;
+import myMMO.KeyInputHandler;
+import myMMO.Level;
+import myMMO.tile.Tile;
 
 
 public class PlayerEntity extends Mob{
@@ -221,8 +231,6 @@ public class PlayerEntity extends Mob{
 		return new Rectangle(x,y,8,8);
 	}
 
-
-
 	public boolean hasCollided(int xa, int ya) {
 		int xMin = 0;
 		int xMax = 7;
@@ -260,20 +268,8 @@ public class PlayerEntity extends Mob{
 		}
 	}
 
-
-	protected void die()
+	public void die()
 	{
 		super.die();
 	}
-
-
-
-
-
-
-
-
-
-
-
 }

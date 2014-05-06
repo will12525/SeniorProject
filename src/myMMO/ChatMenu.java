@@ -1,5 +1,7 @@
 package myMMO;
 
+import myMMO.entity.PlayerEntity;
+
 public class ChatMenu extends Menu{
 	private PlayerEntity player;
 	private String msg;

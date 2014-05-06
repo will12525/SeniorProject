@@ -1,4 +1,8 @@
-package myMMO;
+package myMMO.entity;
+
+import myMMO.Display;
+import myMMO.Level;
+import myMMO.tile.Tile;
 
 
 /**

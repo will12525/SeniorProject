@@ -1,7 +1,12 @@
-package myMMO;
+package myMMO.entity;
 
 import java.awt.Rectangle;
 import java.util.Random;
+
+import myMMO.Collision;
+import myMMO.Display;
+import myMMO.Level;
+import myMMO.tile.Tile;
 
 public  class Mob extends Entity{
 
@@ -86,7 +91,7 @@ Random random = new Random();
 		return e.isBlockableBy(this);
 	}
 
-	protected void die()
+	public void die()
 	{
 		remove();
 	}

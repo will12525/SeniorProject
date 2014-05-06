@@ -11,6 +11,10 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import myMMO.entity.Entity;
+import myMMO.entity.PlayerEntity;
+import myMMO.tile.Tile;
+
 public class Level {
 
 	private byte[]tiles;
@@ -341,7 +345,7 @@ public class Level {
 		{
 			return;
 		}
-		tiles[x+y*width]=t.id;
+		tiles[x+y*width]= t.id;
 	}
 	public int searchForTile(int x,int y,Tile t)
 	{

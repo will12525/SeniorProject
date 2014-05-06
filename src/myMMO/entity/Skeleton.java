@@ -1,136 +1,95 @@
-package myMMO;
+package myMMO.entity;
 
 import java.awt.Rectangle;
 
+import myMMO.Colours;
+import myMMO.Display;
+import myMMO.Level;
 
-public class Monkey extends Mob{
+public class Skeleton extends Mob{
 	private int tickCount;
-	private int colour=Colours.get(-1, 321, 322, 545);
-	private int timeToMove=0;
+	private int colour=Colours.get(-1, 555, 500, 000);
 	private long lastMove;
-	private boolean moveRight=false;
-	private boolean moveLeft=false;
-	private boolean moveUp=false;
-	private boolean moveDown=false;
 	protected int xOffset;
 	protected int yOffset;
 	private String message = "Ooh ooh ah ah!";
+	private int randomWalkTime=0;
+	private boolean stopMoving = false;
+	private int tryToFire=2000;
+	private long lastFire;
+	Arrow arrow;
 
 	//Rectangle monkeyBox=new Rectangle();
-	public Monkey(Level level, String name, int x, int y, int speed,boolean isSwimming) {
-		super(level, "Monkey", x, y, 1,isSwimming);
+	public Skeleton(Level level, String name, int x, int y, int speed,boolean isSwimming) {
+		super(level, "Skelly", x, y, 1,isSwimming);
 
 	}
 
 	public void tick() {
 		super.tick();
-
 		int xa=0;
 		int ya=0;
-		Tile standingAt = level.getTile(x>>3, y>>3);
-		if(standingAt==Tile.LOG||standingAt==Tile.LEAVES)
-		{
-			//	level.setTile(x>>3, (y>>3), Tile.GRASS);
-		}
-		if((x>>3)<=0)
-		{
-			xa++;
+
+		if (level.player != null && randomWalkTime == 0) {
+			int xd = level.player.x - x;
+			int yd = level.player.y - y;
+			if ((xd * xd + yd * yd <= 80 * 80)&&(xd * xd + yd * yd >= 30 * 30)) {
+				xa = 0;
+				ya = 0;
+				if (xd < 0)
+				{
+					xa = -1;
+				}
+				if (xd > 0)
+				{
+					xa = +1;
+				}
+				if (yd < 0)
+				{
+					ya = -1;
+				}
+				if (yd > 0) 
+				{
+					ya = +1;
+				}
+			}
+			if((xd * xd + yd * yd >0)&&(xd * xd + yd * yd <= 80 * 80))
+			{
+				if((System.currentTimeMillis()-lastFire)>=tryToFire)
+				{
+					lastFire=System.currentTimeMillis();
+					//System.out.println("new arrow");
+					arrow =new Arrow(level, xOffset, yOffset, movingDirection);
+					level.addEntity(arrow);
+				}
+			}
 		}
 
-		if((x>>3)>=level.width)
-		{
-			xa--;
+
+		if (random.nextInt(200) == 0) {
+			randomWalkTime = 60;
+			xa = (random.nextInt(3) - 1) * random.nextInt(2);
+			ya = (random.nextInt(3) - 1) * random.nextInt(2);
 		}
-		if((y>>3)>level.height)
-		{
-			ya--;
-		}
-		if((y>>3)<0)
-		{
-			ya++;
-		}
-		if ((System.currentTimeMillis() - lastMove) >= (timeToMove)) {
+		if (randomWalkTime > 0) randomWalkTime--;
+		if ((System.currentTimeMillis() - lastMove) >= (20)) {
 			lastMove = System.currentTimeMillis();
-			int nextMove = (int) (Math.random()*5);
-			if(nextMove==0)
+			if(!stopMoving)
 			{
-				moveRight=false;
-				moveLeft=false;
-				moveUp=true;
-				moveDown=false;
-				ya++;
+				move(xa,ya);
 			}
-			if(nextMove==1)
-			{
-				moveRight=false;
-				moveLeft=false;
-				moveUp=false;
-				moveDown=true;
-				ya--;
-			}
-			if(nextMove==2)
-			{
-				moveRight=false;
-				moveLeft=true;
-				moveUp=false;
-				moveDown=false;
-				xa--;
-			}
-			if(nextMove==3)
-			{
-				moveRight =true;
-				moveLeft=false;
-				moveUp=false;
-				moveDown=false;
-				xa++;
-			}
-			if(nextMove>=4)
-			{
-				moveRight=false;
-				moveLeft=false;
-				moveUp=false;
-				moveDown=false;
-				ya++;
-			}
-			timeToMove=3000+(int)(Math.random()*((8000-3000)+1));
-
+			stopMoving=false;
 		}
 
-		if(moveDown)
-		{
-			ya--;
-		}
-		if(moveUp)
-		{
-			ya++;
-		}
-		if(moveLeft)
-		{
-			xa--;
-		}
-		if(moveRight)
-		{
-			xa++;
-		}
-		if(xa!=0||ya!=0)
-		{
-			move(xa,ya);
-			isMoving=true;
-		}
-		else
-		{
-			isMoving =false;
-		}
-
-		if(xOffset<0)
-		{
-			//			level.removeEntity(this);
-		}
 		tickCount++;
-
 	}
 
-	protected void die()
+	public void stopMoving(Mob mob)
+	{
+		stopMoving=true;
+	}
+
+	public void die()
 	{
 		super.die();
 	}
@@ -138,7 +97,7 @@ public class Monkey extends Mob{
 
 	public void render(Display display) {
 		int xTile=0;
-		int yTile=25;
+		int yTile=21;
 
 		int walkingSpeed =3;
 		int flipTopX=(numSteps>>walkingSpeed)&1;
@@ -199,13 +158,7 @@ public class Monkey extends Mob{
 			display.render(xOffset+modifier-(modifier*flipBottomL), yOffset+modifier, (xTile+1)+(yTile+1)*32, colour,flipBottomL,flipBottomR-1,scale);
 		}
 	}
-	public void stopMoving(Mob mob)
-	{
-		moveRight=false;
-		moveLeft=false;
-		moveUp=false;
-		moveDown=false;
-	}
+
 	public Rectangle getActionBounds()
 	{
 		return new Rectangle(x-2,y-2,12,12);
@@ -226,8 +179,8 @@ public class Monkey extends Mob{
 	{
 		return new Rectangle(x,y,8,8);
 	}
-	
-	
+
+
 	public boolean hasCollided(int xa, int ya) {
 		int xMin = 0;
 		int xMax = 7;

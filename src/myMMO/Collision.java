@@ -2,6 +2,11 @@ package myMMO;
 
 import java.util.List;
 
+import myMMO.entity.Arrow;
+import myMMO.entity.Entity;
+import myMMO.entity.Mob;
+import myMMO.entity.PlayerEntity;
+
 public class Collision {
 	//private Level level;
 	static long lastArrowHit=0;

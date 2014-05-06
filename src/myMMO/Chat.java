@@ -1,5 +1,7 @@
 package myMMO;
 
+import myMMO.entity.Mob;
+
 public class Chat extends Mob{
 	public boolean chatting=false;
 

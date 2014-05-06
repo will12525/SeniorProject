@@ -1,6 +1,9 @@
-package myMMO;
+package myMMO.tile;
 
 import java.util.Random;
+
+import myMMO.Level;
+import myMMO.entity.Entity;
 
 public class LeafTile extends BaseTile{
 	private int[][] animationTileCoords;

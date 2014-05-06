@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
  *
  *
  */
-public class spriteSheet {
+public class SpriteSheet {
 	public String path;
 	public int width;
 	public int height;
@@ -18,12 +18,12 @@ public class spriteSheet {
  * finds and loads the sprite sheet for the game, 
  * @param path = path to desired sprite sheet
  */
-	public spriteSheet(String path) 
+	public SpriteSheet(String path) 
 	{
 		BufferedImage image = null;
 
 		try {
-			image=ImageIO.read(spriteSheet.class.getResourceAsStream(path));
+			image=ImageIO.read(SpriteSheet.class.getResourceAsStream(path));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

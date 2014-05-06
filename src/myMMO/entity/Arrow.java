@@ -1,6 +1,10 @@
-package myMMO;
+package myMMO.entity;
 
 import java.awt.Rectangle;
+
+import myMMO.Colours;
+import myMMO.Display;
+import myMMO.Level;
 
 public class Arrow extends Mob{
 	private int colours= Colours.get(-1,222,321,555);
@@ -111,7 +115,8 @@ public class Arrow extends Mob{
 		die();
 		mob.health=mob.health-1;
 	}
-	protected void die()
+	
+	public void die()
 	{
 		super.die();
 	}

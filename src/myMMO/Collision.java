@@ -42,41 +42,34 @@ public class Collision {
 						//arrow removal
 						if(entity1 instanceof Arrow)
 						{
-							System.out.println("hi");
-<<<<<<< HEAD
-							//mob1.die();
-						mob1.removed=true;
-							mob2.health=mob2.health-1;
-=======
+
 							entity1.die();
+
 							//((Arrow) entity1).endArrowsLife(entity2);
 							//entity1.die();
 							entity2.health=entity2.health-1;
->>>>>>> 33567eedd5aa84b789f1c2c108acf7f5a633c429
+							lastArrowHit=System.currentTimeMillis();
+
 
 						}
 						if(entity2 instanceof Arrow)
 						{
-<<<<<<< HEAD
-						//	mob2.die();
-							System.out.println("poo");
-
-							mob2.removed=true;
-							mob1.health=mob1.health-1;;
-=======
+							//entity2.die();
 							entity2.die();
-							System.out.println("poo");
 
 							//((Arrow) entity2).endArrowsLife(entity1);
 							//entity2.die();
-							entity1.health=entity1.health-1;;
->>>>>>> 33567eedd5aa84b789f1c2c108acf7f5a633c429
+							entity1.health=entity1.health-1;
+							lastArrowHit=System.currentTimeMillis();
 
 						}
-						lastArrowHit=System.currentTimeMillis();
+
 					}
 
-
+					if(entity1 instanceof Arrow || entity2 instanceof Arrow)
+					{
+						return false;
+					}
 					//regular collision stuff
 					if(entity1.getClass()!=PlayerEntity.class)
 					{
@@ -136,7 +129,7 @@ public class Collision {
 					{
 						entity1.stopMoving();
 						entity2.stopMoving();
-						
+
 						if(entity1 instanceof PlayerEntity)
 						{
 

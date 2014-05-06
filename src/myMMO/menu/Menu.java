@@ -1,4 +1,8 @@
-package myMMO;
+package myMMO.menu;
+
+import myMMO.Display;
+import myMMO.Game;
+import myMMO.KeyInputHandler;
 
 public class Menu {
 	protected Game game;

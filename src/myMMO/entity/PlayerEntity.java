@@ -2,7 +2,6 @@ package myMMO.entity;
 
 import java.awt.Rectangle;
 
-import myMMO.ChatMenu;
 import myMMO.Collision;
 import myMMO.Colours;
 import myMMO.Display;
@@ -10,6 +9,7 @@ import myMMO.Font;
 import myMMO.Game;
 import myMMO.KeyInputHandler;
 import myMMO.Level;
+import myMMO.menu.ChatMenu;
 import myMMO.tile.Tile;
 
 

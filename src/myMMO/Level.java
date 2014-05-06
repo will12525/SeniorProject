@@ -408,6 +408,7 @@ public class Level {
 			return;
 		}
 		entitiesInTiles[x+y*width].remove(entity);
+		//rowEntities.remove(entity);
 	}
 	/**
 	 * First cycles through each tile and calls the tiles tick, then cycles through all the entities and calls there tick. If the entities remove boolean is true then the method to remove the entity is called

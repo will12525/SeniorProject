@@ -20,6 +20,8 @@ import myMMO.entity.Monkey;
 import myMMO.entity.PlayerEntity;
 import myMMO.entity.Skeleton;
 import myMMO.entity.Turtle;
+import myMMO.menu.Menu;
+import myMMO.menu.TitleMenu;
 import myMMO.tile.Tile;
 
 

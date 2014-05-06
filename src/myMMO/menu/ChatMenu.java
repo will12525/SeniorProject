@@ -1,5 +1,8 @@
-package myMMO;
+package myMMO.menu;
 
+import myMMO.Colours;
+import myMMO.Display;
+import myMMO.Font;
 import myMMO.entity.PlayerEntity;
 
 public class ChatMenu extends Menu{

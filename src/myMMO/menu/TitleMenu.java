@@ -1,4 +1,8 @@
-package myMMO;
+package myMMO.menu;
+
+import myMMO.Colours;
+import myMMO.Display;
+import myMMO.Font;
 
 public class TitleMenu extends Menu{
 	

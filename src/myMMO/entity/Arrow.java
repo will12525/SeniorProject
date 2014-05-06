@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 
 import myMMO.Colours;
 import myMMO.Display;
+import myMMO.Font;
 import myMMO.Level;
 
 public class Arrow extends Entity {
@@ -108,20 +109,11 @@ public class Arrow extends Entity {
 		{
 			display.render(x, y, (xTile+1)+yTile*32, colours, 1, 0, 1);
 		}
-
-	}
-<<<<<<< HEAD:src/myMMO/Arrow.java
-	protected void die()
-=======
-	public void endArrowsLife(Entity entity)
-	{
-		die();
-		
-		entity.health=entity.health-1;
+Font.renderFont(x+", "+y, display, x, y, Colours.get(-1, -1, -1, 000), 1);
 	}
 	
+	
 	public void die()
->>>>>>> 33567eedd5aa84b789f1c2c108acf7f5a633c429:src/myMMO/entity/Arrow.java
 	{
 		super.die();
 	}

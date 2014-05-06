@@ -39,19 +39,17 @@ public class Collision {
 						if(mob1 instanceof Arrow)
 						{
 							System.out.println("hi");
-							mob1.die();
-							//((Arrow) mob1).endArrowsLife(mob2);
 							//mob1.die();
+						mob1.removed=true;
 							mob2.health=mob2.health-1;
 
 						}
 						if(mob2 instanceof Arrow)
 						{
-							mob2.die();
+						//	mob2.die();
 							System.out.println("poo");
 
-							//((Arrow) mob2).endArrowsLife(mob1);
-							//mob2.die();
+							mob2.removed=true;
 							mob1.health=mob1.health-1;;
 
 						}

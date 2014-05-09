@@ -109,7 +109,6 @@ public class Arrow extends Entity {
 		{
 			display.render(x, y, (xTile+1)+yTile*32, colours, 1, 0, 1);
 		}
-Font.renderFont(x+", "+y, display, x, y, Colours.get(-1, -1, -1, 000), 1);
 	}
 	
 	

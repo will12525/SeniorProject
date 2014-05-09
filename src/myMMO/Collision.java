@@ -44,21 +44,15 @@ public class Collision {
 						{
 
 							entity1.die();
-
-							//((Arrow) entity1).endArrowsLife(entity2);
-							//entity1.die();
 							entity2.health=entity2.health-1;
+							
 							lastArrowHit=System.currentTimeMillis();
 
 
 						}
 						if(entity2 instanceof Arrow)
 						{
-							//entity2.die();
 							entity2.die();
-
-							//((Arrow) entity2).endArrowsLife(entity1);
-							//entity2.die();
 							entity1.health=entity1.health-1;
 							lastArrowHit=System.currentTimeMillis();
 

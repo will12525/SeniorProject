@@ -19,6 +19,8 @@ public class PlayerEntity extends Entity {
 	private int colour=Colours.get(-1, 125, 111, 543);
 	private int scale=1;
 	private int tickCount;
+	private long lastMove=0;
+	private int stall=0;
 	private String username;
 	protected int xOffset;
 	protected int yOffset;
@@ -34,7 +36,7 @@ public class PlayerEntity extends Entity {
 	String mobyTalks="";
 	String nextLine="";
 	//private boolean moreText;
-//	private int r = 0;
+	//	private int r = 0;
 
 
 
@@ -51,7 +53,7 @@ public class PlayerEntity extends Entity {
 	{
 		return "I'm human";
 	}
-	
+
 	public void setLastAction(long last)
 	{
 		this.lastAction=last;
@@ -66,6 +68,14 @@ public class PlayerEntity extends Entity {
 		if(standingAt==Tile.GRASS||standingAt==Tile.SAND)
 		{
 			//level.setTile(x>>3, (y>>3)+1, Tile.FENCE);
+		}
+		if(level.getTile(((x+4)>>3), ((y+3)>>3))==Tile.WATER)
+		{
+			stall=20;
+		}
+		else
+		{
+			stall=0;
 		}
 
 		if(input.up.down)
@@ -84,20 +94,22 @@ public class PlayerEntity extends Entity {
 		{
 			xa++;
 		}
-		if ((xa != 0 || ya != 0)&&!talking) {
-			move(xa, ya);
-			isMoving = true;
-//what to change I dunno
+		if ((System.currentTimeMillis() - lastMove) >= stall) {
+			lastMove = System.currentTimeMillis();
+			if ((xa != 0 || ya != 0)&&!talking) {
+				move(xa, ya);
+				isMoving = true;
 
-		} 
-		else {
-			isMoving = false;
+			} 
+			else {
+				isMoving = false;
+			}
 		}
 		tickCount++;
 
 		if((System.currentTimeMillis() - lastAction) >= (waitForNextAction)) 
 		{
-			
+
 			if(input.action.down)
 			{
 				entityY = Collision.getEntityActedWith(level.entities);
@@ -109,16 +121,16 @@ public class PlayerEntity extends Entity {
 				{
 					mobyTalks=entityY.getMessage();
 					game.setMenu(new ChatMenu(this,mobyTalks));
-					
+
 				}
-			
+
 			}
 		}
-//System.out.println("X: "+getMobX()+", Y: "+getMobY());
+		//System.out.println("X: "+getMobX()+", Y: "+getMobY());
 
 
 	}
-	
+
 
 	public void render(Display display) {
 		int xTile=0;

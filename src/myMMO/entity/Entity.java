@@ -23,7 +23,7 @@ public class Entity {
 	public boolean removed;
 
 	public Level level;
-	
+
 	protected String name;
 	protected int speed;
 	protected int numSteps=0;
@@ -44,7 +44,7 @@ public class Entity {
 	{
 		this.level=level;
 	}
-	
+
 	public Entity(Level level, String name, int x, int y, int speed, boolean isSwimming)
 	{
 		this.level = level;
@@ -58,15 +58,6 @@ public class Entity {
 	public boolean intersects(int x1,int y1,int x2,int y2)
 	{
 		return !(x+xr<x1||y+yr<y1||x-xr>x2||y-yr>y2);
-	}
-
-	public void hurt(Entity entity, int dmg, int direction)
-	{	
-		
-	}
-	public void hurt(Tile tile, int x, int y, int dmg)
-	{
-
 	}
 
 	public boolean isBlockableBy(Entity entity)
@@ -108,7 +99,7 @@ public class Entity {
 	//protected void touchedBy(Entity entity)
 
 
-	
+
 	public void move(int xa,int ya)
 	{
 		if(xa!= 0&&ya!=0)
@@ -125,7 +116,7 @@ public class Entity {
 			{
 				if(ya<0)
 				{//up
-					
+
 					movingDirection =0;
 				}
 				if(ya>0)
@@ -140,7 +131,7 @@ public class Entity {
 				{//right
 					movingDirection =3;
 				}
-				
+
 				x+=xa*speed;
 				y+=ya*speed;
 			}
@@ -153,7 +144,7 @@ public class Entity {
 		{
 			isSwimming=false;
 		}
-	
+
 
 
 	}
@@ -211,19 +202,19 @@ public class Entity {
 	}
 
 
-	
+
 	/**
 	 * stops mob from moving
 	 * @param mob
 	 */
 	public void stopMoving() {
-		
+
 	}
 	/**
 	 * returns the mobs x position
 	 * @return
 	 */
-	
+
 	public boolean checkMobs(Entity entity1, Entity entity2) {
 		if(entity1.getBounds().intersects(entity2.getBounds()))
 		{
@@ -256,6 +247,13 @@ public class Entity {
 	{
 		return "";
 	}
-
+	public int spawnX()
+	{
+		return 0;
+	}
+	public int spawnY()
+	{
+		return 0;
+	}
 
 }

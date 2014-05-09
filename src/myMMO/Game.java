@@ -52,7 +52,7 @@ public class Game extends Canvas implements Runnable{
 	private boolean dayTime = true;
 	private boolean nightTime=false;
 	private boolean holdTime=true;
-
+	private boolean spawnHostiles=true;
 	//private Display dayNightDisplay;
 	public KeyInputHandler input;
 	public Level level;
@@ -243,13 +243,13 @@ public class Game extends Canvas implements Runnable{
 			level.addEntity(turtle);
 		}
 		
-		for(int t=0;t<rand.nextInt(50)+40;t++)
+		/*for(int t=0;t<rand.nextInt(50)+40;t++)
 		{
 			skelly=new Skeleton(level,"turtle",rand.nextInt(1300)+40,rand.nextInt(1300)+40,0,false);
 			//add each turtle
 			level.addEntity(skelly);
 			
-		}
+		}*/
 		
 
 		//generates monkeys, random amount between 3 and 5
@@ -357,6 +357,14 @@ public class Game extends Canvas implements Runnable{
 		{
 			if(nightTime)
 			{
+				
+				if(spawnHostiles)
+				{
+					System.out.println("spawning mobs now");
+					level.spawnHostiles(skelly);
+					
+					spawnHostiles =false;
+				}
 				holdingTime++;
 				if(holdingTime>=900)
 				{
@@ -364,6 +372,7 @@ public class Game extends Canvas implements Runnable{
 					dayTime=true;
 					holdTime=false;
 					holdingTime=0;
+					spawnHostiles=true;
 					return;
 				}
 			}

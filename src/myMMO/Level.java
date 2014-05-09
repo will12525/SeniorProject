@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 
 import myMMO.entity.Entity;
 import myMMO.entity.PlayerEntity;
+import myMMO.entity.Skeleton;
 import myMMO.tile.Tile;
 
 public class Level {
@@ -33,6 +34,8 @@ public class Level {
 	private String imagePath;
 	private BufferedImage image;
 	private Random random = new Random();
+	public Skeleton skelleton;
+	//public Entity entity;
 	public PlayerEntity player;
 	public List<Entity>rowEntities=new ArrayList<Entity>();
 
@@ -62,7 +65,7 @@ public class Level {
 			this.generateLevel();
 		}
 		entitiesInTiles=new ArrayList[width*height];
-		
+
 		for(int i=0;i<width*height;i++)
 		{
 			entitiesInTiles[i]= new ArrayList<Entity>();
@@ -143,9 +146,9 @@ public class Level {
 						tileId=Tile.SAND;
 					}
 					makePatches(x,y,tileId);
-					
+
 				}
-				
+
 			}
 		}
 		for(int y=0;y<height*8;y++)
@@ -192,26 +195,26 @@ public class Level {
 						setTile((x>>3)+1,(y>>3)-1,Tile.LEAVES);
 					}
 				}
-			
+
 
 			}
 		}
 
-		
+
 	}
 	public void makePatches(int xPos,int yPos,Tile tile)
 	{
-	
+
 		if(getTile((xPos>>3),(yPos>>3))!=Tile.WATER&&getTile((xPos>>3),(yPos>>3))!=Tile.STONE)
 		{
 			setTile((xPos>>3),(yPos>>3),tile);
 			setTile((xPos>>3)+1,(yPos>>3),tile);
-			
+
 			setTile((xPos>>3)-1,(yPos>>3)+1,tile);
 			setTile((xPos>>3),(yPos>>3)+1,tile);
 			setTile((xPos>>3)+1,(yPos>>3)+1,tile);
 			setTile((xPos>>3)+2,(yPos>>3)+1,tile);
-			
+
 			setTile((xPos>>3),(yPos>>3)+2,tile);
 			setTile((xPos>>3)+1,(yPos>>3)+2,tile);
 		}
@@ -400,8 +403,7 @@ public class Level {
 		entitiesInTiles[x + y * width].add(e);
 	}
 
-//poopy nuggets
-	//test
+
 	public void removeEntity(int x,int y,Entity entity)
 	{
 		if(x<0||x>=width||y<0||y>=height)
@@ -487,4 +489,51 @@ public class Level {
 		}
 		return result;
 	}
+
+	public void spawnHostiles(Entity entity)
+	{
+		skelleton=(Skeleton) entity;
+		int amount = random.nextInt(20)+10;
+		for(int spawning=0;spawning<=amount;spawning++)
+		{
+			int xk=hostileSpawnX();
+			int yk=hostileSpawnY();
+			addEntity(new Skeleton(this,"skeleton",xk,yk,0,false));
+			//System.out.println(player.x+", "+player.y);
+			//System.out.println(xk+", "+yk);
+			//System.out.println("added mobs");
+		}
+		//System.exit(0);
+	}
+
+	public int hostileSpawnX()
+	{
+		int sX=random.nextInt(150)+40;
+		int posNeg=random.nextInt(2);
+		if(posNeg==0)
+		{
+			return player.x-sX;
+		}
+		else
+		{
+			return player.x+sX;
+		}
+
+
+	}
+	public int hostileSpawnY()
+	{
+		int sY=random.nextInt(150);
+		int posNeg=random.nextInt(2);
+		//System.out.println(posNeg);
+		if(posNeg==0)
+		{
+			return player.y-sY;
+		}
+		else
+		{
+			return player.y+sY;
+		}
+	}
+
 }

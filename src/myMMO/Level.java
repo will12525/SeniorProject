@@ -492,18 +492,12 @@ public class Level {
 
 	public void spawnHostiles(Entity entity)
 	{
-		skelleton=(Skeleton) entity;
 		int amount = random.nextInt(20)+10;
 		for(int spawning=0;spawning<=amount;spawning++)
 		{
-			int xk=hostileSpawnX();
-			int yk=hostileSpawnY();
-			addEntity(new Skeleton(this,"skeleton",xk,yk,0,false));
-			//System.out.println(player.x+", "+player.y);
-			//System.out.println(xk+", "+yk);
-			//System.out.println("added mobs");
+			addEntity(new Skeleton(this,"skeleton",hostileSpawnX(),hostileSpawnY(),0,false));
+
 		}
-		//System.exit(0);
 	}
 
 	public int hostileSpawnX()
@@ -525,7 +519,6 @@ public class Level {
 	{
 		int sY=random.nextInt(150);
 		int posNeg=random.nextInt(2);
-		//System.out.println(posNeg);
 		if(posNeg==0)
 		{
 			return player.y-sY;

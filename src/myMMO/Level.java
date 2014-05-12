@@ -19,8 +19,11 @@ import myMMO.tile.Tile;
 public class Level {
 
 	private byte[]tiles;
+	public int[] tiles1;
 	public int width;
 	public int height;
+	public int lastWidth;
+	public int lastHeight;
 	public boolean mapFixed=false;
 	Game game;
 
@@ -55,15 +58,23 @@ public class Level {
 		if(imagePath!=null)
 		{
 			this.imagePath=imagePath;
-			this.loadLevelFromFile();
+			loadLevelFromFile();
 		}
 		else{
 
-			this.width=64;
-			this.height=64;
-			tiles=new byte[width*height];
-			this.generateLevel();
+			width=200;
+			height=200;
+			tiles1=new int[width*height];
+			//tiles=new byte[width*height];
+			
+			
+		
+			LevelGen.createWorld(width,height,tiles1);
+			//this.generateLevel();
 		}
+		
+		lastWidth=width;
+		lastHeight=height;
 		entitiesInTiles=new ArrayList[width*height];
 
 		for(int i=0;i<width*height;i++)
@@ -80,11 +91,11 @@ public class Level {
 	private void loadLevelFromFile()
 	{
 		try{
-			this.image=ImageIO.read(Level.class.getResource(this.imagePath));
-			this.width=image.getWidth();
-			this.height=image.getHeight();
+			image=ImageIO.read(Level.class.getResource(this.imagePath));
+			width=image.getWidth();
+			height=image.getHeight();
 			tiles=new byte [width*height];
-			this.loadTiles();
+			loadTiles();
 
 
 
@@ -222,26 +233,6 @@ public class Level {
 
 
 
-	public void generateLevel()
-	{
-		for(int y = 0;y<height;y++)
-		{
-			for(int x =0;x<width;x++)
-			{
-				if(x*y%10<7)
-				{
-					tiles[x+y*width]=Tile.GRASS.getId();
-				}
-				else
-				{
-					tiles[x+y*width]=Tile.STONE.getId();
-				}
-			}
-		}
-	}
-
-
-
 	/**
 	 * cycles through all the tiles and draws them
 	 * @param display = the display
@@ -255,7 +246,7 @@ public class Level {
 			//fixMap();
 			mapFixed=true;
 		}
-		if(xOffset<0)
+		/*if(xOffset<0)
 		{
 			xOffset=0;
 		}
@@ -271,7 +262,7 @@ public class Level {
 		if(yOffset>((height<<3)-display.height))
 		{
 			yOffset=((height<<3)-display.height);
-		}
+		}*/
 		display.setOffset(xOffset,yOffset);
 
 		for (int y = (yOffset >> 3); y < (yOffset + display.height >> 3) +1; y++) {
@@ -285,7 +276,7 @@ public class Level {
 	public void renderTheEntities(Display display,int xOffset,int yOffset)
 	{
 
-		if(xOffset<0)
+		/*if(xOffset<0)
 		{
 			xOffset=0;
 		}
@@ -301,8 +292,8 @@ public class Level {
 		if(yOffset>((height<<3)-display.height))
 		{
 			yOffset=((height<<3)-display.height);
-		}
-		display.setOffset(xOffset, yOffset);
+		}*/
+		//display.setOffset(xOffset, yOffset);
 		for(int y=(yOffset>>3)-3;y<=((yOffset)+display.height>>3)+3;y++)
 		{
 			for(int x=(xOffset>>3)-3;x<=(xOffset+display.width>>3)+3;x++)
@@ -311,6 +302,7 @@ public class Level {
 				{
 					continue;
 				}
+				
 				rowEntities.addAll(entitiesInTiles[x+y*width]);
 			}
 			if(rowEntities.size()>0)
@@ -339,7 +331,9 @@ public class Level {
 		{
 			return Tile.VOID;
 		}
-		return Tile.tiles[tiles[x+y*width]];
+		
+		return Tile.tiles[tiles1[x+y*width]];
+		//return Tile.tiles[tiles[x+y*width]];
 	}
 
 	public void setTile(int x,int y,Tile t)
@@ -348,7 +342,8 @@ public class Level {
 		{
 			return;
 		}
-		tiles[x+y*width]= t.id;
+		
+		tiles1[x+y*width]= t.id;
 	}
 	public int searchForTile(int x,int y,Tile t)
 	{
@@ -417,6 +412,10 @@ public class Level {
 	 */
 	public void tick()
 	{
+		
+		
+		
+		
 		for(Tile t: Tile.tiles)
 		{
 			if(t==null)
@@ -450,7 +449,20 @@ public class Level {
 				}
 			}
 		}
-		//if()
+		if((player.x>>3)>=lastWidth-30)
+		{
+			lastWidth=lastWidth+8;
+			System.out.println(lastWidth);
+		}
+		if((player.y>>3)>=height-5)
+		{
+			height=height+8;
+		}
+		if((lastWidth>width)||(height<lastHeight))
+		{
+			System.out.println("more tiles?");
+			LevelGen.addMoreTiles(width,height,lastWidth,lastHeight,this);
+		}
 	}
 	public int getMapWidth()
 	{

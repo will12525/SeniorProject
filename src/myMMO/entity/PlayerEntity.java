@@ -42,7 +42,7 @@ public class PlayerEntity extends Entity {
 
 
 	public PlayerEntity(Game game,Level level, int x, int y, KeyInputHandler input,String username,boolean isSwimming) {
-		super(level, "Player", x, y, 1,isSwimming);
+		super(level, "Player", x, y, 2,isSwimming);
 		this.game=game;
 		this.input=input;
 		this.username=username;
@@ -64,19 +64,19 @@ public class PlayerEntity extends Entity {
 		int xa=0;
 		int ya=0;
 
-		Tile standingAt = level.getTile(((x+4)>>3), ((y+3)>>3)+1);
+		/*Tile standingAt = level.getTile(((x+4)>>3), ((y+3)>>3)+1);
 		if(standingAt==Tile.GRASS||standingAt==Tile.SAND)
 		{
 			//level.setTile(x>>3, (y>>3)+1, Tile.FENCE);
-		}
-		if(level.getTile(((x+4)>>3), ((y+3)>>3))==Tile.WATER)
+		}*/
+		/*if(level.getTile(((x+4)>>3), ((y+3)>>3))==Tile.WATER)
 		{
 			stall=20;
 		}
 		else
 		{
 			stall=0;
-		}
+		}*/
 
 		if(input.up.down)
 		{
@@ -203,6 +203,7 @@ public class PlayerEntity extends Entity {
 		{
 			Font.renderFont(username, display, xOffset-(username.length()-1), yOffset-10, Colours.get(-1, -1, -1, 555), 1);
 		}
+		Font.renderFont((x>>3)+", "+(y>>3), display, xOffset, yOffset-20, Colours.get(-1, -1, -1, 555), 1);
 
 
 	}

@@ -12,8 +12,8 @@ public class LeafTile extends BaseTile{
 	private int animationSwitchDelay;
 	Random random=new Random();
 
-	public LeafTile(int id, int[][] animationCoords, int tileColour, int levelColour, int animationSwitchDelay,int flipX,int flipY) {
-		super(id, animationCoords[0][0], animationCoords[0][1], tileColour, levelColour, flipY, flipY);
+	public LeafTile(int id, int[][] animationCoords, int tileColour, int levelColour, int animationSwitchDelay,int flipX,int flipY, int xcoord, int ycoord) {
+		super(id, animationCoords[0][0], animationCoords[0][1], tileColour, levelColour, flipY, flipY, xcoord, ycoord);
 		this.animationTileCoords = animationCoords;
 		this.currentAnimationIndex = 0;
 		this.solid=true;

@@ -11,8 +11,8 @@ public class BaseTile extends Tile {
 	private int flipX;
 	private int flipY;
 
-	public BaseTile(int id, int x, int y, int tileColour, int levelColour, int flipX, int flipY) {
-		super(id, false, false, levelColour);
+	public BaseTile(int id, int x, int y, int tileColour, int levelColour, int flipX, int flipY, int xcoord, int ycoord) {
+		super(id, false, false, levelColour, xcoord, ycoord);
 		this.tileId = x + y * 32;
 		this.tileColour = tileColour;
 		this.flipX=flipX;

@@ -26,8 +26,8 @@ public class FenceTile extends BaseTile {
  * @param flipX = 1 if the tile should be flipped on the x axis, 0 if not
  * @param flipY = 1 if the tile should be flipped on the y axis, 0 if not
  */
-	public FenceTile(int id, int[][] animationCoords, int tileColour, int levelColour, int flipX,int flipY) {
-		super(id, animationCoords[0][0], animationCoords[0][1], tileColour, levelColour,flipX,flipY);
+	public FenceTile(int id, int[][] animationCoords, int tileColour, int levelColour, int flipX,int flipY, int xcoord, int ycoord) {
+		super(id, animationCoords[0][0], animationCoords[0][1], tileColour, levelColour,flipX,flipY, xcoord, ycoord);
 		this.solid=true;
 		this.animationTileCoords = animationCoords;
 		this.currentAnimationIndex = 0;

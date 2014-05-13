@@ -9,8 +9,8 @@ public class AnimatedTile extends BaseTile{
 	private long lastIterationTime;
 	private int animationSwitchDelay;
 
-	public AnimatedTile(int id, int[][] animationCoords, int tileColour, int levelColour, int animationSwitchDelay,int flipX,int flipY) {
-		super(id, animationCoords[0][0], animationCoords[0][1], tileColour, levelColour, flipY, flipY);
+	public AnimatedTile(int id, int[][] animationCoords, int tileColour, int levelColour, int animationSwitchDelay,int flipX,int flipY, int xcoord, int ycoord) {
+		super(id, animationCoords[0][0], animationCoords[0][1], tileColour, levelColour, flipY, flipY, xcoord, ycoord);
 		this.animationTileCoords = animationCoords;
 		this.currentAnimationIndex = 0;
 		this.lastIterationTime = System.currentTimeMillis();

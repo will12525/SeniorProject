@@ -12,8 +12,8 @@ public class CycleTile extends Tile {
 	protected int alpha = 99;
 	protected boolean nightTime=true;
 	protected boolean dayTime=false;
-	public CycleTile(int id, int x, int y, int tileColour, int levelColour) {
-		super(id, false, false, levelColour);
+	public CycleTile(int id, int x, int y, int tileColour, int levelColour, int xcoord, int ycoord) {
+		super(id, false, false, levelColour, xcoord, ycoord);
 		this.tileId = x + y * 32;
 		this.tileColour = tileColour;
 	}

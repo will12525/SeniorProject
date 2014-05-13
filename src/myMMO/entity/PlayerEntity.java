@@ -181,19 +181,20 @@ public class PlayerEntity extends Entity {
 				waterColour=Colours.get(-1, 225, 115, -1);
 			}
 
-
+			//waves around head
 			display.render(xOffset, yOffset+3, 0+27*32, waterColour, flipTopX-1,flipTopY-1, 1);
 			display.render(xOffset+8, yOffset+4, 0+27*32, waterColour, 1,1, 1);
 		}
 
 
-
+		//face
 		display.render(xOffset+(modifier*flipTopX), yOffset, (xTile+yTile*32), colour,flipTopX,flipTopY-1,scale);
 		display.render(xOffset+modifier-(modifier*flipTopX), yOffset, (xTile+1)+yTile*32, colour,flipTopX,flipTopY-1,scale);
 
 
 		if(!isSwimming)
 		{
+			//body and feet
 			display.render(xOffset+(modifier*flipBottomL), yOffset+modifier, xTile+(yTile+1)*32, colour,flipBottomL,flipBottomR-1,scale);
 			display.render(xOffset+modifier-(modifier*flipBottomL), yOffset+modifier, (xTile+1)+(yTile+1)*32, colour,flipBottomL,flipBottomR-1,scale);
 		}

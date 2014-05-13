@@ -76,6 +76,7 @@ public class Entity {
 	 * @param display = the display
 	 */
 	public void render(Display display) {
+		
 	}
 
 
@@ -170,14 +171,16 @@ public class Entity {
 	 * @param y
 	 * @return
 	 */
-	protected boolean isSolidTile(int xa,int ya,int x,int y)
+	protected boolean isSolidTile(int nextX,int nextY,int x,int y)
 	{
 		if(level==null)
 		{
 			return false;
 		}
 		Tile lastTile = level.getTile((this.x+x)>>3,(this.y+y)>>3);
-		Tile newTile =level.getTile((this.x+x+xa)>>3,(this.y+y+ya)>>3);
+		Tile newTile =level.getTile((this.x+x+nextX)>>3,(this.y+y+nextY)>>3);
+		//Tile currentTile = level.getTile(x, y)
+		System.out.println(this.x + "  " + x);
 		if(!lastTile.equals(newTile)&&newTile.isSolid())
 		{
 			return true;

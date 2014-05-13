@@ -1,8 +1,7 @@
 package myMMO;
 
 import myMMO.tile.Tile;
-import myMMO.tile.tiles.DirtTile;
-import myMMO.tile.tiles.LeafTile;
+import myMMO.tile.tiles.WaterTile;
 
 public class LevelGen {
 
@@ -15,14 +14,12 @@ public class LevelGen {
 			{
 
 				//Tile t = new LeafTile(x<<3, y<<3);
-				if(x % 3 == 0 || y % 3 == 0)
-				{
-					Tile t= new DirtTile(x<<3, y<<3);
+				
+					//Tile t= new DirtTile(x<<3, y<<3);
+					Tile t = new WaterTile(x, y);
 					level.addTile(t);
-				}else{
-					Tile t= new LeafTile(x<<3, y<<3);
-					level.addTile(t);
-				}
+				
+					
 			}
 		}
 	}

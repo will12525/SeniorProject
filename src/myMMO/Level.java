@@ -7,6 +7,7 @@ import java.util.Random;
 import myMMO.entity.Entity;
 import myMMO.entity.PlayerEntity;
 import myMMO.tile.Tile;
+import myMMO.tile.tiles.LogTile;
 
 public class Level
 {
@@ -26,6 +27,7 @@ public class Level
 		this.imagePath = imagePath;
 		
 		LevelGen.createWorld(this,200, 200);
+		
 	}
 	
 	public void addEntity(Entity e)
@@ -69,7 +71,7 @@ public class Level
 			}
 		}
 		
-		return null;
+		return new LogTile(x, y);
 	}
 	
 	public static List<Tile> getTiles()
@@ -83,6 +85,8 @@ public class Level
 		//tick tiles
 		//tick entities
 		
+		System.out.println(player.x);
+		
 		for(Tile t : tiles)
 		{
 			t.tick();
@@ -93,19 +97,21 @@ public class Level
 			e.tick();
 		}
 		
-		System.out.println(entities.size());
+		
 	}
 	
 	public void renderTiles(Display display, int xoffset, int yoffset)
 	{
+		display.setOffset(xoffset, yoffset);
 		for(Tile t : tiles)
 		{
-			t.render(display, this, t.getX(), t.getY());
+			t.render(display, this, t.getX()<<3, t.getY()<<3);
 		}
 	}
 	
 	public void renderEntities(Display display, int xoffset, int yoffset)
 	{
+		display.setOffset(xoffset, yoffset);
 		for(Entity e : entities)
 		{
 			e.render(display);

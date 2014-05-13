@@ -6,7 +6,7 @@ import myMMO.tile.Tile;
 
 public class LevelGen {
 	public static int newTiles[];
-	public static void createWorld(int width,int height,int[]tiles1)
+	public static void createWorld(int width,int height)
 	{
 		
 		for(int y = 0;y<height;y++)
@@ -26,7 +26,7 @@ public class LevelGen {
 			}
 		}
 	}
-
+	/*
 	public static void addMoreTiles(int width, int height,int lastWidth,int lastHeight,Level level) {
 		for(int y=height;y<=lastHeight;y++)
 		{
@@ -44,6 +44,6 @@ public class LevelGen {
 		level.width=lastWidth;
 		level.height=lastHeight;
 		
-	}
+	}*/
 
 }

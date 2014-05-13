@@ -52,7 +52,7 @@ public class Level {
 	};
 
 	@SuppressWarnings("unchecked")
-	public Level(Game game,String imagePath)
+	public Level(Game game, String imagePath)
 	{
 		this.game=game;
 		if(imagePath!=null)
@@ -327,12 +327,16 @@ public class Level {
 	public Tile getTile(int x,int y)
 	{
 
-		if(0>x||x>=width||0>y||y>=height)
+		if(0 > x || x >= width || 0 > y || y >= height)
 		{
 			return Tile.VOID;
 		}
 		
-		return Tile.tiles[tiles1[x+y*width]];
+		int index = x + y * width;
+		System.out.println(index);
+		int id = tiles1[index];
+		
+		return Tile.tiles[id];
 		//return Tile.tiles[tiles[x+y*width]];
 	}
 

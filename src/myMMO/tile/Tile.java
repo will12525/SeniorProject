@@ -4,6 +4,7 @@ import myMMO.Colours;
 import myMMO.Display;
 import myMMO.Level;
 import myMMO.entity.Entity;
+import old.BaseTile;
 
 public class Tile {
 
@@ -27,6 +28,12 @@ public class Tile {
 	protected boolean solid;
 	protected boolean emitter;
 	private int levelColour;
+	int tileColour;
+	
+	private int x, y;
+	
+	boolean flipx = false;
+	boolean flipy = false;
 /**
  * 
  * @param id = int Id of tile
@@ -34,7 +41,7 @@ public class Tile {
  * @param isEmitter = boolean true if can produce light
  * @param levelColour = int color associated with tile on map sheet
  */
-	public Tile(int id, boolean isSolid,boolean isEmitter,int levelColour)
+	public Tile(int id, boolean isSolid, boolean isEmitter, int tileColor, int levelColour, int x, int y, boolean flipx, boolean flipy)
 	{
 
 		this.id=(byte)id;
@@ -45,7 +52,12 @@ public class Tile {
 		this.solid=isSolid;
 		this.emitter=isEmitter;
 		this.levelColour=levelColour;
+		this.tileColor = tileColor;
+		
 		tiles[id]=this;
+		
+		this.flipx = flipx;
+		this.flipy = flipy;
 	}
 	/**
 	 * @return int, the id of the block

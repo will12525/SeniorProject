@@ -3,7 +3,9 @@ package myMMO;
 import myMMO.tile.Tile;
 
 public class LevelGen {
+	
 	public static int newTiles[];
+	
 	public static void createWorld(int width,int height,int[]tiles1)
 	{
 		

@@ -478,7 +478,7 @@ public class Game extends Canvas implements Runnable{
 		{
 			if(heart<Player.health)
 			{
-				display.render(heart*8, -1, 0+20*32, Colours.get(-1, 000, 500, -1), 0, 0, 1);
+				display.render(heart*8, -1, 0+20*32, Colours.get(-1, 000, 500, -1), false, false, 1);
 			}
 		}
 		

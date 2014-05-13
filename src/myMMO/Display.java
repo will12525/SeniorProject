@@ -50,7 +50,7 @@ public class Display {
  * @param flipY = if 1 flips on the y axis else remains normal
  * @param scale = scale
  */
-	public void render(int xPos,int yPos,int tile,int colour,int flipX,int flipY,int scale)
+	public void render(int xPos,int yPos,int tile,int colour,boolean flipX,boolean flipY,int scale)
 	{
 		boolean mirrorX=false;
 		boolean mirrorY=false;
@@ -58,7 +58,7 @@ public class Display {
 		xPos-=xOffset;
 		yPos-=yOffset;
 
-		if(flipX==1)
+		if(flipX)
 		{
 			mirrorX=true;
 		}
@@ -66,7 +66,7 @@ public class Display {
 		{
 			mirrorX=false;
 		}
-		if(flipY==1)
+		if(flipY)
 		{
 			mirrorY=true;
 		}

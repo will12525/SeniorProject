@@ -72,17 +72,17 @@ public class ChatMenu extends Menu{
 
 	public void render(Display display)
 	{
-		display.render(4, 105, (1+27*32), Colours.get(-1, -1, 333, 555),0,0,1);
+		display.render(4, 105, (1+27*32), Colours.get(-1, -1, 333, 555),false,false,1);
 
-		display.render(4, 97, (1+27*32), Colours.get(-1, -1, 333, 555),0,1,1);
+		display.render(4, 97, (1+27*32), Colours.get(-1, -1, 333, 555),false,true,1);
 
-		display.render(148, 105, (1+27*32), Colours.get(-1, -1, 333, 555),1,0,1);
-		display.render(148, 97, (1+27*32), Colours.get(-1, -1, 333, 555),1,1,1);
+		display.render(148, 105, (1+27*32), Colours.get(-1, -1, 333, 555),true,false,1);
+		display.render(148, 97, (1+27*32), Colours.get(-1, -1, 333, 555),true,true,1);
 
 		for(int xS=2;xS<=18;xS++)
 		{
-			display.render((xS*8)-4, 105, (2+27*32), Colours.get(-1, -1, 333, 555),0,0,1);
-			display.render((xS*8)-4, 97, (2+27*32), Colours.get(-1, -1, 333, 555),0,1,1);
+			display.render((xS*8)-4, 105, (2+27*32), Colours.get(-1, -1, 333, 555),false,false,1);
+			display.render((xS*8)-4, 97, (2+27*32), Colours.get(-1, -1, 333, 555),false,true,1);
 		}
 		Font.renderFont(msg,display, 8, 101, Colours.get(-1, -1, -1, 000), 1);
 	}

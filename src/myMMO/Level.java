@@ -92,6 +92,8 @@ public class Level
 		{
 			e.tick();
 		}
+		
+		System.out.println(entities.size());
 	}
 	
 	public void renderTiles(Display display, int xoffset, int yoffset)

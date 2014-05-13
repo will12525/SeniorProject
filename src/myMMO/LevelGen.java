@@ -1,11 +1,8 @@
 package myMMO;
 
-import myMMO.tile.FenceTile;
 import myMMO.tile.Tile;
 import myMMO.tile.tiles.DirtTile;
 import myMMO.tile.tiles.LeafTile;
-import myMMO.tile.tiles.VoidTile;
-import myMMO.tile.tiles.WaterTile;
 
 public class LevelGen {
 	

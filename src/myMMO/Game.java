@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import myMMO.entity.Chicken;
 import myMMO.entity.Dogs;
@@ -497,6 +498,10 @@ public class Game extends Canvas implements Runnable{
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		//multiplayer
+		String s = JOptionPane.showInputDialog("Please enter IP for multiplayer (or blank for no multiplayer)");
+		new MultiPlayer(s);
+		
 		new Game().start();
 
 	}

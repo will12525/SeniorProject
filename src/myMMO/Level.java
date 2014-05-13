@@ -1,12 +1,15 @@
 package myMMO;
 
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -28,6 +31,8 @@ public class Level {
 	Game game;
 
 	public List<Entity>[] entitiesInTiles;
+	
+	public static Map<Point, Tile> map = new HashMap<Point, Tile>();
 	/**
 	 * array list of entities in the game
 	 */
@@ -126,10 +131,10 @@ public class Level {
 				}
 			}
 		}
-		fixMap();
+		//fixMap();
 
 	}
-
+	/*
 	private void fixMap()
 	{
 		//random patches
@@ -170,7 +175,7 @@ public class Level {
 				//add sand
 				/*if(getTile((x>>3),(y>>3)).id==3)
 					System.out.println("hi"+x+", "+y);
-				 */
+				 
 				if(getTile((x>>3), (y>>3))==Tile.WATER)
 				{
 					//System.out.println("Water!");
@@ -212,7 +217,8 @@ public class Level {
 		}
 
 
-	}
+	}*/
+	
 	public void makePatches(int xPos,int yPos,Tile tile)
 	{
 
@@ -326,13 +332,18 @@ public class Level {
 	 */
 	public Tile getTile(int x,int y)
 	{
-
-		if(0>x||x>=width||0>y||y>=height)
-		{
-			return Tile.VOID;
-		}
+		System.out.println(x + "   " + y);
 		
-		return Tile.tiles[tiles1[x+y*width]];
+		if(x < 0 || x >= width || y < 0 || y >= height)
+		{
+			return Tile.DIRT;
+		}
+		else
+		{
+			return map.get(new Point(x, y));
+	
+		}
+		//return Tile.tiles[tiles1[x+y*width]];
 		//return Tile.tiles[tiles[x+y*width]];
 	}
 
@@ -507,7 +518,7 @@ public class Level {
 		int amount = random.nextInt(20)+10;
 		for(int spawning=0;spawning<=amount;spawning++)
 		{
-			addEntity(new Skeleton(this,"skeleton",hostileSpawnX(),hostileSpawnY(),0,false));
+			//addEntity(new Skeleton(this,"skeleton",hostileSpawnX(),hostileSpawnY(),0,false));
 
 		}
 	}

@@ -1,5 +1,7 @@
 package myMMO;
 
+import java.awt.Point;
+
 import myMMO.tile.Tile;
 
 public class LevelGen {
@@ -19,7 +21,8 @@ public class LevelGen {
 				{
 					tiles[x+y*width]=Tile.STONE.getId();
 				}*/
-				tiles1[x+y*width]=Tile.GRASS.getId();
+				//tiles1[x+y*width]=Tile.GRASS.getId();
+				Level.map.put(new Point(x, y),  Tile.SAND);
 			}
 		}
 	}

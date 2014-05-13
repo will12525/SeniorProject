@@ -21,8 +21,6 @@ import myMMO.tile.Tile;
 
 public class Level {
 
-	private byte[]tiles;
-	public int[] tiles1;
 	public int width;
 	public int height;
 	public int lastWidth;
@@ -74,7 +72,7 @@ public class Level {
 			
 			
 		
-			LevelGen.createWorld(width,height,tiles1);
+			LevelGen.createWorld(width,height);
 			//this.generateLevel();
 		}
 		
@@ -99,7 +97,7 @@ public class Level {
 			image=ImageIO.read(Level.class.getResource(this.imagePath));
 			width=image.getWidth();
 			height=image.getHeight();
-			tiles=new byte [width*height];
+		//	tiles=new byte [width*height];
 			loadTiles();
 
 
@@ -124,7 +122,7 @@ public class Level {
 					if(t!=null&&t.getLevelColour()==tileColours[x+y*width])
 					{
 
-						this.tiles[x+y*width]=t.getId();
+						//this.tiles[x+y*width]=t.getId();
 
 						break tileCheck;
 					}
@@ -354,7 +352,7 @@ public class Level {
 			return;
 		}
 		
-		tiles1[x+y*width]= t.id;
+	//	tiles1[x+y*width]= t.id;
 	}
 	public int searchForTile(int x,int y,Tile t)
 	{

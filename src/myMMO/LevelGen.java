@@ -18,8 +18,14 @@ public class LevelGen {
 			{
 				
 				//Tile t = new LeafTile(x<<3, y<<3);
+				if(x % 3 == 0 || y % 3 == 0)
+				{
 				Tile t= new DirtTile(x<<3, y<<3);
 				level.addTile(t);
+				}else{
+					Tile t= new LeafTile(x<<3, y<<3);
+					level.addTile(t);
+				}
 			}
 		}
 	}

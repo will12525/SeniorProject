@@ -1,7 +1,6 @@
 package myMMO.entity;
 
 import java.awt.Rectangle;
-import java.util.Random;
 
 import myMMO.Colours;
 import myMMO.Display;

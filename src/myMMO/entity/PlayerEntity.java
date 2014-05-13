@@ -10,7 +10,6 @@ import myMMO.Game;
 import myMMO.KeyInputHandler;
 import myMMO.Level;
 import myMMO.menu.ChatMenu;
-import myMMO.tile.Tile;
 
 
 public class PlayerEntity extends Entity {

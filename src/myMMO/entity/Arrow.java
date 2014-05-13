@@ -4,7 +4,6 @@ import java.awt.Rectangle;
 
 import myMMO.Colours;
 import myMMO.Display;
-import myMMO.Font;
 import myMMO.Level;
 
 public class Arrow extends Entity {

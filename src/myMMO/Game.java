@@ -224,7 +224,7 @@ public class Game extends Canvas implements Runnable{
 		input = new KeyInputHandler(this);
 
 		//
-		level=new Level(this,"/levels/levelStart.png");
+		level=new Level(this,null/*"/levels/levelStart.png"*/);
 
 		//calls the method that generates a random x and y for the player to spawn on
 		if(playerNewX==0)
@@ -237,7 +237,7 @@ public class Game extends Canvas implements Runnable{
 		level.addEntity(Player);
 
 		//generates turtles, random amount between 3 and 5
-		for(int t=0;t<rand.nextInt(20)+10;t++)
+		/*for(int t=0;t<rand.nextInt(20)+10;t++)
 		{
 			turtle=new Turtle(level,"turtle",rand.nextInt(400)+40,rand.nextInt(400)+40,0,false);
 			//add each turtle
@@ -254,13 +254,13 @@ public class Game extends Canvas implements Runnable{
 		
 
 		//generates monkeys, random amount between 3 and 5
-		for(int monk=0;monk<rand.nextInt(20)+10;monk++)
+		/*for(int monk=0;monk<rand.nextInt(20)+10;monk++)
 		{
 			monkey = new Monkey(level,"monkey", rand.nextInt(400)+40,rand.nextInt(400)+40, 0,false);
 
 			//adds each monkey
 			level.addEntity(monkey);
-		}
+		}*/
 
 		setMenu(new TitleMenu());
 

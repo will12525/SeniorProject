@@ -69,7 +69,7 @@ public class Level {
 
 			width=200;
 			height=200;
-			tiles1=new int[width*height];
+			//tiles1=new int[width*height];
 			//tiles=new byte[width*height];
 			
 			
@@ -304,10 +304,10 @@ public class Level {
 		{
 			for(int x=(xOffset>>3)-3;x<=(xOffset+display.width>>3)+3;x++)
 			{
-				if(x<0||x>=width||y<0||y>=height)
+				/*if(x<0||x>=width||y<0||y>=height)
 				{
 					continue;
-				}
+				}*/
 				
 				rowEntities.addAll(entitiesInTiles[x+y*width]);
 			}
@@ -332,7 +332,7 @@ public class Level {
 	 */
 	public Tile getTile(int x,int y)
 	{
-		System.out.println(x + "   " + y);
+		//System.out.println(x + "   " + y);
 		
 		if(x < 0 || x >= width || y < 0 || y >= height)
 		{
@@ -402,20 +402,20 @@ public class Level {
 
 
 	private void insertEntity(int x, int y, Entity e) {
-		if (x < 0 || x>=width || y<0 || y >= height) 
+		/*if (x < 0 || x>=width || y<0 || y >= height) 
 		{
 			return;
-		}
+		}*/
 		entitiesInTiles[x + y * width].add(e);
 	}
 
 
 	public void removeEntity(int x,int y,Entity entity)
 	{
-		if(x<0||x>=width||y<0||y>=height)
+		/*if(x<0||x>=width||y<0||y>=height)
 		{
 			return;
-		}
+		}*/
 		entitiesInTiles[x+y*width].remove(entity);
 	}
 	/**
@@ -460,7 +460,7 @@ public class Level {
 				}
 			}
 		}
-		if((player.x>>3)>=lastWidth-30)
+	/*	if((player.x>>3)>=lastWidth-30)
 		{
 			lastWidth=lastWidth+8;
 			System.out.println(lastWidth);
@@ -473,7 +473,7 @@ public class Level {
 		{
 			System.out.println("more tiles?");
 			LevelGen.addMoreTiles(width,height,lastWidth,lastHeight,this);
-		}
+		}*/
 	}
 	public int getMapWidth()
 	{

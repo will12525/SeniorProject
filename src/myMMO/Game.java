@@ -227,14 +227,15 @@ public class Game extends Canvas implements Runnable{
 		level=new Level(this,null/*"/levels/levelStart.png"*/);
 
 		//calls the method that generates a random x and y for the player to spawn on
-		if(playerNewX==0)
+		/*if(playerNewX==0)
 		{
 			getPlayerXY();
-		}
+		}*/
 
 		//creates the player
-		Player = new PlayerEntity(this,level,playerNewX,playerNewY,input,null/*JOptionPane.showInputDialog(this,"Please enter username")*/,swimming);
-		level.addEntity(Player);
+		Player = new PlayerEntity(this,level,100,100,input,null/*JOptionPane.showInputDialog(this,"Please enter username")*/,swimming);
+		//level.addEntity(Player);
+		level.setPlayer(Player);
 
 		//generates turtles, random amount between 3 and 5
 		/*for(int t=0;t<rand.nextInt(20)+10;t++)
@@ -277,9 +278,9 @@ public class Game extends Canvas implements Runnable{
 	 */
 	public void getPlayerXY()
 	{//players x
-		playerNewX=rand.nextInt((level.width)*8);
+		playerNewX=rand.nextInt((100)*8);
 		//players y
-		playerNewY=rand.nextInt((level.height)*8);
+		playerNewY=rand.nextInt((100)*8);
 		//if the tile hes going to spawn on is water, this makes sure the swimming animation is playing
 		//if(level.getTile(playerNewX>>3, playerNewY>>3)!=Tile.GRASS||level.getTile(playerNewX>>3, playerNewY>>3)!=Tile.DIRT||level.getTile(playerNewX>>3, playerNewY>>3)!=Tile.SAND)
 		//		{
@@ -362,7 +363,7 @@ public class Game extends Canvas implements Runnable{
 				if(spawnHostiles)
 				{
 					System.out.println("spawning mobs now");
-					level.spawnHostiles(skelly);
+					level.spawnHostiles();
 					
 					spawnHostiles =false;
 				}
@@ -411,7 +412,7 @@ public class Game extends Canvas implements Runnable{
 		level.renderTiles(display, xOffset, yOffset);
 
 
-		level.renderTheEntities(display,xOffset,yOffset);
+		level.renderEntities(display,xOffset,yOffset);
 
 
 		renderGui();

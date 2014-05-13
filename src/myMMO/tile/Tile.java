@@ -27,6 +27,7 @@ public class Tile {
 	protected boolean solid;
 	protected boolean emitter;
 	private int levelColour;
+	private int xcoord, ycoord;
 /**
  * 
  * @param id = int Id of tile
@@ -46,6 +47,9 @@ public class Tile {
 		this.emitter=isEmitter;
 		this.levelColour=levelColour;
 		tiles[id]=this;
+		
+		this.xcoord = xcoord;
+		this.ycoord = ycoord;
 	}
 	/**
 	 * @return int, the id of the block
@@ -103,6 +107,21 @@ public class Tile {
 	public void render(Display display, Level level, int x, int y)
 	{
 		
+	}
+	
+	public int getX()
+	{
+		return xcoord;
+	}
+	
+	public int getY()
+	{
+		return ycoord;
+	}
+	
+	public void setID(int id)
+	{
+		this.id = (byte)id;
 	}
 
 	

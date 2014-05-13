@@ -111,7 +111,7 @@ public class PlayerEntity extends Entity {
 
 			if(input.action.down)
 			{
-				entityY = Collision.getEntityActedWith(level.entities);
+				entityY = Collision.getEntityActedWith(level.getEntities());
 				if(entityY==null)
 				{
 					return;

@@ -5,7 +5,7 @@ public class MultiPlayer extends Thread
 	String IP;
 	
 	public MultiPlayer(String IP)
-	{
+	{//
 		if(IP.isEmpty())
 		{
 			return;

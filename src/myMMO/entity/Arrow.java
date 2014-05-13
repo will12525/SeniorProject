@@ -94,19 +94,19 @@ public class Arrow extends Entity {
 		int yTile=19;
 		if(facingDirection==0)
 		{
-			display.render(x, y, xTile+yTile*32, colours, false, false, 1);
+			display.render(x, y, xTile+yTile*32, colours, 0, 0, 1);
 		}
 		if(facingDirection==1)
 		{
-			display.render(x, y, xTile+yTile*32, colours, false, true, 1);
+			display.render(x, y, xTile+yTile*32, colours, 0, 1, 1);
 		}
 		if(facingDirection==2)
 		{
-			display.render(x, y, (xTile+1)+yTile*32, colours, false, false, 1);
+			display.render(x, y, (xTile+1)+yTile*32, colours, 0, 0, 1);
 		}
 		if(facingDirection==3)
 		{
-			display.render(x, y, (xTile+1)+yTile*32, colours, true, false, 1);
+			display.render(x, y, (xTile+1)+yTile*32, colours, 1, 0, 1);
 		}
 	}
 	

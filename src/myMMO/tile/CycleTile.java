@@ -12,9 +12,8 @@ public class CycleTile extends Tile {
 	protected int alpha = 99;
 	protected boolean nightTime=true;
 	protected boolean dayTime=false;
-	
-	public CycleTile(int id, int tileColour, int levelColour, int x, int y, boolean flipx, boolean flipy) {
-		super(id, false, false, tileColour, levelColour, x, y, flipx, flipy);
+	public CycleTile(int id, int x, int y, int tileColour, int levelColour) {
+		super(id, false, false, levelColour);
 		this.tileId = x + y * 32;
 		this.tileColour = tileColour;
 	}
@@ -47,8 +46,8 @@ public class CycleTile extends Tile {
 		}
 	}
 
-	public void render(Display display, Level level, int x, int y,boolean flipX,boolean flipY) {
-		display.render(x, y, tileId, tileColour, flipX, flipY,  1);
+	public void render(Display display, Level level, int x, int y,int flipX,int flipY) {
+		display.render(x, y, tileId, tileColour, 0,0, 1);
 		System.out.println(0x00+alpha);
 	}
 

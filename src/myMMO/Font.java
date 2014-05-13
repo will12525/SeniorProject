@@ -20,7 +20,7 @@ public class Font {
 			int charIndex = chars.indexOf(msg.charAt(i));
 			if(charIndex>=0)
 			{
-				display.render((x+(i*8)*scale), (y)*scale,charIndex+(30*32), colour, false,false,scale);
+				display.render((x+(i*8)*scale), (y)*scale,charIndex+(30*32), colour, 0,0,scale);
 			}
 		}
 	}

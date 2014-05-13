@@ -4,13 +4,13 @@ import myMMO.Display;
 import myMMO.Level;
 import myMMO.entity.Entity;
 
-public class FenceTile extends Tile {
+public class FenceTile extends BaseTile {
 	private int[][] animationTileCoords;
 	private int currentAnimationIndex;
 
 	//	Level level;
-	private boolean flipX;
-	private boolean flipY;
+	private int flipX;
+	private int flipY;
 
 	int renderThis;
 	/**
@@ -26,8 +26,8 @@ public class FenceTile extends Tile {
  * @param flipX = 1 if the tile should be flipped on the x axis, 0 if not
  * @param flipY = 1 if the tile should be flipped on the y axis, 0 if not
  */
-	public FenceTile(int id, boolean isSolid, boolean isEmitter, int[][] animationCoords, int tileColour, int levelColour, boolean flipX, boolean flipY, int x, int y) {
-		super(id, isSolid, isEmitter, tileColour, levelColour, x, y, flipX,flipY);
+	public FenceTile(int id, int[][] animationCoords, int tileColour, int levelColour, int flipX,int flipY) {
+		super(id, animationCoords[0][0], animationCoords[0][1], tileColour, levelColour,flipX,flipY);
 		this.solid=true;
 		this.animationTileCoords = animationCoords;
 		this.currentAnimationIndex = 0;
@@ -43,8 +43,8 @@ public class FenceTile extends Tile {
 
 		int x1 =(x>>3);
 		int y1=(y>>3);
-		flipX=false;
-		flipY=false;
+		flipX=0;
+		flipY=0;
 		
 		
 		if(level.getTile(x1, y1)==Tile.FENCE)
@@ -60,7 +60,7 @@ public class FenceTile extends Tile {
 			if(level.getTile(x1-1, y1)==Tile.FENCE)
 			{
 				renderId=1;
-				flipX=true;
+				flipX=1;
 			}
 			//one up
 			if(level.getTile(x1, y1-1)==Tile.FENCE)
@@ -72,7 +72,7 @@ public class FenceTile extends Tile {
 			if(level.getTile(x1, y1+1)==Tile.FENCE)
 			{
 				renderId=2;
-				flipY=true;
+				flipY=1;
 			}
 			//2 on x
 			if(level.getTile(x1-1, y1)==Tile.FENCE&&level.getTile(x1+1, y1)==Tile.FENCE)
@@ -88,20 +88,20 @@ public class FenceTile extends Tile {
 			if(level.getTile(x1-1, y1)==Tile.FENCE&&level.getTile(x1, y1+1)==Tile.FENCE)
 			{
 				renderId=5;
-				flipX=true;
-				flipY=true;
+				flipX=1;
+				flipY=1;
 			}
 			//corner left up
 			if(level.getTile(x1-1, y1)==Tile.FENCE&&level.getTile(x1, y1-1)==Tile.FENCE)
 			{
 				renderId=5;
-				flipX=true;
+				flipX=1;
 			}
 			//corner right down
 			if(level.getTile(x1+1, y1)==Tile.FENCE&&level.getTile(x1, y1+1)==Tile.FENCE)
 			{
 				renderId=5;
-				flipY=true;
+				flipY=1;
 			}
 			//corner right up
 			if(level.getTile(x1+1, y1)==Tile.FENCE&&level.getTile(x1, y1-1)==Tile.FENCE)
@@ -112,7 +112,7 @@ public class FenceTile extends Tile {
 			if(level.getTile(x1-1, y1)==Tile.FENCE&&level.getTile(x1+1, y1)==Tile.FENCE&&level.getTile(x1, y1+1)==Tile.FENCE)
 			{
 				renderId=6;
-				flipY=true;
+				flipY=1;
 			}
 			//three up
 			if(level.getTile(x1-1, y1)==Tile.FENCE&&level.getTile(x1+1, y1)==Tile.FENCE&&level.getTile(x1, y1-1)==Tile.FENCE)
@@ -130,7 +130,7 @@ public class FenceTile extends Tile {
 			if(level.getTile(x1-1, y1)==Tile.FENCE&&level.getTile(x1, y1-1)==Tile.FENCE&&level.getTile(x1, y1+1)==Tile.FENCE)
 			{
 				renderId=7;
-				flipX=true;
+				flipX=1;
 				//four connector
 				if(level.getTile(x1+1, y1)==Tile.FENCE)
 				{

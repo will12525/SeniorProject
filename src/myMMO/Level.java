@@ -252,23 +252,7 @@ public class Level {
 			//fixMap();
 			mapFixed=true;
 		}
-		/*if(xOffset<0)
-		{
-			xOffset=0;
-		}
-		if(xOffset>((width<<3)-display.width))
-		{
-			xOffset=((width<<3)-display.width);
-		}
-
-		if(yOffset<0)
-		{
-			yOffset=0;
-		}
-		if(yOffset>((height<<3)-display.height))
-		{
-			yOffset=((height<<3)-display.height);
-		}*/
+	
 		display.setOffset(xOffset,yOffset);
 
 		for (int y = (yOffset >> 3); y < (yOffset + display.height >> 3) +1; y++) {
@@ -282,32 +266,12 @@ public class Level {
 	public void renderTheEntities(Display display,int xOffset,int yOffset)
 	{
 
-		/*if(xOffset<0)
-		{
-			xOffset=0;
-		}
-		if(xOffset>((width<<3)-display.width))
-		{
-			xOffset=((width<<3)-display.width);
-		}
-
-		if(yOffset<0)
-		{
-			yOffset=0;
-		}
-		if(yOffset>((height<<3)-display.height))
-		{
-			yOffset=((height<<3)-display.height);
-		}*/
-		//display.setOffset(xOffset, yOffset);
+	
 		for(int y=(yOffset>>3)-3;y<=((yOffset)+display.height>>3)+3;y++)
 		{
 			for(int x=(xOffset>>3)-3;x<=(xOffset+display.width>>3)+3;x++)
 			{
-				/*if(x<0||x>=width||y<0||y>=height)
-				{
-					continue;
-				}*/
+			
 				
 				rowEntities.addAll(entitiesInTiles[x+y*width]);
 			}

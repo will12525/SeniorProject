@@ -1,11 +1,15 @@
 package myMMO;
 
+import myMMO.tile.FenceTile;
 import myMMO.tile.Tile;
-import myMMO.tile.VoidTile;
+import myMMO.tile.tiles.DirtTile;
+import myMMO.tile.tiles.LeafTile;
+import myMMO.tile.tiles.VoidTile;
+import myMMO.tile.tiles.WaterTile;
 
 public class LevelGen {
 	
-	public static void createWorld(int width,int height)
+	public static void createWorld(Level level,int width,int height)
 	{
 		
 		for(int y = 0;y<height;y++)
@@ -13,10 +17,9 @@ public class LevelGen {
 			for(int x =0;x<width;x++)
 			{
 				
-				Tile t = new VoidTile(x, y);
-				
-				
-				
+				//Tile t = new LeafTile(x<<3, y<<3);
+				Tile t= new DirtTile(x<<3, y<<3);
+				level.addTile(t);
 			}
 		}
 	}

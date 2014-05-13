@@ -1,35 +1,34 @@
-package myMMO.tile;
+package myMMO.tile.tiles;
 
 import java.util.Random;
 
+import myMMO.Colours;
 import myMMO.Level;
 import myMMO.entity.Entity;
+import myMMO.tile.AnimatedTile;
 
-public class LeafTile extends BaseTile{
+public class LeafTile extends AnimatedTile{
 	private int[][] animationTileCoords;
 	private int currentAnimationIndex;
 	private long lastIterationTime;
 	private int animationSwitchDelay;
 	Random random=new Random();
 
-	public LeafTile(int id, int[][] animationCoords, int tileColour, int levelColour, int animationSwitchDelay,int flipX,int flipY, int xcoord, int ycoord) {
-		super(id, animationCoords[0][0], animationCoords[0][1], tileColour, levelColour, flipY, flipY, xcoord, ycoord);
-		this.animationTileCoords = animationCoords;
-		this.currentAnimationIndex = 0;
+	public LeafTile( int xcoord, int ycoord) {
+		super(7,new int[][] { { 0, 4 }, { 1, 4 }, { 2, 4 }, { 1, 4 } },Colours.get(121, -1, 151, -1),0xFF9eff7d,1000,0,0, xcoord, ycoord);
+	
 		this.solid=true;
-		this.lastIterationTime = System.currentTimeMillis();
-		this.animationSwitchDelay = animationSwitchDelay;
-
+	
 	}
 	public boolean mayPass(Level level, int x, int y, Entity e) {
-		return true;
+		return false;
 	}
-	public void tick() {
+	/*public void tick() {
 		if ((System.currentTimeMillis() - lastIterationTime) >= (animationSwitchDelay)) {
 			lastIterationTime = System.currentTimeMillis();
 			currentAnimationIndex = (currentAnimationIndex + 1) % animationTileCoords.length;
 			int newAnimation=random.nextInt(4);
 			this.tileId = (animationTileCoords[newAnimation][0] + (animationTileCoords[currentAnimationIndex][1] * 32));
 		}
-	}
+	}*/
 }

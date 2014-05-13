@@ -233,7 +233,7 @@ public class Game extends Canvas implements Runnable{
 		}*/
 
 		//creates the player
-		Player = new PlayerEntity(this,level,100,100,input,null/*JOptionPane.showInputDialog(this,"Please enter username")*/,swimming);
+		Player = new PlayerEntity(this,level,5,5,input,null/*JOptionPane.showInputDialog(this,"Please enter username")*/,swimming);
 		//level.addEntity(Player);
 		level.setPlayer(Player);
 

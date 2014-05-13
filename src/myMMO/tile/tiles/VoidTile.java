@@ -1,6 +1,7 @@
-package myMMO.tile;
+package myMMO.tile.tiles;
 
 import myMMO.Colours;
+import myMMO.tile.SolidTile;
 
 public class VoidTile extends SolidTile {
 

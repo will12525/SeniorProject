@@ -25,7 +25,7 @@ public class Level
 		this.game = game;
 		this.imagePath = imagePath;
 		
-		LevelGen.createWorld(200, 200);
+		LevelGen.createWorld(this,200, 200);
 	}
 	
 	public void addEntity(Entity e)
@@ -94,6 +94,23 @@ public class Level
 		}
 	}
 	
+	public void renderTiles(Display display, int xoffset, int yoffset)
+	{
+		for(Tile t : tiles)
+		{
+			t.render(display, this, t.getX(), t.getY());
+		}
+	}
+	
+	public void renderEntities(Display display, int xoffset, int yoffset)
+	{
+		for(Entity e : entities)
+		{
+			e.render(display);
+		}
+	}
+	
+	
 	public void spawnHostiles()
 	{
 		int amount = random.nextInt(20)+10;
@@ -133,19 +150,4 @@ public class Level
 		}
 	}
 	
-	public void renderTiles(Display display, int xoffset, int yoffset)
-	{
-		for(Tile t : tiles)
-		{
-			t.render(display, this, xoffset, yoffset);
-		}
-	}
-	
-	public void renderEntities(Display display, int xoffset, int yoffset)
-	{
-		for(Entity e : entities)
-		{
-			e.render(display);
-		}
-	}
 }

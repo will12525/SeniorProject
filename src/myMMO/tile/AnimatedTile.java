@@ -1,8 +1,5 @@
 package myMMO.tile;
 
-import myMMO.Level;
-import myMMO.entity.Entity;
-
 public class AnimatedTile extends BaseTile{
 	private int[][] animationTileCoords;
 	private int currentAnimationIndex;

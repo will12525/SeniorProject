@@ -15,7 +15,7 @@ public class Tile {
 	public static final Tile LOG = new SolidTile(4,3,0,Colours.get(100, 433, 322, 211),0xFFaa5500, 0, 0);
 	public static final Tile SAND = new BaseTile(5,4,0,Colours.get(-1, -1, 550, 554),0xFFFFFF00,0,0, 0, 0);
 	public static final Tile DIRT = new BaseTile(6,4,0,Colours.get(-1, -1, 211, 322),0xFF412000,0,0, 0, 0);
-	public static final Tile LEAVES = new LeafTile(7,new int[][] { { 0, 4 }, { 1, 4 }, { 2, 4 }, { 1, 4 } },Colours.get(121, -1, 151, -1),0xFF9eff7d,500,0,0, 0, 0);
+	public static final Tile LEAVES = new AnimatedTile(7,new int[][] { { 0, 4 }, { 1, 4 }, { 2, 4 }, { 1, 4 } },Colours.get(121, -1, 151, -1),0xFF9eff7d,500,0,0, 0, 0);
 	public static final Tile FENCE = new FenceTile(8,new int[][] {{3,5},{4,5},{5,5},{6,5},{7,5},{8,5},{9,5},{10,5},{11,5}},Colours.get(253, 200,321,141),0xFFFF7d01,0,0, 0, 0);
 	public static final Tile PLANK = new SolidTile(9,6,0,Colours.get(-1, 321, 432, -1),0xFF845510, 0, 0);
 
@@ -41,7 +41,7 @@ public class Tile {
 		this.id=(byte)id;
 		if(tiles[id]!=null)
 		{
-			throw new RuntimeException("Duplicate tile id on: "+id);
+			//throw new RuntimeException("Duplicate tile id on: "+id);
 		}
 		this.solid=isSolid;
 		this.emitter=isEmitter;

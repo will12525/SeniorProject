@@ -112,7 +112,7 @@ public class Entity {
 		numSteps++;
 		if(!hasCollided(xa,ya))
 		{
-			if(!Collision.entityCollision(level.entities))
+			if(!Collision.entityCollision(level.getEntities()))
 			{
 				if(ya<0)
 				{//up

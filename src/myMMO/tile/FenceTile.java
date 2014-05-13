@@ -1,5 +1,6 @@
 package myMMO.tile;
 
+import myMMO.Colours;
 import myMMO.Display;
 import myMMO.Level;
 import myMMO.entity.Entity;
@@ -27,9 +28,9 @@ public class FenceTile extends BaseTile {
  * @param flipY = 1 if the tile should be flipped on the y axis, 0 if not
  */
 	public FenceTile(int id, int[][] animationCoords, int tileColour, int levelColour, int flipX,int flipY, int xcoord, int ycoord) {
-		super(id, animationCoords[0][0], animationCoords[0][1], tileColour, levelColour,flipX,flipY, xcoord, ycoord);
+		super(8, animationCoords[0][0], animationCoords[0][1],Colours.get(253, 200,321,141),0xFFFF7d01,flipX,flipY, xcoord, ycoord);
 		this.solid=true;
-		this.animationTileCoords = animationCoords;
+		this.animationTileCoords = new int[][] {{3,5},{4,5},{5,5},{6,5},{7,5},{8,5},{9,5},{10,5},{11,5}};
 		this.currentAnimationIndex = 0;
 		this.flipX=flipX;
 		this.flipY=flipY;

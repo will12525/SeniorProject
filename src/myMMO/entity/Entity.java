@@ -180,7 +180,7 @@ public class Entity {
 		Tile lastTile = level.getTile((this.x+x)>>3,(this.y+y)>>3);
 		Tile newTile =level.getTile((this.x+x+nextX)>>3,(this.y+y+nextY)>>3);
 		//Tile currentTile = level.getTile(x, y)
-		System.out.println(this.x + "  " + x);
+		//System.out.println(this.x + "  " + x);
 		if(!lastTile.equals(newTile)&&newTile.isSolid())
 		{
 			return true;

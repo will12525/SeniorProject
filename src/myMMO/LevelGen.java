@@ -1,46 +1,91 @@
 package myMMO;
 
 import myMMO.tile.Tile;
+import myMMO.tile.tiles.GrassTile;
 import myMMO.tile.tiles.WaterTile;
 
 public class LevelGen {
 
-	public static void createWorld(Level level,int width,int height)
+	public static void createWorld(Level level,int xMax,int yMax,int xMin,int yMin)
 	{
 
-		for(int y = 0;y<height;y++)
+		for(int y = yMin;y<yMax;y++)
 		{
-			for(int x =0;x<width;x++)
+			for(int x =xMin;x<xMax;x++)
 			{
 
 				//Tile t = new LeafTile(x<<3, y<<3);
-				
-					//Tile t= new DirtTile(x<<3, y<<3);
-					Tile t = new WaterTile(x, y);
-					level.addTile(t);
-				
-					
+
+				//Tile t= new DirtTile(x<<3, y<<3);
+				Tile t = new GrassTile(x, y);
+				level.addTile(t);
+
+
 			}
 		}
 	}
-	/*
-	public static void addMoreTiles(int width, int height,int lastWidth,int lastHeight,Level level) {
-		for(int y=height;y<=lastHeight;y++)
-		{
-			for(int x=width;x<=lastWidth;x++)
-			{
-				System.out.println("setting tiles");
-				level.setTile(x, y, Tile.GRASS);
 
-				//tiles[x+y*width]=Tile.GRASS.getId();
+	public static void addMorePosXTiles(int newXMax,int origXMax,int currentYMax,int currentYMin,Level level)
+	{
+		for(int x=origXMax;x<=newXMax;x++)
+		{
+			for(int y=currentYMin;y<=currentYMax;y++)
+			{
+				Tile t =new GrassTile(x,y);
+				level.addTile(t);
+				System.out.println(x+", "+y+" Tile: "+t);
+				
 			}
 		}
-		newTiles=new int[(lastHeight*lastWidth)-level.tiles1.length];
-		level.tiles1=new int[level.tiles1.length+newTiles.length];
+		level.originalxMax=newXMax;
+	}
+	public static void addMoreNegXTiles(int newXMin,int origXMin,int currentYMax,int currentYMin,Level level)
+	{
+		for(int x=origXMin;x>=newXMin;x--)
+		{
+			
+			for(int y=currentYMin;y<=currentYMax;y++)
+			{
+				Tile t =new GrassTile(x,y);
+				level.addTile(t);
+				System.out.println(x+", "+y+" Tile: "+t);
+				
+			}
+		}
+		level.originalxMin=newXMin;
+	}
+	
+	
+	
+	public static void addMorePosYTiles(int newYMax,int origYMax,int currentXMax,int currentXMin,Level level)
+	{
+		for(int x=currentXMin;x<=currentXMax;x++)
+		{
+			for(int y=origYMax;y<=newYMax;y++)
+			{
+				Tile t =new GrassTile(x,y);
+				level.addTile(t);
+				System.out.println(x+", "+y+" Tile: "+t);
+				
+			}
+		}
+		level.originalyMax=newYMax;
+	}
+	
 
-		level.width=lastWidth;
-		level.height=lastHeight;
-
-	}*/
-
+	public static void addMoreNegYTiles(int newYMin,int origYMin,int currentXMax,int currentXMin,Level level)
+	{
+		for(int x=currentXMin;x<=currentXMax;x++)
+		{
+			for(int y=origYMin;y>=newYMin;y--)
+			{
+				Tile t =new GrassTile(x,y);
+				level.addTile(t);
+				System.out.println(x+", "+y+" Tile: "+t);
+				
+			}
+		}
+		level.originalyMin=newYMin;
+	}
+	
 }

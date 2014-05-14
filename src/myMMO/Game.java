@@ -233,7 +233,7 @@ public class Game extends Canvas implements Runnable{
 		}*/
 
 		//creates the player
-		Player = new PlayerEntity(this,level,100,100,input,null/*JOptionPane.showInputDialog(this,"Please enter username")*/,swimming);
+		Player = new PlayerEntity(this,level,20,20,input,null/*JOptionPane.showInputDialog(this,"Please enter username")*/,swimming);
 		level.addEntity(Player);
 		level.setPlayer(Player);
 
@@ -252,7 +252,9 @@ public class Game extends Canvas implements Runnable{
 			level.addEntity(skelly);
 			
 		}*/
-		
+		turtle=new Turtle(level,"turtle",10,10,0,true);
+		//add each turtle
+		level.addEntity(turtle);
 
 		//generates monkeys, random amount between 3 and 5
 		/*for(int monk=0;monk<rand.nextInt(20)+10;monk++)
@@ -474,7 +476,7 @@ public class Game extends Canvas implements Runnable{
 
 	private void renderGui()
 	{
-		
+		display.setOffset(0, 0);
 		for(int heart=0;heart<10;heart++)
 		{
 			if(heart<Player.health)

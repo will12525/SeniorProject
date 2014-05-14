@@ -41,7 +41,7 @@ public class PlayerEntity extends Entity {
 
 
 	public PlayerEntity(Game game,Level level, int x, int y, KeyInputHandler input,String username,boolean isSwimming) {
-		super(level, "Player", x, y, 2,isSwimming);
+		super(level, "Player", x, y, 1,isSwimming);
 		this.game=game;
 		this.input=input;
 		this.username=username;

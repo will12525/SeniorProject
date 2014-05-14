@@ -21,6 +21,7 @@ public class TitleMenu extends Menu{
 	public void render(Display display)
 	{
 		display.clear(0);
+		//display.setOffset(0, 0);
 		Font.renderFont("The Game", display, 18, 10, Colours.get(-1, -1, -1, 005), 2);
 		Font.renderFont("W/Up    - move up", display, 0, 50, Colours.get(-1, -1, -1, 005), 1);
 		Font.renderFont("S/Down  - move down", display, 0, 60, Colours.get(-1, -1, -1, 005), 1);

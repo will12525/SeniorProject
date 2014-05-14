@@ -13,43 +13,54 @@ public class Level
 {
 	private Game game;
 	private String imagePath;
-	
+
 	private List<Entity> entities = new ArrayList<Entity>();
 	private Entity player;
-	
+
 	private static List<Tile> tiles = new ArrayList<Tile>();
-	
+
 	private Random random = new Random();
 	
+	public int currentxMax=20;
+	public int currentxMin=-20;
+	public int currentyMax=20;
+	public int currentyMin=-20;
+	
+	public int originalxMax= currentxMax;
+	public int originalxMin=currentxMin;
+	public int originalyMax=currentyMax;
+	public int originalyMin=currentyMin;
+	
+
 	public Level(Game game, String imagePath)
 	{
 		this.game = game;
 		this.imagePath = imagePath;
-		
-		LevelGen.createWorld(this,200, 200);
-		
+
+		LevelGen.createWorld(this,currentxMax,currentyMax,currentxMin,currentyMin);
+
 	}
-	
+
 	public void addEntity(Entity e)
 	{
 		entities.add(e);
 	}
-	
+
 	public List<Entity> getEntities()
 	{
 		return entities;
 	}
-	
+
 	public void setPlayer(PlayerEntity player)
 	{
 		this.player = player;
 	}
-	
+
 	public void addTile(Tile t)
 	{
 		tiles.add(t);
 	}
-	
+
 	public void setTile(int x, int y, int id)
 	{
 		for(Tile t : tiles)
@@ -60,7 +71,7 @@ public class Level
 			}
 		}
 	}
-	
+
 	public Tile getTile(int x, int y)
 	{
 		for(Tile t : tiles)
@@ -70,55 +81,98 @@ public class Level
 				return t;
 			}
 		}
-		
+
 		return new LogTile(x, y);
 	}
-	
+
 	public static List<Tile> getTiles()
 	{
 		return tiles;
 	}
-	
+
 	//keep everything running
 	public void tick()
 	{
 		//tick tiles
 		//tick entities
-		
-		System.out.println(player.x);
-		
+
+		//System.out.println(player.x);
+
 		for(Tile t : tiles)
 		{
 			t.tick();
 		}
-		
+
 		for(Entity e : entities)
 		{
 			e.tick();
 		}
 		
 		
+		
+		
+		if((player.x>>3)>currentxMax-20)
+		{
+		//	System.out.println((player.x>>3)+", "+currentxMax+" :player x bigger");
+			currentxMax=currentxMax+8;
+			LevelGen.addMorePosXTiles(currentxMax,originalxMax,currentyMax,currentyMin,this);
+		}
+		if((player.x>>3)<currentxMin+20)
+		{
+			//System.out.println(player.x+", "+currentxMin+ " :player x smaller");
+			currentxMin=currentxMin-8;
+			LevelGen.addMoreNegXTiles(currentxMin,originalxMin,currentyMax,currentyMin,this);
+		}
+
+		if((player.y>>3)>currentyMax-20)
+		{
+			
+			currentyMax=currentyMax+8;
+			LevelGen.addMorePosYTiles(currentyMax,originalyMax,currentxMax,currentxMin,this);
+		}
+		if((player.y>>3)<currentyMin+20)
+		{
+			System.out.println(player.y+", "+currentyMin+" :player y smaller");
+			currentyMin=currentyMin-8;
+			LevelGen.addMoreNegYTiles(currentyMin,originalyMin,currentxMax,currentxMin,this);
+		}
+
 	}
-	
+
 	public void renderTiles(Display display, int xoffset, int yoffset)
 	{
 		display.setOffset(xoffset, yoffset);
 		for(Tile t : tiles)
 		{
-			t.render(display, this, t.getX()<<3, t.getY()<<3);
+			//draws tiles only if there within a 20 block radius of player
+			if((t.getX()<<3)<player.x+(12<<3)&&(t.getX()<<3)>player.x-(12<<3))
+			{
+				if((t.getY()<<3)<player.y+(12<<3)&&(t.getY()<<3)>player.y-(12<<3))
+				{
+					t.render(display, this, t.getX()<<3, t.getY()<<3);
+				}
+			}
+
 		}
 	}
-	
+
 	public void renderEntities(Display display, int xoffset, int yoffset)
 	{
 		display.setOffset(xoffset, yoffset);
 		for(Entity e : entities)
 		{
-			e.render(display);
+			//draws entities only if they're in a 20 block radius of player
+			if((e.getMobX())<(player.x)+(20<<3)&&(e.getMobX())>(player.x)-(20<<3))
+
+			{
+				if((e.getMobY())<(player.y)+(20<<3)&&(e.getMobY())>(player.y)-(20<<3))
+				{
+					e.render(display);
+				}
+			}
+
 		}
 	}
-	
-	
 	public void spawnHostiles()
 	{
 		int amount = random.nextInt(20)+10;
@@ -157,5 +211,5 @@ public class Level
 			return player.y+sY;
 		}
 	}
-	
+
 }

@@ -29,6 +29,7 @@ public class Turtle extends Entity {
 
 
 	public void tick() {
+	
 		super.tick();
 		//int tile =Tile.WATER.getId();
 		int xa=0;
@@ -40,7 +41,7 @@ public class Turtle extends Entity {
 		}
 		if(standingAt!=Tile.WATER||standingAt!=Tile.SAND)
 		{
-			level.searchForTile(x>>3,y>>3,Tile.WATER);
+			//level.searchForTile(x>>3,y>>3,Tile.WATER);
 		}
 
 		if((x>>3)<=0)
@@ -48,11 +49,11 @@ public class Turtle extends Entity {
 			xa++;
 		}
 
-		if((x>>3)>=level.width)
+		if((x>>3)>=200)
 		{
 			xa--;
 		}
-		if((y>>3)>level.height)
+		if((y>>3)>200)
 		{
 			ya--;
 		}
@@ -228,11 +229,11 @@ public class Turtle extends Entity {
 
 	public int getMobX()
 	{
-		return xOffset;
+		return x;
 	}
 	public int getMobY()
 	{
-		return yOffset;
+		return y;
 	}
 	public Rectangle getBounds()
 	{

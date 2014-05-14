@@ -33,7 +33,7 @@ public class LevelGen {
 			{
 				Tile t =new GrassTile(x,y);
 				level.addTile(t);
-				System.out.println(x+", "+y+" Tile: "+t);
+				//System.out.println(x+", "+y+" Tile: "+t);
 				
 			}
 		}
@@ -48,7 +48,7 @@ public class LevelGen {
 			{
 				Tile t =new GrassTile(x,y);
 				level.addTile(t);
-				System.out.println(x+", "+y+" Tile: "+t);
+				//System.out.println(x+", "+y+" Tile: "+t);
 				
 			}
 		}
@@ -65,7 +65,7 @@ public class LevelGen {
 			{
 				Tile t =new GrassTile(x,y);
 				level.addTile(t);
-				System.out.println(x+", "+y+" Tile: "+t);
+				//System.out.println(x+", "+y+" Tile: "+t);
 				
 			}
 		}
@@ -81,8 +81,8 @@ public class LevelGen {
 			{
 				Tile t =new GrassTile(x,y);
 				level.addTile(t);
-				System.out.println(x+", "+y+" Tile: "+t);
-				
+				//System.out.println(x+", "+y+" Tile: "+t);
+				//maybe
 			}
 		}
 		level.originalyMin=newYMin;

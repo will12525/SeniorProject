@@ -31,6 +31,8 @@ public class Level
 	public int originalyMax=currentyMax;
 	public int originalyMin=currentyMin;
 	
+	private int tickCount = 0;
+	
 
 	public Level(Game game, String imagePath)
 	{
@@ -93,6 +95,9 @@ public class Level
 	//keep everything running
 	public void tick()
 	{
+		
+		//System.out.println("tile list size: " + tiles.size());
+		
 		//tick tiles
 		//tick entities
 
@@ -110,10 +115,11 @@ public class Level
 		
 		
 		
+		//generates more tiles as needed based on the players location
 		
 		if((player.x>>3)>currentxMax-20)
 		{
-		//	System.out.println((player.x>>3)+", "+currentxMax+" :player x bigger");
+		//this
 			currentxMax=currentxMax+8;
 			LevelGen.addMorePosXTiles(currentxMax,originalxMax,currentyMax,currentyMin,this);
 		}
@@ -136,7 +142,43 @@ public class Level
 			currentyMin=currentyMin-8;
 			LevelGen.addMoreNegYTiles(currentyMin,originalyMin,currentxMax,currentxMin,this);
 		}
-
+		
+		
+		List<Tile> tilesToRemove = new ArrayList<Tile>();
+		
+		if(tickCount % 20 == 0)
+		{
+			for(Tile t : tiles)
+			{
+				int x1 = player.x >> 3;
+				//int x2 = t.getX() >> 3;
+				int x2 = 1 >> 3;
+				
+				int y1 = player.y >> 3;
+				//int y2 = t.getY() >> 3;
+				int y2 = 1 >> 3;
+				
+				int distance = (int) Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
+				System.out.println(distance);
+				
+				if(distance > 15)
+				{
+					tilesToRemove.add(t);
+				}
+			}
+			
+			for(Tile t : tilesToRemove)
+			{
+				tiles.remove(t);
+			}
+			
+			tilesToRemove.clear();
+						
+		}
+		
+		
+		
+		tickCount++;
 	}
 
 	public void renderTiles(Display display, int xoffset, int yoffset)

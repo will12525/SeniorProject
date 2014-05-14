@@ -143,7 +143,7 @@ public class Level
 			LevelGen.addMoreNegYTiles(currentyMin,originalyMin,currentxMax,currentxMin,this);
 		}
 		
-		
+		/*
 		List<Tile> tilesToRemove = new ArrayList<Tile>();
 		
 		if(tickCount % 20 == 0)
@@ -151,17 +151,22 @@ public class Level
 			for(Tile t : tiles)
 			{
 				int x1 = player.x >> 3;
-				//int x2 = t.getX() >> 3;
-				int x2 = 1 >> 3;
+				int x2 = t.getX() >> 3;
 				
 				int y1 = player.y >> 3;
-				//int y2 = t.getY() >> 3;
-				int y2 = 1 >> 3;
+				int y2 = t.getY() >> 3;
 				
-				int distance = (int) Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
-				System.out.println(distance);
+				//int distance = (int) Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
+				int deltax = x2-x1;
+				int deltay = y2-y1;
 				
-				if(distance > 15)
+				deltax = deltax*deltax;
+				deltay = deltay*deltay;
+				double distance = Math.sqrt(deltax + deltay);
+				//System.out.println(distance);
+				System.out.println(x1 + " " + y1 + "   " + x2 + " " + y2);
+				
+				if(distance > 25)
 				{
 					tilesToRemove.add(t);
 				}
@@ -175,7 +180,7 @@ public class Level
 			tilesToRemove.clear();
 						
 		}
-		
+		*/
 		
 		
 		tickCount++;

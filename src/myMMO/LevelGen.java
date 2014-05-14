@@ -2,7 +2,7 @@ package myMMO;
 
 import myMMO.tile.Tile;
 import myMMO.tile.tiles.GrassTile;
-import myMMO.tile.tiles.WaterTile;
+import myMMO.tile.tiles.PlankTile;
 
 public class LevelGen {
 
@@ -13,12 +13,21 @@ public class LevelGen {
 		{
 			for(int x =xMin;x<xMax;x++)
 			{
-
+				if(x == 0 && y == 0) 
+				{
+					Tile t = new PlankTile(0, 0);
+					level.addTile(t);
+				}
+				else
+				{
+					Tile t = new GrassTile(x, y);
+					level.addTile(t);
+				}
+							
 				//Tile t = new LeafTile(x<<3, y<<3);
 
 				//Tile t= new DirtTile(x<<3, y<<3);
-				Tile t = new GrassTile(x, y);
-				level.addTile(t);
+				
 
 
 			}

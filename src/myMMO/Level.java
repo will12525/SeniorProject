@@ -138,7 +138,7 @@ public class Level
 		}
 		if((player.y>>3)<currentyMin+20)
 		{
-			System.out.println(player.y+", "+currentyMin+" :player y smaller");
+			//System.out.println(player.y+", "+currentyMin+" :player y smaller");
 			currentyMin=currentyMin-8;
 			LevelGen.addMoreNegYTiles(currentyMin,originalyMin,currentxMax,currentxMin,this);
 		}

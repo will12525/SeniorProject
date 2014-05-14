@@ -330,7 +330,7 @@ public class Game extends Canvas implements Runnable{
 			{
 
 				level.tick();
-				timeCycle();
+				//timeCycle();
 
 
 

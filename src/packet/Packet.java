@@ -1,14 +1,14 @@
 package packet;
 
-import server.Client;
 
 public abstract class Packet
 {
 	private byte[] data;
 	private String info;
 	private int id;
-	private Client client;
+	//private Client client;
 	
+	/*
 	public Packet(byte[] data, int id, Client client)
 	{
 		this.data = data;
@@ -16,6 +16,7 @@ public abstract class Packet
 		this.id = id;
 		this.client = client;
 	}
+	*/
 	
 	public Packet(byte[] data, int id)
 	{
@@ -41,8 +42,8 @@ public abstract class Packet
 		return this.info;
 	}
 	
-	public Client getClient()
-	{
-		return this.client;
-	}
+	//public Client getClient()
+	//{
+	//	return this.client;
+	//}
 }

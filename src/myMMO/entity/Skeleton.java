@@ -30,9 +30,9 @@ public class Skeleton extends Entity {
 		int xa=0;
 		int ya=0;
 
-		if (level.player != null && randomWalkTime == 0) {
-			int xd = level.player.x - x;
-			int yd = level.player.y - y;
+		if (Level.getPlayer() != null && randomWalkTime == 0) {
+			int xd = Level.getPlayer().x - x;
+			int yd = Level.getPlayer().y - y;
 			if ((xd * xd + yd * yd <= 80 * 80)&&(xd * xd + yd * yd >= 30 * 30)) {
 				xa = 0;
 				ya = 0;
@@ -60,7 +60,7 @@ public class Skeleton extends Entity {
 					lastFire=System.currentTimeMillis();
 					//System.out.println("new arrow");
 					arrow =new Arrow(level, xOffset, yOffset, movingDirection);
-					level.addEntity(arrow);
+					Level.addEntity(arrow);
 				}
 			}
 		}

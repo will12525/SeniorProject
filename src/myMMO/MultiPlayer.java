@@ -11,6 +11,7 @@ import myMMO.entity.PlayerEntity;
 import packet.Packet;
 import packet.Packet01Move;
 
+@SuppressWarnings("all")
 public class MultiPlayer extends Thread
 {
 	private String IP;

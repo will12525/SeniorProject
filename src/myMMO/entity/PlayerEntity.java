@@ -11,7 +11,7 @@ import myMMO.KeyInputHandler;
 import myMMO.Level;
 import myMMO.menu.ChatMenu;
 
-
+@SuppressWarnings("all")
 public class PlayerEntity extends Entity {
 
 	private KeyInputHandler input;

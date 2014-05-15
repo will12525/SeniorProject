@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 import myMMO.entity.Chicken;
 import myMMO.entity.Dogs;
@@ -183,7 +182,7 @@ public class Game extends Canvas implements Runnable{
 			if(System.currentTimeMillis()-lastTimer>=1000)
 			{
 				lastTimer+=1000;
-				//System.out.println("Ticks: "+ticks+", frames: "+frames);
+				System.out.println("Ticks: "+ticks+", frames: "+frames);
 				frames=0;
 				ticks=0;
 			}
@@ -193,6 +192,7 @@ public class Game extends Canvas implements Runnable{
 	/**
 	 * the initiator! Creates the list of colors, a new display with a sprite sheet path, gets input, gives the level image path, creates a player and any entity wanted in the game.
 	 */
+	@SuppressWarnings("static-access")
 	public void init()
 	{
 		int index=0;

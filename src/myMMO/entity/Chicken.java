@@ -45,11 +45,13 @@ public class Chicken  extends Entity {
 			xa++;
 		}
 
-		if((x>>3)>=level.width)
+		//if((x>>3)>=level.width)
+		if((x>>3) >= (Level.currentxMax - Level.currentxMin))
 		{
 			xa--;
 		}
-		if((y>>3)>level.height)
+		//if((y>>3)>level.height)
+		if((x>>3) >= (Level.currentxMax - Level.currentxMin))
 		{
 			ya--;
 		}

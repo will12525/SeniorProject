@@ -9,6 +9,7 @@ import myMMO.entity.PlayerEntity;
 import myMMO.tile.Tile;
 import myMMO.tile.tiles.LogTile;
 
+@SuppressWarnings("all")
 public class Level
 {
 	private Game game;
@@ -21,15 +22,15 @@ public class Level
 
 	private Random random = new Random();
 	
-	public int currentxMax=20;
-	public int currentxMin=-20;
-	public int currentyMax=20;
-	public int currentyMin=-20;
+	public static int currentxMax=20;
+	public static int currentxMin=-20;
+	public static int currentyMax=20;
+	public static int currentyMin=-20;
 	
-	public int originalxMax= currentxMax;
-	public int originalxMin=currentxMin;
-	public int originalyMax=currentyMax;
-	public int originalyMin=currentyMin;
+	public static int originalxMax= currentxMax;
+	public static int originalxMin=currentxMin;
+	public static int originalyMax=currentyMax;
+	public static int originalyMin=currentyMin;
 	
 	private int tickCount = 0;
 	

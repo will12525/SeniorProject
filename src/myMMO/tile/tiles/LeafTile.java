@@ -7,6 +7,7 @@ import myMMO.Level;
 import myMMO.entity.Entity;
 import myMMO.tile.AnimatedTile;
 
+@SuppressWarnings("all")
 public class LeafTile extends AnimatedTile{
 	private int[][] animationTileCoords;
 	private int currentAnimationIndex;

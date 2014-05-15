@@ -14,6 +14,7 @@ import myMMO.tile.Tile;
  * Main constructor for all entities in the game
  *
  */
+@SuppressWarnings("all")
 public class Entity {
 
 	public int x;

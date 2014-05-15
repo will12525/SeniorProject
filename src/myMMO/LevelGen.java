@@ -1,10 +1,10 @@
 package myMMO;
 
-import myMMO.biome.ForestBiome;
 import myMMO.tile.Tile;
 import myMMO.tile.tiles.GrassTile;
 import myMMO.tile.tiles.PlankTile;
 
+@SuppressWarnings("all")
 public class LevelGen {
 
 	public static void createWorld(Level level,int xMax,int yMax,int xMin,int yMin)

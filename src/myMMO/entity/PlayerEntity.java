@@ -14,6 +14,7 @@ import myMMO.Game;
 import myMMO.KeyInputHandler;
 import myMMO.Level;
 import myMMO.menu.ChatMenu;
+import myMMO.menu.InventoryMenu;
 import myMMO.tile.Tile;
 
 @SuppressWarnings("all")
@@ -118,6 +119,11 @@ public class PlayerEntity extends Entity {
 		if((System.currentTimeMillis() - lastAction) >= (waitForNextAction)) 
 		{
 
+			if(input.inventory.down)
+			{
+				game.setMenu(new InventoryMenu(this));
+				lastAction=System.currentTimeMillis();
+			}
 			if(input.action.down)
 			{
 				entityY = Collision.getEntityActedWith(level.getEntities());

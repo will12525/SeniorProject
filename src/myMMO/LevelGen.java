@@ -1,5 +1,6 @@
 package myMMO;
 
+import myMMO.biome.ForestBiome;
 import myMMO.tile.Tile;
 import myMMO.tile.tiles.GrassTile;
 import myMMO.tile.tiles.PlankTile;
@@ -96,5 +97,12 @@ public class LevelGen {
 		}
 		level.originalyMin=newYMin;
 	}
+	public static void getTileBiome(Level level,int x,int y)
+	{
+		
+		level.getTile(x,y);
+		
+	}
+	
 	
 }

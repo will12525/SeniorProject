@@ -1,24 +1,28 @@
 package items;
 
+import myMMO.Colours;
 import myMMO.Display;
 import myMMO.entity.PlayerEntity;
 
 public class RockItem extends Item{
 
-	@Override
-	public void render(Display display) {
+
+	public void render(Display display) 
+	{
+		display.render(20, 20, 2+19*32, Colours.get(-1, 555, 444, 333), 0, 0, 1);
+	}
+
+	
+	public void doAction(PlayerEntity player) 
+	{
+		
 		
 	}
 
-	@Override
-	public void doAction(PlayerEntity player) {
-		// TODO Auto-generated method stub
+	
+	public void doPickup(PlayerEntity player)
+	{
 		
-	}
-
-	@Override
-	public void doPickup(PlayerEntity player) {
-		// TODO Auto-generated method stub
 		
 	}
 

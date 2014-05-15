@@ -501,12 +501,11 @@ public class Game extends Canvas implements Runnable{
 		{
 			menu.render(display);
 		}
-<<<<<<< HEAD
+
 		
 		//render inventory
 		//inventory.render(display);
-=======
->>>>>>> e3c1fde5572a5051ac8b0d7d52859c58969f1f9f
+
 	}
 
 	public void stop()

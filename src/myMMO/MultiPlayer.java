@@ -98,7 +98,7 @@ public class MultiPlayer extends Thread
 				//find the other player in the world and move them to the new spot
 				for(Entity e : Level.getEntities())
 				{
-					if((e instanceof PlayerEntity) && e != Level.getPlayer())
+					if((e instanceof PlayerEntity) && e != Game.getLevel().getPlayer())
 					{
 						//this is the other player
 						Packet01Move p = new Packet01Move(data);

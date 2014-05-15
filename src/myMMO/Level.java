@@ -25,7 +25,7 @@ public class Level
 	private String imagePath;
 
 	private static List<Entity> entities = new ArrayList<Entity>();
-	private static Entity player;
+	private static PlayerEntity player;
 
 	private static List<Tile> tiles = new ArrayList<Tile>();
 	private static List<Biome>biomes=new ArrayList<Biome>();
@@ -126,7 +126,7 @@ public class Level
 		this.player = player;
 	}
 
-	public static Entity getPlayer()
+	public PlayerEntity getPlayer()
 	{
 		return player;
 	}
@@ -171,7 +171,7 @@ public class Level
 	{
 		items.add(i);
 	}
-	public static List<Item> getItems()
+	public List<Item> getItems()
 	{
 		return items;
 	}
@@ -224,6 +224,14 @@ public class Level
 		for(Entity e : entities)
 		{
 			e.tick();
+		}
+		
+		for(Item item : items)
+		{
+			if(item.tryPickup(player))
+			{
+				break;
+			}
 		}
 
 
@@ -316,6 +324,13 @@ public class Level
 		}
 	}
 
+	public void renderItems(Display display)
+	{
+		for(Item i : items)
+		{
+			i.renderOnGround(display);
+		}
+	}
 	public void renderEntities(Display display, int xoffset, int yoffset)
 	{
 		display.setOffset(xoffset, yoffset);

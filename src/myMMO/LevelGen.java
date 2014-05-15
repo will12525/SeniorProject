@@ -1,5 +1,8 @@
 package myMMO;
 
+import items.Item;
+import items.RockItem;
+
 import java.util.Random;
 
 import myMMO.biome.Biome;
@@ -54,6 +57,11 @@ public class LevelGen {
 
 			}
 		}
+		
+		Item rock = new RockItem("Rock");
+		rock.setX(6);
+		rock.setY(6);
+		level.addItem(rock);
 
 	}
 

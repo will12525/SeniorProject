@@ -1,6 +1,7 @@
 package myMMO.entity;
 
 import items.Item;
+import items.RockItem;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class PlayerEntity extends Entity {
 	String nextLine="";
 	//private boolean moreText;
 	//	private int r = 0;
-	
+
 	List<Item> items = new ArrayList<Item>();
 
 
@@ -53,7 +54,16 @@ public class PlayerEntity extends Entity {
 		this.game=game;
 		this.input=input;
 		this.username=username;
+		
+	}
 
+	public void addItem(Item item)
+	{
+		items.add(item);
+	}
+	public List<Item> getItems()
+	{
+		return this.items;
 	}
 
 	public String getMessage()
@@ -218,9 +228,8 @@ public class PlayerEntity extends Entity {
 		{
 			Font.renderFont(username, display, xOffset-(username.length()-1), yOffset-10, Colours.get(-1, -1, -1, 555), 1);
 		}
+
 		Font.renderFont((x>>3)+", "+(y>>3), display, xOffset, yOffset-20, Colours.get(-1, -1, -1, 555), 1);
-
-
 	}
 	public Rectangle getActionBounds()
 	{

@@ -30,9 +30,9 @@ public class Skeleton extends Entity {
 		int xa=0;
 		int ya=0;
 
-		if (Level.getPlayer() != null && randomWalkTime == 0) {
-			int xd = Level.getPlayer().x - x;
-			int yd = Level.getPlayer().y - y;
+		if (level.getPlayer() != null && randomWalkTime == 0) {
+			int xd = level.getPlayer().x - x;
+			int yd = level.getPlayer().y - y;
 			if ((xd * xd + yd * yd <= 80 * 80)&&(xd * xd + yd * yd >= 30 * 30)) {
 				xa = 0;
 				ya = 0;

@@ -1,5 +1,7 @@
 package myMMO;
 
+import items.Item;
+
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
@@ -20,7 +22,6 @@ import myMMO.entity.Monkey;
 import myMMO.entity.PlayerEntity;
 import myMMO.entity.Skeleton;
 import myMMO.entity.Turtle;
-import myMMO.menu.InventoryMenu;
 import myMMO.menu.Menu;
 import myMMO.menu.TitleMenu;
 import myMMO.tile.Tile;
@@ -56,7 +57,7 @@ public class Game extends Canvas implements Runnable{
 	private boolean spawnHostiles=true;
 	//private Display dayNightDisplay;
 	public KeyInputHandler input;
-	public Level level;
+	public static Level level;
 	public boolean currentChat=false;
 	public Menu menu;
 	
@@ -277,6 +278,11 @@ public class Game extends Canvas implements Runnable{
 		level.addEntity(chicken);
 		 */
 	}
+	
+	public static Level getLevel()
+	{
+		return level;
+	}
 
 	/**
 	 * Gets a random x and y number for the player to spawn at, it also checks to make sure the spawn tile is grass or water.
@@ -415,6 +421,8 @@ public class Game extends Canvas implements Runnable{
 		int yOffset=Player.y-(display.height/2);
 
 		level.renderTiles(display, xOffset, yOffset);
+		
+		level.renderItems(display);
 
 
 		level.renderEntities(display,xOffset,yOffset);
@@ -490,13 +498,20 @@ public class Game extends Canvas implements Runnable{
 		}
 		
 		//render inventory bar
-		display.render(160-8-1, 108,(4+27*32), Colours.get(000, -1, -1, -1), 0, 0, 1);
+		//display.render(160-8-1, 108,(4+27*32), Colours.get(000, -1, -1, -1), 0, 0, 1);
 		
 		for(int i = 0; i != 5; i++)
 		{
-			display.render((160-8-1) - 7*i, 108 ,(4+27*32), Colours.get(000, -1, -1, -1), 0, 0, 1);
+			display.render(151 - 7*i, 108 ,(4+27*32), Colours.get(000, -1, -1, -1), 0, 0, 1);
 		}
 		
+		//render items in player's inventory
+		for(int i = 0; i != 5 && i < level.getPlayer().getItems().size(); i++)
+		{
+			level.getPlayer().getItems().get(i).renderInInventory(display,i);
+		}
+		
+		//render main menu
 		if(menu!=null)
 		{
 			menu.render(display);

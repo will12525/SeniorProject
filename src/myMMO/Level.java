@@ -1,5 +1,7 @@
 package myMMO;
 
+import items.Item;
+
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -27,6 +29,7 @@ public class Level
 
 	private static List<Tile> tiles = new ArrayList<Tile>();
 	private static List<Biome>biomes=new ArrayList<Biome>();
+	private static List<Item> items=new ArrayList<Item>();
 
 	private Random random = new Random();
 
@@ -132,6 +135,7 @@ public class Level
 	{
 		tiles.add(t);
 	}
+	
 
 
 	public void setTile(int x, int y, int id)
@@ -163,6 +167,14 @@ public class Level
 		return tiles;
 	}
 
+	public void addItem(Item i)
+	{
+		items.add(i);
+	}
+	public static List<Item> getItems()
+	{
+		return items;
+	}
 
 
 	//infinite world/biome stuff

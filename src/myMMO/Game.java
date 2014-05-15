@@ -224,7 +224,7 @@ public class Game extends Canvas implements Runnable{
 		input = new KeyInputHandler(this);
 
 		//
-		level=new Level(this,null/*"/levels/levelStart.png"*/);
+		level=new Level(this,"/levels/levelStart.png");
 
 		//calls the method that generates a random x and y for the player to spawn on
 		/*if(playerNewX==0)

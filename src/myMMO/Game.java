@@ -479,6 +479,7 @@ public class Game extends Canvas implements Runnable{
 
 	private void renderGui()
 	{
+		//render hearts
 		display.setOffset(0, 0);
 		for(int heart=0;heart<10;heart++)
 		{
@@ -488,13 +489,18 @@ public class Game extends Canvas implements Runnable{
 			}
 		}
 		
+		//render inventory bar
+		display.render(160-8-1, 108,(4+27*32), Colours.get(000, -1, -1, -1), 0, 0, 1);
+		
+		for(int i = 0; i != 5; i++)
+		{
+			display.render((160-8-1) - 7*i, 108 ,(4+27*32), Colours.get(000, -1, -1, -1), 0, 0, 1);
+		}
+		
 		if(menu!=null)
 		{
 			menu.render(display);
 		}
-		
-		//render inventory
-		inventory.render(display);
 	}
 
 	public void stop()

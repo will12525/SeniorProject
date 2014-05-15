@@ -9,7 +9,9 @@ import myMMO.Font;
 import myMMO.Game;
 import myMMO.KeyInputHandler;
 import myMMO.Level;
+import myMMO.biome.Biome;
 import myMMO.menu.ChatMenu;
+import myMMO.tile.Tile;
 
 @SuppressWarnings("all")
 public class PlayerEntity extends Entity {
@@ -62,7 +64,9 @@ public class PlayerEntity extends Entity {
 		super.tick();
 		int xa=0;
 		int ya=0;
-
+		Tile standingAt=level.getTile(x, y);
+		//System.out.println(standingAt);
+		//System.out.println(standingAt+", X: "+x+", Y: "+y);
 		/*Tile standingAt = level.getTile(((x+4)>>3), ((y+3)>>3)+1);
 		if(standingAt==Tile.GRASS||standingAt==Tile.SAND)
 		{

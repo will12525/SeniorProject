@@ -18,6 +18,8 @@ public class Tile {
 	public static final Tile LEAVES = new AnimatedTile(7,new int[][] { { 0, 4 }, { 1, 4 }, { 2, 4 }, { 1, 4 } },Colours.get(121, -1, 151, -1),0xFF9eff7d,500,0,0, 0, 0);
 	public static final Tile FENCE = new FenceTile(8,new int[][] {{3,5},{4,5},{5,5},{6,5},{7,5},{8,5},{9,5},{10,5},{11,5}},Colours.get(253, 200,321,141),0xFFFF7d01,0,0, 0, 0);
 	public static final Tile PLANK = new SolidTile(9,6,0,Colours.get(-1, 321, 432, -1),0xFF845510, 0, 0);
+	
+	//public static final Tile[] tiles = {};
 
 
 	//public static final Tile CYCLE = new CycleTile(5,0,0,Colours.get(000, 000, 000, 000),0xFF000000);
@@ -27,7 +29,7 @@ public class Tile {
 	protected boolean solid;
 	protected boolean emitter;
 	private int levelColour;
-	private int xcoord, ycoord;
+	public int xcoord, ycoord;
 /**
  * 
  * @param id = int Id of tile
@@ -50,6 +52,29 @@ public class Tile {
 		
 		this.xcoord = xcoord;
 		this.ycoord = ycoord;
+	}
+	
+
+	public static Tile getTile(int id)
+	{
+		switch(id)
+		{
+		case 0: return VOID;
+		case 1: return STONE;
+		case 2: return GRASS;
+		case 3: return WATER;
+		case 4: return LOG;
+		case 5: return SAND;
+		case 6: return DIRT;
+		case 7: return LEAVES;
+		case 8: return FENCE;
+		case 9: return PLANK;
+			
+		default: return DIRT;
+		}
+		
+		
+		
 	}
 	/**
 	 * @return int, the id of the block

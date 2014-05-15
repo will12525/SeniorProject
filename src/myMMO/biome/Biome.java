@@ -13,6 +13,10 @@ public class Biome {
 		this.yStart=yStart;
 		this.yEnd=yEnd;
 	}
+	/**
+	 * 
+	 * @return
+	 */
 	public int[] tileTypes()
 	{
 		return null;

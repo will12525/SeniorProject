@@ -14,8 +14,8 @@ public class Level
 	private Game game;
 	private String imagePath;
 
-	private List<Entity> entities = new ArrayList<Entity>();
-	private Entity player;
+	private static List<Entity> entities = new ArrayList<Entity>();
+	private static Entity player;
 
 	private static List<Tile> tiles = new ArrayList<Tile>();
 
@@ -43,12 +43,12 @@ public class Level
 
 	}
 
-	public void addEntity(Entity e)
+	public static void addEntity(Entity e)
 	{
 		entities.add(e);
 	}
 
-	public List<Entity> getEntities()
+	public static List<Entity> getEntities()
 	{
 		return entities;
 	}
@@ -56,6 +56,11 @@ public class Level
 	public void setPlayer(PlayerEntity player)
 	{
 		this.player = player;
+	}
+	
+	public static Entity getPlayer()
+	{
+		return player;
 	}
 
 	public void addTile(Tile t)

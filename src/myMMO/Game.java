@@ -502,8 +502,8 @@ public class Game extends Canvas implements Runnable{
 	 */
 	public static void main(String[] args) {
 		//multiplayer
-		String s = JOptionPane.showInputDialog("Please enter IP for multiplayer (or blank for no multiplayer)");
-		new MultiPlayer(s);
+		//String s = JOptionPane.showInputDialog("Please enter IP for multiplayer (or blank for no multiplayer)");
+		//new MultiPlayer(s);
 		
 		new Game().start();
 

@@ -1,6 +1,10 @@
 package myMMO.entity;
 
+import items.Item;
+
 import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
 
 import myMMO.Collision;
 import myMMO.Colours;
@@ -9,7 +13,6 @@ import myMMO.Font;
 import myMMO.Game;
 import myMMO.KeyInputHandler;
 import myMMO.Level;
-import myMMO.biome.Biome;
 import myMMO.menu.ChatMenu;
 import myMMO.menu.InventoryMenu;
 import myMMO.tile.Tile;
@@ -39,6 +42,8 @@ public class PlayerEntity extends Entity {
 	String nextLine="";
 	//private boolean moreText;
 	//	private int r = 0;
+	
+	List<Item> items = new ArrayList<Item>();
 
 
 

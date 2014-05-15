@@ -4,7 +4,7 @@ import myMMO.Display;
 import myMMO.Game;
 import myMMO.KeyInputHandler;
 
-public class Menu {
+public abstract class Menu {
 	protected Game game;
 	protected KeyInputHandler input;
 	
@@ -13,18 +13,13 @@ public class Menu {
 		this.input=input;
 		this.game=game;
 	}
-	public void tick()
-	{
-		
-	}
+	
+	public abstract void tick();
 	/**
 	 * render stuff for the menu
 	 * @param display
 	 */
-	public void render(Display display)
-	{
-		
-	}
+	public abstract void render(Display display);
 	
 
 }

@@ -12,6 +12,7 @@ public class KeyInputHandler implements KeyListener {
 	Game game;
 	public KeyInputHandler(Game game)
 	{
+		this.game=game;
 		game.addKeyListener(this);
 	}
 
@@ -46,15 +47,22 @@ public class KeyInputHandler implements KeyListener {
 	public Key right = new Key();
 	public Key action = new Key();
 	public Key enter = new Key();
-
+	public Key inventory = new Key();
 
 	public void keyPressed(KeyEvent pressed) {
 		if(pressed.getKeyChar()==KeyEvent.VK_ESCAPE)
 		{
-			System.exit(0);
+			if(game.menu!=null)
+			{
+				game.setMenu(null);
+			}
+			else
+			{
+				System.exit(0);
+			}
 		}
 		toggleKey(pressed.getKeyCode(),true);
-		
+
 	}
 
 
@@ -102,6 +110,10 @@ public class KeyInputHandler implements KeyListener {
 		if(keyCode==KeyEvent.VK_D||keyCode==KeyEvent.VK_RIGHT)
 		{
 			right.toggle(isPressed);
+		}
+		if(keyCode==KeyEvent.VK_E)
+		{
+			inventory.toggle(isPressed);
 		}
 	}
 

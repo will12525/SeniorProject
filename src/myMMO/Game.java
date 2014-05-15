@@ -60,7 +60,7 @@ public class Game extends Canvas implements Runnable{
 	public boolean currentChat=false;
 	public Menu menu;
 	
-	InventoryMenu inventory = new InventoryMenu();
+//	InventoryMenu inventory = new InventoryMenu();
 
 
 
@@ -494,7 +494,7 @@ public class Game extends Canvas implements Runnable{
 		}
 		
 		//render inventory
-		inventory.render(display);
+		//inventory.render(display);
 	}
 
 	public void stop()

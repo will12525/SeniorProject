@@ -35,8 +35,12 @@ public class InventoryMenu extends Menu {
 
 	public void render(Display display) {
 		//Font.renderFont("hi", display, 50, 50, Colours.get(-1, -1, -1, 5), 1);
-		display.render(0, 7, 7, Colours.get(-1, -1, -1, 5), 0, 0, 1);
-
+		//display.render(160-8-1, 108,(4+27*32), Colours.get(000, -1, -1, -1), 0, 0, 1);
+		
+		for(int i = 0; i != 5; i++)
+		{
+			
+		}
 	}
 
 }

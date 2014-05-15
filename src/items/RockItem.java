@@ -3,7 +3,11 @@ package items;
 import myMMO.Display;
 import myMMO.entity.PlayerEntity;
 
-public class RockItem extends Item{
+public class RockItem extends Item {
+
+	public RockItem(int x, int y, int spriteLocation) {
+		super(x, y, spriteLocation);
+	}
 
 	@Override
 	public void render(Display display) {

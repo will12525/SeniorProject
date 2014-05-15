@@ -3,6 +3,7 @@ package myMMO.menu;
 import myMMO.Colours;
 import myMMO.Display;
 import myMMO.Font;
+import myMMO.Level;
 import myMMO.entity.PlayerEntity;
 
 public class ChatMenu extends Menu{
@@ -70,7 +71,7 @@ public class ChatMenu extends Menu{
 
 	}
 
-	public void render(Display display)
+	public void render(Display display,Level level)
 	{
 		display.render(4, 105, (1+27*32), Colours.get(-1, -1, 333, 555),0,0,1);
 
@@ -86,5 +87,6 @@ public class ChatMenu extends Menu{
 		}
 		Font.renderFont(msg,display, 8, 101, Colours.get(-1, -1, -1, 000), 1);
 	}
+	
 
 }

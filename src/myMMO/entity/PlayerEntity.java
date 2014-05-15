@@ -257,11 +257,11 @@ public class PlayerEntity extends Entity {
 	}
 	public int getMobX()
 	{
-		return xOffset;
+		return x;
 	}
 	public int getMobY()
 	{
-		return yOffset;
+		return y;
 	}
 	public Rectangle getBounds()
 	{

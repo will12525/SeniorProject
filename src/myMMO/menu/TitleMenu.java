@@ -3,6 +3,7 @@ package myMMO.menu;
 import myMMO.Colours;
 import myMMO.Display;
 import myMMO.Font;
+import myMMO.Level;
 
 public class TitleMenu extends Menu{
 	
@@ -18,7 +19,7 @@ public class TitleMenu extends Menu{
 			game.setMenu(null);
 		}
 	}
-	public void render(Display display)
+	public void render(Display display,Level level)
 	{
 		display.clear(0);
 		//display.setOffset(0, 0);

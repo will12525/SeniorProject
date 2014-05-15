@@ -3,6 +3,7 @@ package myMMO.menu;
 import myMMO.Display;
 import myMMO.Game;
 import myMMO.KeyInputHandler;
+import myMMO.Level;
 
 public abstract class Menu {
 	protected Game game;
@@ -19,7 +20,7 @@ public abstract class Menu {
 	 * render stuff for the menu
 	 * @param display
 	 */
-	public abstract void render(Display display);
+	public abstract void render(Display display,Level level);
 	
 
 }

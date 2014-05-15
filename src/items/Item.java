@@ -1,5 +1,6 @@
 package items;
 
+import myMMO.Colours;
 import myMMO.Display;
 import myMMO.Game;
 import myMMO.entity.PlayerEntity;
@@ -23,15 +24,15 @@ public abstract class Item {
 		int itemX = x;
 		int itemY = y;
 		
-		int playerX = player.getMobX();
-		int playerY = player.getMobY();
+		int playerX = player.getMobX()>>3;
+		int playerY = player.getMobY()>>3;
 		
-		int differenceX = Math.abs(Math.abs(itemX) + Math.abs(playerX));
-		int differenceY = Math.abs(Math.abs(itemY) + Math.abs(playerY));
+		int differenceX = Math.abs(Math.abs(itemX) - Math.abs(playerX));
+		int differenceY = Math.abs(Math.abs(itemY) - Math.abs(playerY));
 		
-		System.out.println(differenceX + " " + differenceY);
+		//System.out.println("ItemX: "+itemX+", ItemY: "+itemY+", PlayerX: "+playerX+", PlayerY: "+playerY+" DifferenceX: "+differenceX + ", DifferenceY: " + differenceY);
 		
-		if(differenceX <= 1 && differenceY <= 1)
+		if((differenceX <= 1 && differenceY <= 1)&&player.getItems().size()<15)
 		{
 			//pickup
 			Game.getLevel().getItems().remove(this);
@@ -51,4 +52,7 @@ public abstract class Item {
 	{
 		this.y = y;
 	}
+
+	public abstract void renderInMainInventory(Display display, int position);
+	
 }

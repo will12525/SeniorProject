@@ -502,7 +502,7 @@ public class Game extends Canvas implements Runnable{
 		
 		for(int i = 0; i != 5; i++)
 		{
-			display.render(151 - 7*i, 108 ,(4+27*32), Colours.get(000, -1, -1, -1), 0, 0, 1);
+			display.render(151 - 8*i, 108 ,(4+27*32), Colours.get(000, -1, -1, -1), 0, 0, 1);
 		}
 		
 		//render items in player's inventory
@@ -514,7 +514,7 @@ public class Game extends Canvas implements Runnable{
 		//render main menu
 		if(menu!=null)
 		{
-			menu.render(display);
+			menu.render(display,level);
 		}
 
 		

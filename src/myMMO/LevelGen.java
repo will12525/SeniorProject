@@ -10,11 +10,12 @@ import myMMO.biome.ForestBiome;
 import myMMO.tile.Tile;
 import myMMO.tile.tiles.GrassTile;
 import myMMO.tile.tiles.PlankTile;
+import myMMO.tile.tiles.StoneTile;
 
 @SuppressWarnings("all")
 public class LevelGen {
 	static Random r = new Random();
-	
+
 	public static void createWorld(Level level,int xMax,int yMax,int xMin,int yMin)
 	{
 		Biome b = new ForestBiome(xMin, xMax, yMin, yMax);
@@ -29,14 +30,14 @@ public class LevelGen {
 				int chosenTile=r.nextInt(allowedTiles.length);
 				int id = allowedTiles[chosenTile];
 				Tile t= Tile.getTile(id);
-				
+
 				//Tile t = Tile.tiles[id];
 				t.xcoord = x;
 				t.ycoord = y;
 				level.addTile(t);
 				System.out.println(t);
-				*/
-				
+				 */
+
 				if(x == 0 && y == 0) 
 				{
 					Tile t = new PlankTile(0, 0);
@@ -47,7 +48,7 @@ public class LevelGen {
 					Tile t = new GrassTile(x, y);
 					level.addTile(t);
 				}
-				
+
 
 				//Tile t = new LeafTile(x<<3, y<<3);
 
@@ -57,11 +58,17 @@ public class LevelGen {
 
 			}
 		}
+
 		
-		Item rock = new RockItem("Rock");
-		rock.setX(6);
-		rock.setY(6);
-		level.addItem(rock);
+		
+		for(int rocky=0;rocky<20;rocky++)
+		{
+			Item rock = new RockItem("Rock");
+			rock.setX((rocky)+8);
+			rock.setY(6);
+			level.addItem(rock);
+		}
+
 
 	}
 
@@ -71,7 +78,15 @@ public class LevelGen {
 		{
 			for(int y=currentYMin;y<=currentYMax;y++)
 			{
-				Tile t =new GrassTile(x,y);
+				Tile t=null;
+				if(newXMax>100)
+				{
+					t=new StoneTile(x,y);
+				}
+				else
+				{
+					t =new GrassTile(x,y);
+				}
 				level.addTile(t);
 				//System.out.println(x+", "+y+" Tile: "+t);
 
@@ -83,10 +98,21 @@ public class LevelGen {
 	{
 		for(int x=origXMin;x>=newXMin;x--)
 		{
-
 			for(int y=currentYMin;y<=currentYMax;y++)
 			{
-				Tile t =new GrassTile(x,y);
+
+				Tile t=null;
+				if(newXMin<-100)
+				{
+					t=new StoneTile(x,y);
+				}
+				else
+				{
+					t =new GrassTile(x,y);
+				}
+
+
+				//Tile t =new GrassTile(x,y);
 				level.addTile(t);
 				//System.out.println(x+", "+y+" Tile: "+t);
 
@@ -103,7 +129,18 @@ public class LevelGen {
 		{
 			for(int y=origYMax;y<=newYMax;y++)
 			{
-				Tile t =new GrassTile(x,y);
+
+				Tile t=null;
+				if(newYMax>100)
+				{
+					t=new StoneTile(x,y);
+				}
+				else
+				{
+					t =new GrassTile(x,y);
+				}
+
+				//	Tile t =new GrassTile(x,y);
 				level.addTile(t);
 				//System.out.println(x+", "+y+" Tile: "+t);
 
@@ -119,7 +156,15 @@ public class LevelGen {
 		{
 			for(int y=origYMin;y>=newYMin;y--)
 			{
-				Tile t =new GrassTile(x,y);
+				Tile t=null;
+				if(newYMin<-100)
+				{
+					t=new StoneTile(x,y);
+				}
+				else
+				{
+					t =new GrassTile(x,y);
+				}
 				level.addTile(t);
 				//System.out.println(x+", "+y+" Tile: "+t);
 				//maybe

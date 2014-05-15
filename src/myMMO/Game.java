@@ -15,6 +15,7 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
+
 import myMMO.entity.Chicken;
 import myMMO.entity.Dogs;
 import myMMO.entity.Entity;
@@ -134,6 +135,7 @@ public class Game extends Canvas implements Runnable{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//allows keys
 		requestFocus();
+		addMouseListener(new MouseListener());
 	}
 	/**
 	 * calls run, sets the boolean running = true which controls the while loop for the game

@@ -11,6 +11,7 @@ import myMMO.tile.tiles.PlankTile;
 @SuppressWarnings("all")
 public class LevelGen {
 	static Random r = new Random();
+	
 	public static void createWorld(Level level,int xMax,int yMax,int xMin,int yMin)
 	{
 		Biome b = new ForestBiome(xMin, xMax, yMin, yMax);
@@ -21,6 +22,7 @@ public class LevelGen {
 		{
 			for(int x =xMin;x<xMax;x++)
 			{
+				/*
 				int chosenTile=r.nextInt(allowedTiles.length);
 				int id = allowedTiles[chosenTile];
 				Tile t= Tile.getTile(id);
@@ -30,8 +32,9 @@ public class LevelGen {
 				t.ycoord = y;
 				level.addTile(t);
 				System.out.println(t);
+				*/
 				
-				/*if(x == 0 && y == 0) 
+				if(x == 0 && y == 0) 
 				{
 					Tile t = new PlankTile(0, 0);
 					level.addTile(t);
@@ -41,7 +44,7 @@ public class LevelGen {
 					Tile t = new GrassTile(x, y);
 					level.addTile(t);
 				}
-				*/
+				
 
 				//Tile t = new LeafTile(x<<3, y<<3);
 

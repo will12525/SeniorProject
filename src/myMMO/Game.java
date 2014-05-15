@@ -20,6 +20,7 @@ import myMMO.entity.Monkey;
 import myMMO.entity.PlayerEntity;
 import myMMO.entity.Skeleton;
 import myMMO.entity.Turtle;
+import myMMO.menu.InventoryMenu;
 import myMMO.menu.Menu;
 import myMMO.menu.TitleMenu;
 import myMMO.tile.Tile;
@@ -58,6 +59,8 @@ public class Game extends Canvas implements Runnable{
 	public Level level;
 	public boolean currentChat=false;
 	public Menu menu;
+	
+	InventoryMenu inventory = new InventoryMenu();
 
 
 
@@ -489,6 +492,9 @@ public class Game extends Canvas implements Runnable{
 		{
 			menu.render(display);
 		}
+		
+		//render inventory
+		inventory.render(display);
 	}
 
 	public void stop()

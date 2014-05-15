@@ -51,15 +51,15 @@ public class Level
 	{
 		this.game = game;
 		this.imagePath = imagePath;
-		if(imagePath!=null)
-		{
-			this.imagePath=imagePath;
-			loadLevelFromFile();
-		}
-		else
-		{
+		//if(imagePath!=null)
+		//{
+		//	this.imagePath=imagePath;
+		//	loadLevelFromFile();
+		//}
+		//else
+		//{
 			LevelGen.createWorld(this,currentxMax,currentyMax,currentxMin,currentyMin);
-		}
+		//}
 	}
 	public Image getImage()
 	{

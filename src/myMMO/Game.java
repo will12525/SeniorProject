@@ -60,7 +60,7 @@ public class Game extends Canvas implements Runnable{
 	public KeyInputHandler input;
 	public static Level level;
 	public boolean currentChat=false;
-	public Menu menu;
+	public static Menu menu;
 	
 //	InventoryMenu inventory = new InventoryMenu();
 
@@ -109,6 +109,11 @@ public class Game extends Canvas implements Runnable{
 			menu.init(this, input);
 		}
 	}
+	
+	public static Menu getMenu()
+	{
+		return menu;
+	}
 
 	/**
 	 * Creates the jframe that holds the game
@@ -135,7 +140,7 @@ public class Game extends Canvas implements Runnable{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//allows keys
 		requestFocus();
-		addMouseListener(new MouseListener());
+		this.addMouseListener(new MouseListeners());
 	}
 	/**
 	 * calls run, sets the boolean running = true which controls the while loop for the game

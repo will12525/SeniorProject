@@ -6,7 +6,7 @@ import myMMO.Game;
 import myMMO.entity.PlayerEntity;
 
 public abstract class Item {
-	protected int x, y;
+	protected int x, y, id;
 	
 	public Item(String name)
 	{
@@ -41,6 +41,11 @@ public abstract class Item {
 		}
 		
 		return false;
+	}
+	
+	public void switchColour()
+	{
+		
 	}
 	
 	public void setX(int x)

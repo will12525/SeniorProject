@@ -7,6 +7,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.MouseInfo;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -16,6 +17,9 @@ import java.util.Random;
 import javax.swing.JFrame;
 
 
+
+
+
 import myMMO.entity.Chicken;
 import myMMO.entity.Dogs;
 import myMMO.entity.Entity;
@@ -23,6 +27,7 @@ import myMMO.entity.Monkey;
 import myMMO.entity.PlayerEntity;
 import myMMO.entity.Skeleton;
 import myMMO.entity.Turtle;
+import myMMO.menu.InventoryMenu;
 import myMMO.menu.Menu;
 import myMMO.menu.TitleMenu;
 import myMMO.tile.Tile;
@@ -61,8 +66,11 @@ public class Game extends Canvas implements Runnable{
 	public static Level level;
 	public boolean currentChat=false;
 	public static Menu menu;
-	
-//	InventoryMenu inventory = new InventoryMenu();
+
+	public static boolean mouseHas=false;
+	public static int mouseItemPosition=0;
+
+	//	InventoryMenu inventory = new InventoryMenu();
 
 
 
@@ -109,7 +117,7 @@ public class Game extends Canvas implements Runnable{
 			menu.init(this, input);
 		}
 	}
-	
+
 	public static Menu getMenu()
 	{
 		return menu;
@@ -255,13 +263,13 @@ public class Game extends Canvas implements Runnable{
 			//add each turtle
 			level.addEntity(turtle);
 		}
-		
+
 		/*for(int t=0;t<rand.nextInt(50)+40;t++)
 		{
 			skelly=new Skeleton(level,"turtle",rand.nextInt(1300)+40,rand.nextInt(1300)+40,0,false);
 			//add each turtle
 			level.addEntity(skelly);
-			
+
 		}*/
 		turtle=new Turtle(level,"turtle",10,10,0,true);
 		//add each turtle
@@ -285,7 +293,7 @@ public class Game extends Canvas implements Runnable{
 		level.addEntity(chicken);
 		 */
 	}
-	
+
 	public static Level getLevel()
 	{
 		return level;
@@ -308,12 +316,12 @@ public class Game extends Canvas implements Runnable{
 		}
 		if(level.getTile(playerNewX>>3, playerNewY>>3).isSolid())
 		{
-			
-				swimming=false;
-				playerNewX=0;
-				playerNewY=0;
-				getPlayerXY();
-			
+
+			swimming=false;
+			playerNewX=0;
+			playerNewY=0;
+			getPlayerXY();
+
 		}
 	}
 
@@ -377,12 +385,12 @@ public class Game extends Canvas implements Runnable{
 		{
 			if(nightTime)
 			{
-				
+
 				if(spawnHostiles)
 				{
 					System.out.println("spawning mobs now");
 					level.spawnHostiles();
-					
+
 					spawnHostiles =false;
 				}
 				holdingTime++;
@@ -428,7 +436,7 @@ public class Game extends Canvas implements Runnable{
 		int yOffset=Player.y-(display.height/2);
 
 		level.renderTiles(display, xOffset, yOffset);
-		
+
 		level.renderItems(display);
 
 
@@ -503,31 +511,51 @@ public class Game extends Canvas implements Runnable{
 				display.render(heart*8, -1, 0+20*32, Colours.get(-1, 000, 500, -1), 0, 0, 1);
 			}
 		}
-		
+
 		//render inventory bar
 		//display.render(160-8-1, 108,(4+27*32), Colours.get(000, -1, -1, -1), 0, 0, 1);
-		
+
 		for(int i = 0; i != 5; i++)
 		{
 			display.render(151 - 8*i, 108 ,(4+27*32), Colours.get(000, -1, -1, -1), 0, 0, 1);
 		}
-		
+
 		//render items in player's inventory
 		for(int i = 0; i != 5 && i < level.getPlayer().getItems().size(); i++)
 		{
 			level.getPlayer().getItems().get(i).renderInInventory(display,i);
 		}
-		
+
 		//render main menu
 		if(menu!=null)
 		{
 			menu.render(display,level);
 		}
+		if(menu instanceof InventoryMenu)
+		{
+			checkMouse();
+		}
 
-		
+
 		//render inventory
 		//inventory.render(display);
 
+	}
+
+	public void checkMouse()
+	{
+		if(level.getPlayer().getItems()!=null)
+		{
+			if(mouseHas)
+			{
+				System.out.println(mouseHas);
+				int mouseY = MouseInfo.getPointerInfo().getLocation().y;
+				int mouseX = MouseInfo.getPointerInfo().getLocation().x;
+				System.out.println(mouseX);
+				level.getPlayer().getItems().get(mouseItemPosition).setX(mouseX);
+				level.getPlayer().getItems().get(mouseItemPosition).setY(mouseY);
+			}
+		}
 	}
 
 	public void stop()
@@ -543,7 +571,7 @@ public class Game extends Canvas implements Runnable{
 		//multiplayer
 		//String s = JOptionPane.showInputDialog("Please enter IP for multiplayer (or blank for no multiplayer)");
 		//new MultiPlayer(s);
-		
+
 		new Game().start();
 
 	}

@@ -10,40 +10,54 @@ import myMMO.menu.InventoryMenu;
 
 public class MouseListeners implements MouseListener
 {
-	private boolean mouseHas=false;
+	
+	public boolean mouseHas=false;
+	public int position=0;
+
+	
 	public void mouseClicked(MouseEvent e) 
 	{
-		int mX=e.getX();
-		int mY=e.getY();
+		
 		System.out.println(e.getX()+", "+e.getY());
 		if(Game.getMenu() instanceof InventoryMenu)
 		{
+			int mX=e.getX();
+			int mY=e.getY();
 			//taskbar row
 			if(mY>287&&mY<336)
 			{
 				//box 1
 				if(mX>286&&mX<338)
 				{
+					Game.mouseItemPosition=0;
+					Game.mouseHas=true;
+					
 					System.out.println("position 1");
 				}
 				//box 2
 				if(mX>338&&mX<392)
 				{
+					Game.mouseItemPosition=1;
+					Game.mouseHas=true;
+					
 					System.out.println("position 2");
 				}
 				//box 3
 				if(mX>392&&mX<450)
 				{
+					position=3;
 					System.out.println("position 3");
 				}
 				//box 4
 				if(mX>450&&mX<500)
 				{
+					position=4;
 					System.out.println("position 4");
 				}
 				//box 5
 				if(mX>500&&mX<563)
 				{
+					position=5;
 					System.out.println("position 5");
 				}
 				//helmet

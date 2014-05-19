@@ -52,7 +52,7 @@ public class KeyInputHandler implements KeyListener {
 	public void keyPressed(KeyEvent pressed) {
 		if(pressed.getKeyChar()==KeyEvent.VK_ESCAPE)
 		{
-			if(game.menu!=null)
+			if(Game.menu!=null)
 			{
 				game.setMenu(null);
 			}
@@ -60,6 +60,11 @@ public class KeyInputHandler implements KeyListener {
 			{
 				System.exit(0);
 			}
+		}
+		else if(pressed.getKeyCode() == KeyEvent.VK_SPACE)
+		{
+			System.out.println("space");
+			Game.level.placeTile();
 		}
 		toggleKey(pressed.getKeyCode(),true);
 

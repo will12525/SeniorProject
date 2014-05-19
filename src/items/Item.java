@@ -1,6 +1,5 @@
 package items;
 
-import myMMO.Colours;
 import myMMO.Display;
 import myMMO.Game;
 import myMMO.entity.PlayerEntity;
@@ -10,9 +9,8 @@ public abstract class Item {
 	
 	public Item(String name)
 	{
-		
 	}
-
+	
 	public abstract void doAction(PlayerEntity player);
 	
 	public abstract void renderOnGround(Display display);

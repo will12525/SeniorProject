@@ -5,12 +5,16 @@ import myMMO.Display;
 import myMMO.entity.PlayerEntity;
 
 public class RockItem extends Item {
+<<<<<<< HEAD
 	
 	private int normalColour=Colours.get(-1, 111, 444, 333);
 	private int colour=normalColour;
+=======
+	private int colour=Colours.get(-1, 111, 444, 333);
+	
+>>>>>>> 2522f985874447a4b554ccaf82b1fc571494b247
 	public RockItem(String name) {
 		super("Rock");
-
 	}
 
 

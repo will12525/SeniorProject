@@ -539,7 +539,7 @@ public class Game extends Canvas implements Runnable{
 
 	public void checkMouse()
 	{
-		if(level.getPlayer().getItems()!=null)
+		/*if(level.getPlayer().getItems()!=null)
 		{
 			if(mouseHas)
 			{
@@ -550,7 +550,7 @@ public class Game extends Canvas implements Runnable{
 				level.getPlayer().getItems().get(mouseItemPosition).setX(mouseX);
 				level.getPlayer().getItems().get(mouseItemPosition).setY(mouseY);
 			}
-		}
+		}*/
 	}
 
 	public void stop()

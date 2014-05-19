@@ -1,5 +1,6 @@
 package myMMO.entity;
 
+import items.InvyItemBlank;
 import items.Item;
 import items.RockItem;
 
@@ -54,16 +55,25 @@ public class PlayerEntity extends Entity {
 		this.game=game;
 		this.input=input;
 		this.username=username;
-		
+		for(int blankItems=0;blankItems<16;blankItems++)
+		{
+			items.add(blankItems, new InvyItemBlank("empty"));
+		}
+
 	}
 
-	public void addItem(Item item)
+	public void changeItem(Item item,int position)
 	{
-		items.add(item);
+		items.remove(position);
+		items.add(position,item);
 	}
 	public List<Item> getItems()
 	{
 		return this.items;
+	}
+	public Item getItem(int position)
+	{
+		return items.get(position);
 	}
 
 	public String getMessage()

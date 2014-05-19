@@ -1,5 +1,6 @@
 package myMMO;
 
+import items.InvyItemBlank;
 import items.Item;
 import items.RockItem;
 
@@ -205,9 +206,15 @@ public class Level
 	public void placeTile()
 	{
 		if(player.getItems().size() == 0) return;
+		int itemPosition=0;
 		
-		Item item = player.getItems().get(0);
-		player.getItems().remove(0);
+		Item item=player.getItems().get(itemPosition);
+		while(item instanceof InvyItemBlank)
+		{
+			itemPosition=itemPosition+1;
+		}
+		player.changeItem(new InvyItemBlank("empty"), itemPosition);
+		//player.getItems().remove(0);
 		
 		int x = player.getMobX() >> 3;
 		int y = player.getMobY() >> 3;

@@ -85,6 +85,10 @@ public class Entity {
 	{
 
 	}
+	public int getMovingDirection()
+	{
+		return movingDirection;
+	}
 	public int getMobX()
 	{
 		return 0;

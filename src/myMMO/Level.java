@@ -1,6 +1,7 @@
 package myMMO;
 
 import items.Item;
+import items.RockItem;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -12,11 +13,11 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 import myMMO.biome.Biome;
-import myMMO.biome.OceanBiome;
 import myMMO.entity.Entity;
 import myMMO.entity.PlayerEntity;
 import myMMO.tile.Tile;
 import myMMO.tile.tiles.LogTile;
+import myMMO.tile.tiles.StoneTile;
 
 @SuppressWarnings("all")
 public class Level
@@ -199,6 +200,32 @@ public class Level
 			}
 		}
 		return null;//new OceanBiome(0,0,0,0);
+	}
+	
+	public void placeTile()
+	{
+		if(player.getItems().size() == 0) return;
+		
+		Item item = player.getItems().get(0);
+		player.getItems().remove(0);
+		
+		int x = player.getMobX() >> 3;
+		int y = (player.getMobY() >> 3) - 2; //test -2
+		
+		Tile t;
+		
+		if(item instanceof RockItem)
+		{
+			t = new StoneTile(x, y);
+		}
+		
+		for(int i = 0; i < tiles.size(); i++)
+		{
+			if(tiles.get(i).getX() == x && tiles.get(i).getY() == y)
+			{
+				tiles.set(i, new StoneTile(x, y));
+			}
+		}
 	}
 
 

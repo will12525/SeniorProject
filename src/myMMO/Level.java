@@ -212,6 +212,10 @@ public class Level
 		while(item instanceof InvyItemBlank)
 		{
 			itemPosition=itemPosition+1;
+			if(itemPosition>15)
+			{
+				return;
+			}
 		}
 		player.changeItem(new InvyItemBlank("empty"), itemPosition);
 		//player.getItems().remove(0);

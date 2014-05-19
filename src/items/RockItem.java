@@ -32,7 +32,7 @@ public class RockItem extends Item {
 
 
 	public void renderInInventory(Display display, int inventoryIndex) {
-		display.render(151-8*inventoryIndex, 108, 4+19*32, colour, 0, 0, 1);
+		display.render((8*inventoryIndex)+119, 108, 4+19*32, colour, 0, 0, 1);
 	}
 
 

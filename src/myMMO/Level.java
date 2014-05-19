@@ -212,7 +212,7 @@ public class Level
 		while(item instanceof InvyItemBlank)
 		{
 			itemPosition=itemPosition+1;
-			if(itemPosition>15)
+			if(itemPosition>4)
 			{
 				return;
 			}

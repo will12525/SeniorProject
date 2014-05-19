@@ -150,6 +150,11 @@ public class Entity {
 
 
 	}
+	
+	public int getMovingDirection()
+	{
+		return movingDirection;
+	}
 
 	public boolean blocks(Entity e)
 	{

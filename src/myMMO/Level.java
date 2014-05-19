@@ -210,7 +210,16 @@ public class Level
 		player.getItems().remove(0);
 		
 		int x = player.getMobX() >> 3;
-		int y = (player.getMobY() >> 3) - 2; //test -2
+		int y = player.getMobY() >> 3;
+			
+		switch(player.getMovingDirection())
+		{
+		case 0: y -= 2; break; //up
+		case 1: y += 2; break; //down
+		case 2: x -= 2; break; //left
+		case 3: x += 2; break; //right
+		default: return;
+		}
 		
 		Tile t;
 		

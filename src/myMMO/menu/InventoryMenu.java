@@ -3,6 +3,7 @@ package myMMO.menu;
 import myMMO.Colours;
 import myMMO.Display;
 import myMMO.Font;
+import myMMO.Game;
 import myMMO.Level;
 import myMMO.entity.PlayerEntity;
 
@@ -20,7 +21,7 @@ int colours =Colours.get(-1, -1, 000, 222);
 
 	public void tick() 
 	{
-		if(game.menu instanceof InventoryMenu)
+		if(Game.menu instanceof InventoryMenu)
 		{
 			if(System.currentTimeMillis()-lastAction>=canClose)
 			{

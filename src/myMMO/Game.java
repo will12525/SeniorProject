@@ -1,7 +1,5 @@
 package myMMO;
 
-import items.Item;
-
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
@@ -14,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JFrame;
-
 
 import myMMO.entity.Chicken;
 import myMMO.entity.Dogs;

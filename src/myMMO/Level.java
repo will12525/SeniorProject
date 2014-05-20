@@ -5,6 +5,9 @@ import items.Item;
 import items.RockItem;
 
 import java.awt.Image;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.PointerInfo;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,6 +35,7 @@ public class Level
 	private static List<Tile> tiles = new ArrayList<Tile>();
 	private static List<Biome>biomes=new ArrayList<Biome>();
 	private static List<Item> items=new ArrayList<Item>();
+	private static List<Item> mouseItem= new ArrayList<Item>();
 
 	private Random random = new Random();
 
@@ -169,6 +173,15 @@ public class Level
 		return tiles;
 	}
 
+	public void addMouseItem(Item i)
+	{
+		mouseItem.add(i);
+	}
+	public List<Item> getMouseItem()
+	{
+		return mouseItem;
+	}
+
 	public void addItem(Item i)
 	{
 		items.add(i);
@@ -276,11 +289,13 @@ public class Level
 
 		for(Item item : items)
 		{
+			item.tick();
 			if(item.tryPickup(player))
 			{
 				break;
 			}
 		}
+		
 
 
 
@@ -377,6 +392,16 @@ public class Level
 		for(Item i : items)
 		{
 			i.renderOnGround(display);
+		}
+		
+	}
+	public void renderMouseItem(Display display,int frameX,int frameY)
+	{
+		PointerInfo info = MouseInfo.getPointerInfo();
+		Point p =info.getLocation();
+		for(Item i : mouseItem)
+		{
+			i.renderOnMouse(display,( (int)p.getX()-frameX)+45,((int)p.getY()-frameY)+80);
 		}
 	}
 	public void renderEntities(Display display, int xoffset, int yoffset)

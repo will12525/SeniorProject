@@ -8,11 +8,11 @@ public class RockItem extends Item {
 
 	
 	
-	private int colour=Colours.get(-1, 111, 444, 333);
+	private static int colour=Colours.get(-1, 111, 444, 333);
 	
 
 	public RockItem(String name) {
-		super("Rock");
+		super("Rock",colour);
 	}
 
 
@@ -52,4 +52,7 @@ public class RockItem extends Item {
 		//display.render((xS*8)+24, 40 ,(4+27*32), Colours.get(000, -1, -1, -1), 0, 0, 1);
 
 	}
+
+
+	
 }

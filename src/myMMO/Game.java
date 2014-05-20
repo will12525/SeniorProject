@@ -1,5 +1,8 @@
 package myMMO;
 
+import items.InvyItemBlank;
+import items.Item;
+
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
@@ -13,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JFrame;
+
+
 
 
 import myMMO.entity.Chicken;
@@ -63,7 +68,11 @@ public class Game extends Canvas implements Runnable{
 	public static Menu menu;
 
 	public static boolean mouseHas=false;
+	public static boolean mouseHolding=false;
 	public static int mouseItemPosition=0;
+	public static Item mouseHoldingItem=null;
+	public int itemCheck=1000*10;
+	public long lastItemCheck=0;
 
 	//	InventoryMenu inventory = new InventoryMenu();
 
@@ -439,6 +448,7 @@ public class Game extends Canvas implements Runnable{
 
 
 		renderGui();
+		level.renderMouseItem(display,frame.getLocation().x,frame.getLocation().y);
 		//String msg="Hello World!";
 		//Font.render(msg,display,0,0,Colours.get(-1, -1, -1, 000));
 
@@ -521,7 +531,7 @@ public class Game extends Canvas implements Runnable{
 			level.getPlayer().getItems().get(i).renderInInventory(display,i);
 		}
 
-		//render main menu
+		//render  menu
 		if(menu!=null)
 		{
 			menu.render(display,level);
@@ -530,7 +540,19 @@ public class Game extends Canvas implements Runnable{
 		{
 			checkMouse();
 		}
-
+		if(mouseHolding)
+		{
+			if(menu==null)
+			{
+				Item item = level.getMouseItem().get(0);
+				level.getMouseItem().remove(0);
+				level.addItem(item);
+				item.setX(Player.x>>3);
+				item.setY(Player.y>>3);
+				item.setCoolDown(300);
+				mouseHolding=false;
+			}
+		}
 
 		//render inventory
 		//inventory.render(display);
@@ -539,18 +561,46 @@ public class Game extends Canvas implements Runnable{
 
 	public void checkMouse()
 	{
-		/*if(level.getPlayer().getItems()!=null)
+		boolean allowCheck=true;
+		if(level.getMouseItem().size()>0)
 		{
 			if(mouseHas)
 			{
-				System.out.println(mouseHas);
-				int mouseY = MouseInfo.getPointerInfo().getLocation().y;
-				int mouseX = MouseInfo.getPointerInfo().getLocation().x;
-				System.out.println(mouseX);
-				level.getPlayer().getItems().get(mouseItemPosition).setX(mouseX);
-				level.getPlayer().getItems().get(mouseItemPosition).setY(mouseY);
+				Item item = level.getPlayer().getItem(mouseItemPosition);
+				Item mouseItem= level.getMouseItem().get(0);
+				if(item instanceof InvyItemBlank)
+				{
+					level.getPlayer().changeItem(mouseItem, mouseItemPosition);
+					level.getMouseItem().remove(0);
+					mouseHas=false;
+					mouseHolding=false;
+					mouseItemPosition=0;
+					lastItemCheck=System.currentTimeMillis();
+					allowCheck=false;
+				}
 			}
-		}*/
+		}
+
+
+		if(mouseHas&&!mouseHolding&&allowCheck)
+		{
+			System.out.println("destroy");
+			Item item = level.getPlayer().getItem(mouseItemPosition);
+			if(item instanceof InvyItemBlank)
+			{
+				System.out.println("return");
+				mouseHas=false;
+				mouseItemPosition=0;
+				return;
+			}
+			level.getPlayer().changeItem(new InvyItemBlank("empty"), mouseItemPosition);
+			level.addMouseItem(item);
+
+			mouseHas=false;
+			mouseHolding=true;
+
+
+		}
 	}
 
 	public void stop()

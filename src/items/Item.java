@@ -5,10 +5,23 @@ import myMMO.Game;
 import myMMO.entity.PlayerEntity;
 
 public abstract class Item {
-	protected int x, y, id;
+	protected int x, y, id, colour;
+	private int coolDown=0;
 
-	public Item(String name)
+	public void tick()
 	{
+		if(coolDown>0)
+		{
+			coolDown--;
+		}
+	}
+	public void setCoolDown(int coolDown)
+	{
+		this.coolDown=coolDown;
+	}
+	public Item(String name, int colour)
+	{
+		this.colour=colour;
 	}
 
 	public abstract void doAction(PlayerEntity player);
@@ -17,10 +30,17 @@ public abstract class Item {
 
 	public abstract void renderInInventory(Display display, int inventoryIndex);
 
+	public void renderOnMouse(Display display, int mouseX,int mouseY)
+	{
+		this.x=mouseX;
+		this.y=mouseY;
+		display.render((x>>3), (y>>3)-10, 4+19*32,colour, 0, 0, 1);
+	}
+
 	public boolean tryPickup(PlayerEntity player)
 	{
 		//int position=0;
-		
+
 		int itemX = x;
 		int itemY = y;
 
@@ -31,22 +51,23 @@ public abstract class Item {
 		int differenceY = Math.abs(Math.abs(itemY) - Math.abs(playerY));
 
 		//System.out.println("ItemX: "+itemX+", ItemY: "+itemY+", PlayerX: "+playerX+", PlayerY: "+playerY+" DifferenceX: "+differenceX + ", DifferenceY: " + differenceY);
-
-		if(differenceX <= 1 && differenceY <= 1)
+		if(coolDown<=0)
 		{
-			for(int position=0;position<15;position++)
+			if(differenceX <= 1 && differenceY <= 1)
 			{
-				if(player.getItem(position) instanceof InvyItemBlank)
+				for(int position=0;position<15;position++)
 				{
-					Game.getLevel().getItems().remove(this);
-					player.changeItem(this, position);
-					//player.getItems().add(this);
-					return true;	
+					if(player.getItem(position) instanceof InvyItemBlank)
+					{
+						Game.getLevel().getItems().remove(this);
+						player.changeItem(this, position);
+						//player.getItems().add(this);
+						return true;	
+					}
 				}
-			}
-			
-		}
 
+			}
+		}
 		return false;
 	}
 

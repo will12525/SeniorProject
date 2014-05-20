@@ -31,34 +31,31 @@ public class MouseListeners implements MouseListener
 				{
 					Game.mouseItemPosition=0;
 					Game.mouseHas=true;
-					
-					System.out.println("position 1");
+
 				}
 				//box 2
 				if(mX>338&&mX<392)
 				{
 					Game.mouseItemPosition=1;
 					Game.mouseHas=true;
-					
-					System.out.println("position 2");
 				}
 				//box 3
 				if(mX>392&&mX<450)
 				{
-					position=3;
-					System.out.println("position 3");
+					Game.mouseItemPosition=2;
+					Game.mouseHas=true;
 				}
 				//box 4
 				if(mX>450&&mX<500)
 				{
-					position=4;
-					System.out.println("position 4");
+					Game.mouseItemPosition=3;
+					Game.mouseHas=true;
 				}
 				//box 5
 				if(mX>500&&mX<563)
 				{
-					position=5;
-					System.out.println("position 5");
+					Game.mouseItemPosition=4;
+					Game.mouseHas=true;
 				}
 				//helmet
 				if(mX>710&&mX<760)
@@ -79,27 +76,32 @@ public class MouseListeners implements MouseListener
 				//box 6
 				if(mX>286&&mX<338)
 				{
-					System.out.println("position 6");
+					Game.mouseItemPosition=5;
+					Game.mouseHas=true;
 				}
 				//box 7
 				if(mX>338&&mX<392)
 				{
-					System.out.println("position 7");
+					Game.mouseItemPosition=6;
+					Game.mouseHas=true;
 				}
 				//box 8
 				if(mX>392&&mX<450)
 				{
-					System.out.println("position 8");
+					Game.mouseItemPosition=7;
+					Game.mouseHas=true;
 				}
 				//box 9
 				if(mX>450&&mX<500)
 				{
-					System.out.println("position 9");
+					Game.mouseItemPosition=8;
+					Game.mouseHas=true;
 				}
 				//box 10
 				if(mX>500&&mX<563)
 				{
-					System.out.println("position 10");
+					Game.mouseItemPosition=9;
+					Game.mouseHas=true;
 				}
 			}
 			if(mY>450&&mY<506)
@@ -107,27 +109,32 @@ public class MouseListeners implements MouseListener
 				//box 11
 				if(mX>286&&mX<338)
 				{
-					System.out.println("position 11");
+					Game.mouseItemPosition=10;
+					Game.mouseHas=true;
 				}
 				//box 12
 				if(mX>338&&mX<392)
 				{
-					System.out.println("position 12");
+					Game.mouseItemPosition=11;
+					Game.mouseHas=true;
 				}
 				//box 13
 				if(mX>392&&mX<450)
 				{
-					System.out.println("position 13");
+					Game.mouseItemPosition=12;
+					Game.mouseHas=true;
 				}
 				//box 14
 				if(mX>450&&mX<500)
 				{
-					System.out.println("position 14");
+					Game.mouseItemPosition=13;
+					Game.mouseHas=true;
 				}
 				//box 15
 				if(mX>500&&mX<563)
 				{
-					System.out.println("position 15");
+					Game.mouseItemPosition=14;
+					Game.mouseHas=true;
 				}
 				//boots
 				if(mX>710&&mX<760)

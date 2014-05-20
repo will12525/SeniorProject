@@ -55,7 +55,7 @@ public class PlayerEntity extends Entity {
 		this.game=game;
 		this.input=input;
 		this.username=username;
-		for(int blankItems=0;blankItems<16;blankItems++)
+		for(int blankItems=0;blankItems<15;blankItems++)
 		{
 			items.add(blankItems, new InvyItemBlank("empty"));
 		}

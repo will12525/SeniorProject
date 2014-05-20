@@ -1,5 +1,6 @@
 package myMMO;
 
+import items.FlowerItem;
 import items.InvyItemBlank;
 import items.Item;
 import items.RockItem;
@@ -21,6 +22,7 @@ import myMMO.entity.Entity;
 import myMMO.entity.PlayerEntity;
 import myMMO.tile.Tile;
 import myMMO.tile.tiles.DirtTile;
+import myMMO.tile.tiles.FlowerTile;
 import myMMO.tile.tiles.GrassTile;
 import myMMO.tile.tiles.LogTile;
 import myMMO.tile.tiles.StoneTile;
@@ -254,18 +256,22 @@ public class Level
 		default: return;
 		}
 
-		Tile t;
+		Tile t = null;
 
 		if(item instanceof RockItem)
 		{
 			t = new StoneTile(x, y);
+		}
+		if(item instanceof FlowerItem)
+		{
+			t =new FlowerTile(x,y);
 		}
 
 		for(int i = 0; i < tiles.size(); i++)
 		{
 			if(tiles.get(i).getX() == x && tiles.get(i).getY() == y)
 			{
-				tiles.set(i, new StoneTile(x, y));
+				tiles.set(i, t);
 			}
 		}
 	}

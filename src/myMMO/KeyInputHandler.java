@@ -64,6 +64,11 @@ public class KeyInputHandler implements KeyListener {
 				System.exit(0);
 			}
 		}
+		if(pressed.getKeyChar()==KeyEvent.VK_SPACE)
+		{
+			Game.level.placeTile();
+		}
+		
 		
 		toggleKey(pressed.getKeyCode(),true);
 
@@ -106,11 +111,7 @@ public class KeyInputHandler implements KeyListener {
 			Game.level.destroyTile();
 			destroyTile.toggle(isPressed);
 		}
-		if(keyCode==KeyEvent.VK_SPACE)
-		{
-			Game.level.placeTile();
-			placeTile.toggle(isPressed);
-		}
+		
 		if(keyCode==KeyEvent.VK_ENTER)
 		{
 			enter.toggle(isPressed);

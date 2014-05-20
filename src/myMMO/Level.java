@@ -241,7 +241,6 @@ public class Level
 
 		}
 
-		player.changeItem(new InvyItemBlank("empty"), itemPosition);
 		//player.getItems().remove(0);
 
 		int x = (player.getMobX() >> 3);
@@ -266,12 +265,15 @@ public class Level
 		{
 			t =new FlowerTile(x,y);
 		}
-
+		
 		for(int i = 0; i < tiles.size(); i++)
 		{
-			if(tiles.get(i).getX() == x && tiles.get(i).getY() == y)
+			if(tiles.get(i).getX() == x && tiles.get(i).getY() == y && tiles.get(i).getId() != t.getId())
 			{
+				System.out.println(t.getId() + " " + tiles.get(i).getId());
 				tiles.set(i, t);
+				player.changeItem(new InvyItemBlank("empty"), itemPosition);
+				
 			}
 		}
 	}

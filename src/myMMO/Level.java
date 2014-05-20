@@ -5,6 +5,9 @@ import items.Item;
 import items.RockItem;
 
 import java.awt.Image;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.PointerInfo;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,6 +36,7 @@ public class Level
 	private static List<Tile> tiles = new ArrayList<Tile>();
 	private static List<Biome>biomes=new ArrayList<Biome>();
 	private static List<Item> items=new ArrayList<Item>();
+	private static List<Item> mouseItem= new ArrayList<Item>();
 
 	private Random random = new Random();
 
@@ -48,7 +52,7 @@ public class Level
 
 	private int tickCount = 0;
 
-	
+
 	public int width;
 	public int height;
 	private BufferedImage image;
@@ -64,7 +68,7 @@ public class Level
 		//}
 		//else
 		//{
-			LevelGen.createWorld(this,currentxMax,currentyMax,currentxMin,currentyMin);
+		LevelGen.createWorld(this,currentxMax,currentyMax,currentxMin,currentyMin);
 		//}
 	}
 	public Image getImage()
@@ -85,25 +89,25 @@ public class Level
 			e.printStackTrace();
 		}
 	}
-	
+
 	//levelColour is how each tile identifies with the tile on the jPeg
 	private void loadTiles()
 	{
 		//loads each pixel from the imagePath and gets the color code into an array of ints
 		int[] tileColours =this.image.getRGB(0, 0, width, height, null, 0, width);
-		
+
 		//width and height of the image
 		for(int y=0;y<height;y++)
 		{
 			for(int x=0;x<width;x++)
 			{
-				
+
 				tileCheck: for(Tile t: Tile.tiles)
 				{
 					//checks for t to not equal null and makes sure it levelColour equals
 					if(t!=null&&t.getLevelColour()==tileColours[x+y*width])
 					{
-						
+
 						t.xcoord=x;
 						t.ycoord=y;
 						tiles.add(t);
@@ -138,7 +142,7 @@ public class Level
 	{
 		tiles.add(t);
 	}
-	
+
 
 
 	public void setTile(int x, int y, int id)
@@ -168,6 +172,15 @@ public class Level
 	public static List<Tile> getTiles()
 	{
 		return tiles;
+	}
+
+	public void addMouseItem(Item i)
+	{
+		mouseItem.add(i);
+	}
+	public List<Item> getMouseItem()
+	{
+		return mouseItem;
 	}
 
 	public void addItem(Item i)
@@ -203,13 +216,15 @@ public class Level
 		}
 		return null;//new OceanBiome(0,0,0,0);
 	}
-	
+
 	public void placeTile()
 	{
+
 		int itemPosition = 0;
 		
 		Item item = player.getItems().get(itemPosition);
 		
+
 		while(item instanceof InvyItemBlank)
 		{
 			itemPosition=itemPosition+1;
@@ -219,15 +234,15 @@ public class Level
 			}
 			
 			item = player.getItems().get(itemPosition);
+
 		}
-		
 		
 		player.changeItem(new InvyItemBlank("empty"), itemPosition);
 		//player.getItems().remove(0);
-		
-		int x = player.getMobX() >> 3;
-		int y = player.getMobY() >> 3;
-			
+
+		int x = (player.getMobX() >> 3);
+		int y = (player.getMobY() >> 3);
+
 		switch(player.getMovingDirection())
 		{
 		case 0: y -= 2; break; //up
@@ -236,14 +251,14 @@ public class Level
 		case 3: x += 2; break; //right
 		default: return;
 		}
-		
+
 		Tile t;
-		
+
 		if(item instanceof RockItem)
 		{
 			t = new StoneTile(x, y);
 		}
-		
+
 		for(int i = 0; i < tiles.size(); i++)
 		{
 			if(tiles.get(i).getX() == x && tiles.get(i).getY() == y)
@@ -255,24 +270,6 @@ public class Level
 	
 	public void destroyTile()
 	{
-		/*
-		int itemPosition=0;
-		
-		Item item = player.getItems().get(itemPosition);
-		
-		while(item instanceof InvyItemBlank)
-		{
-			itemPosition=itemPosition+1;
-			if(itemPosition>15)
-			{
-				return;
-			}
-		}
-		
-		
-		player.changeItem(new InvyItemBlank("empty"), itemPosition);
-		
-		*/
 		int x = player.getMobX() >> 3;
 		int y = player.getMobY() >> 3;
 			
@@ -289,6 +286,7 @@ public class Level
 		{
 			if(tiles.get(i).getX() == x && tiles.get(i).getY() == y)
 			{
+				
 				tiles.set(i, new VoidTile(x, y));
 			}
 		}
@@ -314,14 +312,16 @@ public class Level
 		{
 			e.tick();
 		}
-		
+
 		for(Item item : items)
 		{
+			item.tick();
 			if(item.tryPickup(player))
 			{
 				break;
 			}
 		}
+		
 
 
 
@@ -418,6 +418,16 @@ public class Level
 		for(Item i : items)
 		{
 			i.renderOnGround(display);
+		}
+		
+	}
+	public void renderMouseItem(Display display,int frameX,int frameY)
+	{
+		PointerInfo info = MouseInfo.getPointerInfo();
+		Point p =info.getLocation();
+		for(Item i : mouseItem)
+		{
+			i.renderOnMouse(display,( (int)p.getX()-frameX)+45,((int)p.getY()-frameY)+80);
 		}
 	}
 	public void renderEntities(Display display, int xoffset, int yoffset)

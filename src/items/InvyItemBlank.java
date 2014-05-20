@@ -7,11 +7,11 @@ import myMMO.entity.PlayerEntity;
 public class InvyItemBlank extends Item {
 
 
-	private int colour=Colours.get(-1,-1, -1, -1);
+	private static int colour=Colours.get(-1,-1, -1, -1);
 
 
 	public InvyItemBlank(String name) {
-		super("Rock");
+		super("Rock",colour);
 	}
 
 
@@ -50,6 +50,13 @@ public class InvyItemBlank extends Item {
 
 		//display.render((xS*8)+24, 40 ,(4+27*32), Colours.get(000, -1, -1, -1), 0, 0, 1);
 
+	}
+
+
+	@Override
+	public void renderOnMouse(Display display, int mouseX, int mouseY) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -63,9 +63,13 @@ public class KeyInputHandler implements KeyListener {
 		}
 		else if(pressed.getKeyCode() == KeyEvent.VK_SPACE)
 		{
-			System.out.println("sspace");
 			Game.level.placeTile();
 		}
+		else if(pressed.getKeyCode() == KeyEvent.VK_F)
+		{
+			Game.level.destroyTile();
+		}
+		
 		toggleKey(pressed.getKeyCode(),true);
 
 	}

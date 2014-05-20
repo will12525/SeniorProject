@@ -19,6 +19,7 @@ import myMMO.entity.PlayerEntity;
 import myMMO.tile.Tile;
 import myMMO.tile.tiles.LogTile;
 import myMMO.tile.tiles.StoneTile;
+import myMMO.tile.tiles.VoidTile;
 
 @SuppressWarnings("all")
 public class Level
@@ -205,10 +206,10 @@ public class Level
 	
 	public void placeTile()
 	{
-		if(player.getItems().size() == 0) return;
-		int itemPosition=0;
+		int itemPosition = 0;
 		
-		Item item=player.getItems().get(itemPosition);
+		Item item = player.getItems().get(itemPosition);
+		
 		while(item instanceof InvyItemBlank)
 		{
 			itemPosition=itemPosition+1;
@@ -216,7 +217,11 @@ public class Level
 			{
 				return;
 			}
+			
+			item = player.getItems().get(itemPosition);
 		}
+		
+		
 		player.changeItem(new InvyItemBlank("empty"), itemPosition);
 		//player.getItems().remove(0);
 		
@@ -247,10 +252,47 @@ public class Level
 			}
 		}
 	}
-
-
-
-
+	
+	public void destroyTile()
+	{
+		/*
+		int itemPosition=0;
+		
+		Item item = player.getItems().get(itemPosition);
+		
+		while(item instanceof InvyItemBlank)
+		{
+			itemPosition=itemPosition+1;
+			if(itemPosition>15)
+			{
+				return;
+			}
+		}
+		
+		
+		player.changeItem(new InvyItemBlank("empty"), itemPosition);
+		
+		*/
+		int x = player.getMobX() >> 3;
+		int y = player.getMobY() >> 3;
+			
+		switch(player.getMovingDirection())
+		{
+		case 0: y -= 2; break; //up
+		case 1: y += 2; break; //down
+		case 2: x -= 2; break; //left
+		case 3: x += 2; break; //right
+		default: return;
+		}
+				
+		for(int i = 0; i < tiles.size(); i++)
+		{
+			if(tiles.get(i).getX() == x && tiles.get(i).getY() == y)
+			{
+				tiles.set(i, new VoidTile(x, y));
+			}
+		}
+	}
 
 	//keep everything running
 	public void tick()

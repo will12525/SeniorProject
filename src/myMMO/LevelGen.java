@@ -8,6 +8,7 @@ import java.util.Random;
 import myMMO.biome.Biome;
 import myMMO.biome.ForestBiome;
 import myMMO.tile.Tile;
+import myMMO.tile.tiles.FlowerTile;
 import myMMO.tile.tiles.GrassTile;
 import myMMO.tile.tiles.PlankTile;
 import myMMO.tile.tiles.StoneTile;
@@ -18,6 +19,7 @@ public class LevelGen {
 
 	public static void createWorld(Level level,int xMax,int yMax,int xMin,int yMin)
 	{
+		Random rand=new Random();
 		Biome b = new ForestBiome(xMin, xMax, yMin, yMax);
 		//System.out.println(b+", "+xMax+", "+xMin+", "+yMax+", "+yMin);
 		level.addBiome(b);
@@ -26,6 +28,7 @@ public class LevelGen {
 		{
 			for(int x =xMin;x<xMax;x++)
 			{
+				int r=rand.nextInt(200)+1;
 				/*
 				int chosenTile=r.nextInt(allowedTiles.length);
 				int id = allowedTiles[chosenTile];
@@ -37,19 +40,28 @@ public class LevelGen {
 				level.addTile(t);
 				System.out.println(t);
 				 */
-
+				
+				
+				Tile t=null;
 				if(x == 0 && y == 0) 
 				{
-					Tile t = new PlankTile(0, 0);
-					level.addTile(t);
+					t = new PlankTile(0, 0);
 				}
 				else
 				{
-					Tile t = new GrassTile(x, y);
-					level.addTile(t);
+					if(r<=1)
+					{
+						t=new FlowerTile(x,y);
+					}
+					else
+					{
+						t= new GrassTile(x, y);
+					}
 				}
+				level.addTile(t);
 
-
+				
+				
 				//Tile t = new LeafTile(x<<3, y<<3);
 
 				//Tile t= new DirtTile(x<<3, y<<3);
@@ -59,8 +71,8 @@ public class LevelGen {
 			}
 		}
 
-		
-		
+
+
 		for(int rocky=0;rocky<20;rocky++)
 		{
 			Item rock = new RockItem("Rock");

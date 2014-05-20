@@ -149,6 +149,12 @@ public class Tile {
 		this.id = (byte)id;
 	}
 
+
+	public void drop(Level level) {
+		
+		
+	}
+
 	
 
 }

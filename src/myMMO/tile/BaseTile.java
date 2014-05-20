@@ -27,6 +27,10 @@ public class BaseTile extends Tile {
 	public void render(Display display, Level level, int x, int y) {
 		display.render(x, y, tileId, tileColour, flipX, flipY, 1);
 	}
+	public void drop(Level level) {
 
-	
+
+	}
+
+
 }

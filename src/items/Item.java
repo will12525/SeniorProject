@@ -19,22 +19,44 @@ public abstract class Item {
 	{
 		this.coolDown=coolDown;
 	}
-	public Item(String name, int colour)
+	public Item(String name, int colour, int id)
 	{
+		this.id=id;
 		this.colour=colour;
 	}
 
 	public abstract void doAction(PlayerEntity player);
 
-	public abstract void renderOnGround(Display display);
+	public void renderOnGround(Display display)
+	{
+		display.render(x<<3, y<<3, id,colour, 0, 0, 1);
+	}
 
-	public abstract void renderInInventory(Display display, int inventoryIndex);
+	public void renderInInventory(Display display, int inventoryIndex)
+	{
+		display.render((8*inventoryIndex)+119, 108, id, colour, 0, 0, 1);
+	}
 
 	public void renderOnMouse(Display display, int mouseX,int mouseY)
 	{
 		this.x=mouseX;
 		this.y=mouseY;
-		display.render((x>>3), (y>>3)-10, 4+19*32,colour, 0, 0, 1);
+		display.render((x>>3), (y>>3)-10, id,colour, 0, 0, 1);
+	}
+	public void renderInMainInventory(Display display, int position)
+	{
+		if(position<5)
+		{
+			display.render((position*8)+40, 40, id, colour, 0, 0, 1);
+		}
+		if(position<10&&position>4)
+		{
+			display.render(((position-5)*8)+40, 56, id, colour, 0, 0, 1);
+		}
+		if(position<15&&position>9)
+		{
+			display.render(((position-10)*8)+40, 64, id, colour, 0, 0, 1);
+		}
 	}
 
 	public boolean tryPickup(PlayerEntity player)
@@ -47,8 +69,8 @@ public abstract class Item {
 		int playerX = player.getMobX()>>3;
 		int playerY = player.getMobY()>>3;
 
-		int differenceX = Math.abs(Math.abs(itemX) - Math.abs(playerX));
-		int differenceY = Math.abs(Math.abs(itemY) - Math.abs(playerY));
+		int differenceX = Math.abs(itemX - playerX);
+		int differenceY = Math.abs(itemY - playerY);
 
 		//System.out.println("ItemX: "+itemX+", ItemY: "+itemY+", PlayerX: "+playerX+", PlayerY: "+playerY+" DifferenceX: "+differenceX + ", DifferenceY: " + differenceY);
 		if(coolDown<=0)
@@ -83,6 +105,6 @@ public abstract class Item {
 		this.y = y;
 	}
 
-	public abstract void renderInMainInventory(Display display, int position);
+	
 
 }

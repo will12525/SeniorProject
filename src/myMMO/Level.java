@@ -20,6 +20,7 @@ import myMMO.biome.Biome;
 import myMMO.entity.Entity;
 import myMMO.entity.PlayerEntity;
 import myMMO.tile.Tile;
+import myMMO.tile.tiles.DirtTile;
 import myMMO.tile.tiles.GrassTile;
 import myMMO.tile.tiles.LogTile;
 import myMMO.tile.tiles.StoneTile;
@@ -34,7 +35,7 @@ public class Level
 	private static List<Entity> entities = new ArrayList<Entity>();
 	private static PlayerEntity player;
 
-	private static List<Tile> tiles = new ArrayList<Tile>();
+	public static List<Tile> tiles = new ArrayList<Tile>();
 	private static List<Biome>biomes=new ArrayList<Biome>();
 	private static List<Item> items=new ArrayList<Item>();
 	private static List<Item> mouseItem= new ArrayList<Item>();
@@ -222,22 +223,22 @@ public class Level
 	{
 
 		int itemPosition = 0;
-		
+
 		Item item = player.getItems().get(itemPosition);
-		
+
 
 		while(item instanceof InvyItemBlank)
 		{
 			itemPosition=itemPosition+1;
-			if(itemPosition>15)
+			if(itemPosition>14)
 			{
 				return;
 			}
-			
+
 			item = player.getItems().get(itemPosition);
 
 		}
-		
+
 		player.changeItem(new InvyItemBlank("empty"), itemPosition);
 		//player.getItems().remove(0);
 
@@ -268,12 +269,12 @@ public class Level
 			}
 		}
 	}
-	
+
 	public void destroyTile()
 	{
 		int x = player.getMobX() >> 3;
 		int y = player.getMobY() >> 3;
-			
+
 		switch(player.getMovingDirection())
 		{
 		case 0: y -= 2; break; //up
@@ -282,13 +283,19 @@ public class Level
 		case 3: x += 2; break; //right
 		default: return;
 		}
-				
+
 		for(int i = 0; i < tiles.size(); i++)
 		{
-			if(tiles.get(i).getX() == x && tiles.get(i).getY() == y)
+			Tile tile =tiles.get(i);
+			if(tile.getX() == x && tile.getY() == y)
 			{
-				if(!(tiles.get(i) instanceof GrassTile))
-					tiles.set(i, new GrassTile(x, y));
+				if(!(tile instanceof DirtTile))
+				{
+					tile.drop(this);
+					//setTile(x,y,Tile.DIRT.getId());
+					tiles.set(i, new DirtTile(x, y));
+				}
+
 			}
 		}
 	}
@@ -322,7 +329,7 @@ public class Level
 				break;
 			}
 		}
-		
+
 
 
 
@@ -420,7 +427,7 @@ public class Level
 		{
 			i.renderOnGround(display);
 		}
-		
+
 	}
 	public void renderMouseItem(Display display,int frameX,int frameY)
 	{

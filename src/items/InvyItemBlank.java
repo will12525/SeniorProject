@@ -6,12 +6,12 @@ import myMMO.entity.PlayerEntity;
 
 public class InvyItemBlank extends Item {
 
-
+private static int id =0;
 	private static int colour=Colours.get(-1,-1, -1, -1);
 
 
 	public InvyItemBlank(String name) {
-		super("Rock",colour);
+		super("Rock",colour,id);
 	}
 
 

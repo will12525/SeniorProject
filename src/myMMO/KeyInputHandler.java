@@ -48,6 +48,9 @@ public class KeyInputHandler implements KeyListener {
 	public Key action = new Key();
 	public Key enter = new Key();
 	public Key inventory = new Key();
+	public Key placeTile = new Key();
+	public Key destroyTile = new Key();
+	public Key escape = new Key();
 
 	public void keyPressed(KeyEvent pressed) {
 		if(pressed.getKeyChar()==KeyEvent.VK_ESCAPE)
@@ -60,14 +63,6 @@ public class KeyInputHandler implements KeyListener {
 			{
 				System.exit(0);
 			}
-		}
-		else if(pressed.getKeyCode() == KeyEvent.VK_SPACE)
-		{
-			Game.level.placeTile();
-		}
-		else if(pressed.getKeyCode() == KeyEvent.VK_F)
-		{
-			Game.level.destroyTile();
 		}
 		
 		toggleKey(pressed.getKeyCode(),true);
@@ -95,6 +90,27 @@ public class KeyInputHandler implements KeyListener {
 	}
 	public void toggleKey(int keyCode, boolean isPressed)
 	{
+		if(keyCode==KeyEvent.VK_ESCAPE)
+		{
+			if(Game.menu!=null)
+			{
+				game.setMenu(null);
+			}
+			else
+			{
+				System.exit(0);
+			}
+		}
+		if(keyCode==KeyEvent.VK_F)
+		{
+			Game.level.destroyTile();
+			destroyTile.toggle(isPressed);
+		}
+		if(keyCode==KeyEvent.VK_SPACE)
+		{
+			Game.level.placeTile();
+			placeTile.toggle(isPressed);
+		}
 		if(keyCode==KeyEvent.VK_ENTER)
 		{
 			enter.toggle(isPressed);

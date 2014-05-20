@@ -20,6 +20,7 @@ import myMMO.biome.Biome;
 import myMMO.entity.Entity;
 import myMMO.entity.PlayerEntity;
 import myMMO.tile.Tile;
+import myMMO.tile.tiles.GrassTile;
 import myMMO.tile.tiles.LogTile;
 import myMMO.tile.tiles.StoneTile;
 import myMMO.tile.tiles.VoidTile;
@@ -286,8 +287,8 @@ public class Level
 		{
 			if(tiles.get(i).getX() == x && tiles.get(i).getY() == y)
 			{
-				
-				tiles.set(i, new VoidTile(x, y));
+				if(!(tiles.get(i) instanceof GrassTile))
+					tiles.set(i, new GrassTile(x, y));
 			}
 		}
 	}

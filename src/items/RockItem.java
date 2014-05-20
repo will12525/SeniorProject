@@ -2,6 +2,8 @@ package items;
 
 import myMMO.Colours;
 import myMMO.entity.PlayerEntity;
+import myMMO.tile.Tile;
+import myMMO.tile.tiles.StoneTile;
 
 public class RockItem extends Item {
 
@@ -18,7 +20,10 @@ public class RockItem extends Item {
 	{
 
 	}
-
+	public Tile getTile(int newX,int newY)
+	{
+		return new StoneTile(newX,newY);
+	}
 
 
 

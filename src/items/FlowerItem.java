@@ -1,7 +1,11 @@
 package items;
 
 import myMMO.Colours;
+import myMMO.Display;
+import myMMO.Level;
 import myMMO.entity.PlayerEntity;
+import myMMO.tile.Tile;
+import myMMO.tile.tiles.FlowerTile;
 
 public class FlowerItem extends Item
 {
@@ -19,5 +23,33 @@ public class FlowerItem extends Item
 		
 
 	}
+	public void renderOnHand(Display display,Level level,PlayerEntity player) {
+		int xModifier=0;
+		int yModifier=-3;
+		if(player.getMovingDirection()==0)
+		{
+			//yModifier=-3;
+			xModifier=7;
+		}
+		if(player.getMovingDirection()==1)
+		{
+			//yModifier=-3;
+			xModifier=-7;
+		}
+		if(player.getMovingDirection()==2)
+		{
+			xModifier=-5;
+		}
+		if(player.getMovingDirection()==3)
+		{
+			xModifier=5;
+		}
+		
+		display.render(player.getMobX()+xModifier, player.getMobY()+yModifier, id, colour, 0, 0, 1);
 
+	}
+	public Tile getTile(int newX,int newY)
+	{
+		return new FlowerTile(newX,newY);
+	}
 }

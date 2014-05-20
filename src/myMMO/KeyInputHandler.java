@@ -95,17 +95,28 @@ public class KeyInputHandler implements KeyListener {
 	}
 	public void toggleKey(int keyCode, boolean isPressed)
 	{
-		if(keyCode==KeyEvent.VK_ESCAPE)
+		if(keyCode==KeyEvent.VK_1)
 		{
-			if(Game.menu!=null)
-			{
-				game.setMenu(null);
-			}
-			else
-			{
-				System.exit(0);
-			}
+			Game.selectedBox=1;
 		}
+		if(keyCode==KeyEvent.VK_2)
+		{
+			Game.selectedBox=2;
+		}
+		if(keyCode==KeyEvent.VK_3)
+		{
+			Game.selectedBox=3;
+		}
+		if(keyCode==KeyEvent.VK_4)
+		{
+			Game.selectedBox=4;
+		}
+		if(keyCode==KeyEvent.VK_5)
+		{
+			Game.selectedBox=5;
+		}
+		
+		
 		if(keyCode==KeyEvent.VK_F)
 		{
 			Game.level.destroyTile();

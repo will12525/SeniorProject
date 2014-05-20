@@ -15,7 +15,7 @@ public class StoneTile extends SolidTile {
 		Item item=new RockItem("rock");
 		item.setX(xcoord);
 		item.setY(ycoord);
-		item.setCoolDown(100);
+		item.setCoolDown(30);
 		level.addItem(item);
 
 	}

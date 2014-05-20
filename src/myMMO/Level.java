@@ -4,6 +4,7 @@ import items.FlowerItem;
 import items.InvyItemBlank;
 import items.Item;
 import items.RockItem;
+import items.Tool;
 
 import java.awt.Image;
 import java.awt.MouseInfo;
@@ -41,6 +42,7 @@ public class Level
 	private static List<Biome>biomes=new ArrayList<Biome>();
 	private static List<Item> items=new ArrayList<Item>();
 	private static List<Item> mouseItem= new ArrayList<Item>();
+	private static Item holdItem=null;
 
 	private Random random = new Random();
 
@@ -120,6 +122,10 @@ public class Level
 				}
 			}
 		}
+	}
+	public void setHoldItem(Item item)
+	{
+		holdItem=item;
 	}
 
 	public static void addEntity(Entity e)
@@ -224,25 +230,14 @@ public class Level
 	public void placeTile()
 	{
 
-		int itemPosition = 0;
+		int itemPosition = game.selectedBox-1;
 
-		Item item = player.getItems().get(itemPosition);
-
-
-		while(item instanceof InvyItemBlank)
+		Item item=holdItem;
+		if(holdItem==null||item instanceof Tool)
 		{
-			itemPosition=itemPosition+1;
-			if(itemPosition>14)
-			{
-				return;
-			}
-
-			item = player.getItems().get(itemPosition);
-
+			return;
 		}
-
-		//player.getItems().remove(0);
-
+		
 		int x = (player.getMobX() >> 3);
 		int y = (player.getMobY() >> 3);
 
@@ -256,24 +251,21 @@ public class Level
 		}
 
 		Tile t = null;
-
-		if(item instanceof RockItem)
+		t=item.getTile(x,y);
+		
+		if(t==null)
 		{
-			t = new StoneTile(x, y);
-		}
-		if(item instanceof FlowerItem)
-		{
-			t =new FlowerTile(x,y);
+			return;
 		}
 		
 		for(int i = 0; i < tiles.size(); i++)
 		{
 			if(tiles.get(i).getX() == x && tiles.get(i).getY() == y && tiles.get(i).getId() != t.getId())
 			{
-				System.out.println(t.getId() + " " + tiles.get(i).getId());
 				tiles.set(i, t);
 				player.changeItem(new InvyItemBlank("empty"), itemPosition);
-				
+				holdItem=null;
+
 			}
 		}
 	}
@@ -300,7 +292,6 @@ public class Level
 				if(!(tile instanceof DirtTile))
 				{
 					tile.drop(this);
-					//setTile(x,y,Tile.DIRT.getId());
 					tiles.set(i, new DirtTile(x, y));
 				}
 
@@ -311,13 +302,6 @@ public class Level
 	//keep everything running
 	public void tick()
 	{
-
-		//System.out.println("tile list size: " + tiles.size());
-
-		//tick tiles
-		//tick entities
-
-		//System.out.println(player.x);
 
 		for(Tile t : tiles)
 		{
@@ -445,6 +429,14 @@ public class Level
 		{
 			i.renderOnMouse(display,( (int)p.getX()-frameX)+45,((int)p.getY()-frameY)+80);
 		}
+	}
+	public void renderHoldItem(Display display)
+	{
+		if(holdItem!=null)
+		{
+			holdItem.renderOnHand(display,this,player);
+		}
+
 	}
 	public void renderEntities(Display display, int xoffset, int yoffset)
 	{

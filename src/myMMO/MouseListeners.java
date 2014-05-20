@@ -19,6 +19,8 @@ public class MouseListeners implements MouseListener
 	{
 		
 		System.out.println(e.getX()+", "+e.getY());
+	
+		
 		if(Game.getMenu() instanceof InventoryMenu)
 		{
 			int mX=e.getX();
@@ -142,6 +144,13 @@ public class MouseListeners implements MouseListener
 					System.out.println("boots");
 				}
 			}
+			if((mX>907||mX<224)||(mY>570||mY<167))
+			{
+				System.out.println("drop it");
+				Game.mouseItemPosition=18;
+				
+			}
+			
 
 		}
 	}

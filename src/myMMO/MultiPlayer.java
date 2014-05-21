@@ -136,13 +136,13 @@ public class MultiPlayer extends Thread
 				
 				if(type.equalsIgnoreCase("turtle"))
 				{
-					Entity e = new Turtle(Game.level, "turtle", 0, 0);
+					Entity e = new Turtle("turtle", 0, 0);
 					Game.level.addEntity(e);
 					otherPlayer = e;
 				}
 				else if(type.equalsIgnoreCase("player"))
 				{
-					Entity e = new Monkey(Game.level, "monkey", 0, 0);
+					Entity e = new Monkey("monkey", 0, 0);
 					Game.level.addEntity(e);
 					otherPlayer = e;
 				}

@@ -227,11 +227,11 @@ public class Turtle extends Entity {
 		return message;
 	}
 
-	public int getMobX()
+	public int getX()
 	{
 		return x;
 	}
-	public int getMobY()
+	public int getY()
 	{
 		return y;
 	}

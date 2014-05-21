@@ -66,8 +66,8 @@ public abstract class Item {
 		int itemX = x;
 		int itemY = y;
 
-		int playerX = player.getMobX()>>3;
-		int playerY = player.getMobY()>>3;
+		int playerX = player.getX()>>3;
+		int playerY = player.getY()>>3;
 
 		int differenceX = Math.abs(itemX - playerX);
 		int differenceY = Math.abs(itemY - playerY);

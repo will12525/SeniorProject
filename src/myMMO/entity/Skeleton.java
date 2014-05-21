@@ -167,11 +167,11 @@ public class Skeleton extends Entity {
 	{
 		return message;
 	}
-	public int getMobX()
+	public int getX()
 	{
 		return xOffset;
 	}
-	public int getMobY()
+	public int getY()
 	{
 		return yOffset;
 	}

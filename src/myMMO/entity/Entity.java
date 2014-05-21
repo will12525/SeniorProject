@@ -86,15 +86,26 @@ public class Entity {
 
 	}
 	
-	public int getMobX()
+	public int getX()
 	{
-		return 0;
+		return x;
 	}
-	public int getMobY()
+	
+	public void setX(int x)
 	{
-		return 0;
+		this.x = x;
+	}
+	
+	public int getY()
+	{
+		return y;
 	}
 
+	public void setY(int y)
+	{
+		this.y = y;
+	}
+	
 	public int getLightRadius()
 	{
 		return 0;

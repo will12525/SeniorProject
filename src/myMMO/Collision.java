@@ -73,23 +73,23 @@ public class Collision {
 					{
 						entity2.stopMoving();
 					}
-					if(entity2.getMobX()>entity1.getMobX())
+					if(entity2.getX()>entity1.getX())
 					{
 
 						entity2.x=entity2.x+1;
 						entity1.x=entity1.x-1;
 					}
-					if(entity2.getMobX()<entity1.getMobX())
+					if(entity2.getX()<entity1.getX())
 					{
 						entity2.x=entity2.x-1;
 						entity1.x=entity1.x+1;
 					}
-					if(entity2.getMobY()>entity1.getMobY())
+					if(entity2.getY()>entity1.getY())
 					{
 						entity2.y=entity2.y+1;
 						entity1.y=entity1.y-1;
 					}
-					if(entity2.getMobY()<=entity1.getMobY())
+					if(entity2.getY()<=entity1.getY())
 					{
 						entity2.y=entity2.y-1;
 						entity1.y=entity1.y+1;

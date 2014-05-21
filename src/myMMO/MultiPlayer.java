@@ -6,10 +6,7 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import myMMO.entity.Entity;
 import myMMO.entity.PlayerEntity;
-import packet.Packet;
-import packet.Packet01Move;
 
 @SuppressWarnings("all")
 public class MultiPlayer extends Thread
@@ -18,6 +15,8 @@ public class MultiPlayer extends Thread
 	private Socket socket;
 	private InputStreamReader in;
 	private OutputStreamWriter out;
+	
+	private PlayerEntity otherPlayer;
 	
 	public MultiPlayer(String IP)
 	{
@@ -28,6 +27,7 @@ public class MultiPlayer extends Thread
 		else
 		{
 			this.IP = IP;
+			
 			try
 			{
 				this.socket = new Socket(IP, 4567);
@@ -89,43 +89,25 @@ public class MultiPlayer extends Thread
 			for(int i = 0; i != 1024; i++)
 				data[i] = (byte)cData[i];
 			
-			int id = Integer.parseInt(String.valueOf(data[0]) + String.valueOf(data[1]));
+			String info = new String(data);
+			//we now have a string of data from the server to work with
+			
+			int id = Integer.parseInt(info.split(":")[0]);
 			
 			switch(id)
 			{
-			case 0: break; //never going to recieve a login packet
-			case 1: 
-				//find the other player in the world and move them to the new spot
-				for(Entity e : Level.getEntities())
-				{
-					if((e instanceof PlayerEntity) && e != Game.getLevel().getPlayer())
-					{
-						//this is the other player
-						Packet01Move p = new Packet01Move(data);
-						e.x = p.getNewX();
-						e.y = p.getNewY();
-						break;
-					}
-				}
+			case 1:
+				//the other player has moved
+				int x = Integer.parseInt(info.split(":")[1]);
+				int y = Integer.parseInt(info.split(":")[2]);
+				
+				otherPlayer.setX(x);
+				otherPlayer.setY(y);
 				break;
-			case 2:
-				Level.addEntity(new PlayerEntity(null, null, 2, 2, new KeyInputHandler(null), "Player", false));
+			case
 			}
-			
-			
 		}
 	}
 	
-	public void sendPacket(Packet p)
-	{
-		try
-		{
-			this.out.write(p.getInfo());
-			this.out.flush();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
+	
 }

@@ -243,8 +243,8 @@ public class Level
 
 		//player.getItems().remove(0);
 
-		int x = (player.getMobX() >> 3);
-		int y = (player.getMobY() >> 3);
+		int x = (player.getX() >> 3);
+		int y = (player.getY() >> 3);
 
 		switch(player.getMovingDirection())
 		{
@@ -280,8 +280,8 @@ public class Level
 
 	public void destroyTile()
 	{
-		int x = player.getMobX() >> 3;
-		int y = player.getMobY() >> 3;
+		int x = player.getX() >> 3;
+		int y = player.getY() >> 3;
 
 		switch(player.getMovingDirection())
 		{
@@ -452,10 +452,10 @@ public class Level
 		for(Entity e : entities)
 		{
 			//draws entities only if they're in a 20 block radius of player
-			if((e.getMobX())<(player.x)+(20<<3)&&(e.getMobX())>(player.x)-(20<<3))
+			if((e.getX())<(player.x)+(20<<3)&&(e.getX())>(player.x)-(20<<3))
 
 			{
-				if((e.getMobY())<(player.y)+(20<<3)&&(e.getMobY())>(player.y)-(20<<3))
+				if((e.getY())<(player.y)+(20<<3)&&(e.getY())>(player.y)-(20<<3))
 				{
 					e.render(display);
 				}

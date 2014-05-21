@@ -265,14 +265,7 @@ public class PlayerEntity extends Entity {
 		}
 		return new Rectangle(x+xChange,y+yChange,8,8);
 	}
-	public int getMobX()
-	{
-		return x;
-	}
-	public int getMobY()
-	{
-		return y;
-	}
+	
 	public Rectangle getBounds()
 	{
 		return new Rectangle(x,y,8,8);

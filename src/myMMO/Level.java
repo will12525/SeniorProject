@@ -42,7 +42,7 @@ public class Level
 	private static List<Biome>biomes=new ArrayList<Biome>();
 	private static List<Item> items=new ArrayList<Item>();
 	private static List<Item> mouseItem= new ArrayList<Item>();
-	private static Item holdItem=null;
+	private static Item playerHoldItem=null;
 
 	private Random random = new Random();
 
@@ -123,10 +123,11 @@ public class Level
 			}
 		}
 	}
-	public void setHoldItem(Item item)
+	
+	/*public void setHoldItem(Item item)
 	{
 		holdItem=item;
-	}
+	}*/
 
 	public static void addEntity(Entity e)
 	{
@@ -232,8 +233,8 @@ public class Level
 
 		int itemPosition = game.selectedBox-1;
 
-		Item item=holdItem;
-		if(holdItem==null||item instanceof Tool)
+		Item item=player.holdItem;
+		if(player.holdItem==null||item instanceof Tool)
 		{
 			return;
 		}
@@ -267,7 +268,7 @@ public class Level
 			{
 				tiles.set(i, t);
 				player.changeItem(new InvyItemBlank("empty"), itemPosition);
-				holdItem=null;
+				player.setHoldItem(null);
 
 			}
 		}
@@ -435,9 +436,9 @@ public class Level
 	}
 	public void renderHoldItem(Display display)
 	{
-		if(holdItem!=null)
+		if(player.getHoldItem()!=null)
 		{
-			holdItem.renderOnHand(display,this,player);
+			player.getHoldItem().renderOnHand(display,this,player);
 		}
 
 	}

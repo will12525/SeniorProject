@@ -18,9 +18,16 @@ public class MouseListeners implements MouseListener
 	public void mouseClicked(MouseEvent e) 
 	{
 		
-		System.out.println(e.getX()+", "+e.getY());
-	
+		//System.out.println(e.getX()+", "+e.getY());
+		if(Game.getMenu()==null)
+		{
+			if(e.getButton()==1)
+			{
+				Game.level.getPlayer().doAction();
+			}
+		}
 		
+		//inventory stuff
 		if(Game.getMenu() instanceof InventoryMenu)
 		{
 			int mX=e.getX();

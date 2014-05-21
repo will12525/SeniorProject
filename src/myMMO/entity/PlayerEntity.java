@@ -34,19 +34,12 @@ public class PlayerEntity extends Entity {
 	private String username;
 	protected int xOffset;
 	protected int yOffset;
-	Entity entityY;
 
 	Game game;
 
 	private boolean talking = false;
 	private int waitForNextAction = 200;
 	private long lastAction;
-	//private int  stringLimit=18;
-	//private int lastStringLine=0;
-	String mobyTalks="";
-	String nextLine="";
-	//private boolean moreText;
-	//	private int r = 0;
 
 	List<Item> items = new ArrayList<Item>();
 	public Item holdItem=null;
@@ -100,17 +93,14 @@ public class PlayerEntity extends Entity {
 	{
 		return items.get(position);
 	}
-
-	public String getMessage()
-	{
-		return "I'm human";
-	}
-
+//a delay time between actions
 	public void setLastAction(long last)
 	{
 		this.lastAction=last;
 	}
 
+	
+	
 	public void tick() {
 		
 		int xa=0;
@@ -171,16 +161,14 @@ public class PlayerEntity extends Entity {
 			}
 			if(input.action.down)
 			{
-				entityY = Collision.getEntityActedWith(level.getEntities());
-				if(entityY==null)
+				Entity actedEntity = Collision.getEntityActedWith(level.getEntities());
+				if(actedEntity==null)
 				{
 					return;
 				}
 				else
 				{
-					mobyTalks=entityY.getMessage();
-					game.setMenu(new ChatMenu(this,mobyTalks));
-
+					game.setMenu(new ChatMenu(this,actedEntity.getMessage()));
 				}
 
 			}
@@ -305,43 +293,6 @@ public class PlayerEntity extends Entity {
 		return new Rectangle(x,y,8,8);
 	}
 
-	//collided with a solid tile
-	public boolean hasCollided(int xa, int ya) {
-		int xMin = 0;
-		int xMax = 7;
-		int yMin = 3;
-		int yMax = 7;
-		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMin)) {
-				return true;
-			}
-		}
-		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMax)) {
-				return true;
-			}
-		}
-		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMin, y)) {
-				return true;
-			}
-		}
-		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMax, y)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/*protected void touchedBy(Entity entity)
-	{
-		if(!(entity instanceof PlayerEntity))
-		{
-
-			entity.touchedBy(this);
-		}
-	}*/
 
 
 

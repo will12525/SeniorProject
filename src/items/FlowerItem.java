@@ -45,7 +45,7 @@ public class FlowerItem extends Item
 			xModifier=5;
 		}
 		
-		display.render(player.getMobX()+xModifier, player.getMobY()+yModifier, id, colour, 0, 0, 1);
+		display.render(player.getX()+xModifier, player.getY()+yModifier, id, colour, 0, 0, 1);
 
 	}
 	public Tile getTile(int newX,int newY)

@@ -48,7 +48,7 @@ public class SwordItem extends Tool{
 			yModifier=-4;
 		}
 		
-		display.render(player.getMobX()+xModifier, player.getMobY()+yModifier, id, colour, rotateX, rotateY, 1);
+		display.render(player.getX()+xModifier, player.getY()+yModifier, id, colour, rotateX, rotateY, 1);
 
 	}
 

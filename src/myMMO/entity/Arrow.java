@@ -4,7 +4,6 @@ import java.awt.Rectangle;
 
 import myMMO.Colours;
 import myMMO.Display;
-import myMMO.Level;
 
 public class Arrow extends Entity {
 	private static int colours= Colours.get(-1,222,321,555);
@@ -14,8 +13,8 @@ public class Arrow extends Entity {
 
 	private boolean adjusted=false;
 
-	public Arrow(Level level,int x,int y, int facingDirection) {
-		super(level, "Arrow", x, y, 1,"",2,19,colours);
+	public Arrow(int x,int y, int facingDirection) {
+		super("Arrow", x, y, 1,"",2,19,colours);
 		this.x=x;
 		this.y=y;
 		this.facingDirection=facingDirection;

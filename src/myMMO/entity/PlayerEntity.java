@@ -3,7 +3,6 @@ package myMMO.entity;
 import items.HoeItem;
 import items.InvyItemBlank;
 import items.Item;
-import items.RockItem;
 import items.SwordItem;
 import items.Tool;
 
@@ -17,7 +16,6 @@ import myMMO.Display;
 import myMMO.Font;
 import myMMO.Game;
 import myMMO.KeyInputHandler;
-import myMMO.Level;
 import myMMO.menu.ChatMenu;
 import myMMO.menu.InventoryMenu;
 import myMMO.tile.Tile;
@@ -35,8 +33,6 @@ public class PlayerEntity extends Entity {
 	protected int xOffset;
 	protected int yOffset;
 
-	Game game;
-
 	private boolean talking = false;
 	private int waitForNextAction = 200;
 	private long lastAction;
@@ -49,10 +45,9 @@ public class PlayerEntity extends Entity {
 	private static int xTile=0;
 	private static int yTile=28;
 
-	public PlayerEntity(Game game,Level level, int xOnMap, int yOnMap, KeyInputHandler input,String username,boolean isSwimming) {
-		super(level, "Player", xOnMap, yOnMap, 1,"",xTile,yTile,colour);
+	public PlayerEntity(int xOnMap, int yOnMap, KeyInputHandler input,String username,boolean isSwimming) {
+		super("Player", xOnMap, yOnMap, 1,"",xTile,yTile,colour);
 		//Level level, String name, int x, int y, int speed, String message,int xTile,int yTile, int colour
-		this.game=game;
 		this.input=input;
 		this.username=username;
 		for(int blankItems=0;blankItems<15;blankItems++)
@@ -105,7 +100,7 @@ public class PlayerEntity extends Entity {
 
 		int xa=0;
 		int ya=0;
-		Tile standingAt=level.getTile(x, y);
+		Tile standingAt=Game.level.getTile(x, y);
 		//System.out.println(standingAt);
 		//System.out.println(standingAt+", X: "+x+", Y: "+y);
 		/*Tile standingAt = level.getTile(((x+4)>>3), ((y+3)>>3)+1);
@@ -156,19 +151,19 @@ public class PlayerEntity extends Entity {
 
 			if(input.inventory.down)
 			{
-				game.setMenu(new InventoryMenu(this));
+				Game.setMenu(new InventoryMenu(this));
 				lastAction=System.currentTimeMillis();
 			}
 			if(input.action.down)
 			{
-				Entity actedEntity = Collision.getEntityActedWith(level.getEntities());
+				Entity actedEntity = Collision.getEntityActedWith(Game.level.getEntities());
 				if(actedEntity==null)
 				{
 					return;
 				}
 				else
 				{
-					game.setMenu(new ChatMenu(this,actedEntity.getMessage()));
+					Game.setMenu(new ChatMenu(this,actedEntity.getMessage()));
 				}
 
 			}
@@ -301,7 +296,7 @@ public class PlayerEntity extends Entity {
 		{
 			return;
 		}
-		holdItem.doAction(this,level);
+		holdItem.doAction(this,Game.level);
 		System.out.println("hi");
 
 

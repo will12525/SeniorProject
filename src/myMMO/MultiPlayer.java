@@ -20,7 +20,7 @@ public class MultiPlayer extends Thread
 	private InputStreamReader in;
 	private OutputStreamWriter out;
 	
-	private PlayerEntity otherPlayer;
+	private Entity otherPlayer;
 	
 	public MultiPlayer(String IP)
 	{
@@ -136,12 +136,15 @@ public class MultiPlayer extends Thread
 				
 				if(type.equalsIgnoreCase("turtle"))
 				{
-					Game.level.addEntity(new Turtle(Game.level, "turtle", 0, 0));
+					Entity e = new Turtle(Game.level, "turtle", 0, 0);
+					Game.level.addEntity(e);
+					otherPlayer = e;
 				}
 				else if(type.equalsIgnoreCase("player"))
 				{
-					//Game.level.addEntity(new PlayerEntity(Game.instance, Game.level, 0, 0, null, "player", false));	
-					Game.level.addEntity(new Monkey(Game.level, "monkey", 0, 0));
+					Entity e = new Monkey(Game.level, "monkey", 0, 0);
+					Game.level.addEntity(e);
+					otherPlayer = e;
 				}
 				break;
 			case 5:

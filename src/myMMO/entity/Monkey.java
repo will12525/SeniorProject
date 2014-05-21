@@ -4,8 +4,6 @@ import java.awt.Rectangle;
 
 import myMMO.Colours;
 import myMMO.Display;
-import myMMO.Level;
-import myMMO.tile.Tile;
 
 
 public class Monkey extends Entity {
@@ -16,8 +14,8 @@ public class Monkey extends Entity {
 	private static String message = "Ooh ooh ah ah!";
 
 	//Rectangle monkeyBox=new Rectangle();
-	public Monkey(Level level, String name, int x, int y) {
-		super(level, "Monkey", x, y, 1,message,1,1,colour);
+	public Monkey(String name, int x, int y) {
+		super("Monkey", x, y, 1,message,1,1,colour);
 
 	}
 

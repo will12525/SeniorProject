@@ -64,7 +64,7 @@ public class Game extends Canvas implements Runnable{
 	private boolean holdTime=true;
 	private boolean spawnHostiles=true;
 	//private Display dayNightDisplay;
-	public KeyInputHandler input;
+	public static KeyInputHandler input;
 	public static Level level;
 	public boolean currentChat=false;
 	public static Menu menu;
@@ -117,13 +117,13 @@ public class Game extends Canvas implements Runnable{
 	 */
 	private int[] colours = new int[6*6*6];
 
-	public void setMenu(Menu menu)
+	public static void setMenu(Menu menu)
 	{
 		//System.out.println(menu);
-		this.menu=menu;
+		Game.instance.menu=menu;
 		if(menu!=null)
 		{
-			menu.init(this, input);
+			menu.init(instance, input);
 		}
 	}
 
@@ -210,7 +210,7 @@ public class Game extends Canvas implements Runnable{
 			if(System.currentTimeMillis()-lastTimer>=1000)
 			{
 				lastTimer+=1000;
-				System.out.println("Ticks: "+ticks+", frames: "+frames);
+			//	System.out.println("Ticks: "+ticks+", frames: "+frames);
 				frames=0;
 				ticks=0;
 			}
@@ -261,7 +261,7 @@ public class Game extends Canvas implements Runnable{
 		}*/
 
 		//creates the player
-		Player = new PlayerEntity(this,level,20,20,input,null/*JOptionPane.showInputDialog(this,"Please enter username")*/,swimming);
+		Player = new PlayerEntity(20,20,input,null/*JOptionPane.showInputDialog(this,"Please enter username")*/,swimming);
 		level.addEntity(Player);
 		level.setPlayer(Player);
 

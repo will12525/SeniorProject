@@ -4,8 +4,6 @@ import java.awt.Rectangle;
 
 import myMMO.Colours;
 import myMMO.Display;
-import myMMO.Level;
-import myMMO.tile.Tile;
 
 public class Chicken  extends Entity {
 	private int tickCount;
@@ -15,8 +13,8 @@ public class Chicken  extends Entity {
 	protected int yOffset;
 
 	//Rectangle monkeyBox=new Rectangle();
-	public Chicken(Level level, String name, int x, int y) {
-		super(level, "Chicken", x, y, 0,"Cluck!",8,23,colour);
+	public Chicken(String name, int x, int y) {
+		super("Chicken", x, y, 0,"Cluck!",8,23,colour);
 
 	}
 

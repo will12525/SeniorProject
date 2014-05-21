@@ -6,6 +6,7 @@ import java.util.Random;
 import myMMO.Collision;
 import myMMO.Colours;
 import myMMO.Display;
+import myMMO.Game;
 import myMMO.Level;
 import myMMO.tile.Tile;
 
@@ -26,8 +27,6 @@ public class Entity {
 	public int yr=6;
 	public boolean removed;
 
-	public Level level;
-
 	protected String name;
 	private String message=null;
 	protected int speed;
@@ -43,7 +42,6 @@ public class Entity {
 	Random random = new Random();
 	Monkey monkey;
 	Turtle turtle;
-	PlayerEntity player;
 	Collision collision;
 
 	private boolean moveRight=false;
@@ -54,9 +52,8 @@ public class Entity {
 	private long lastMove;
 	private int tickCount=0;
 
-	public Entity(Level level, String name, int x, int y, int speed, String message,int xTile,int yTile, int colour)
+	public Entity(String name, int x, int y, int speed, String message,int xTile,int yTile, int colour)
 	{
-		this.level = level;
 		this.name = name;
 		this.x = x;
 		this.y = y;
@@ -74,7 +71,7 @@ public class Entity {
 			//int tile =Tile.WATER.getId();
 			int xa=0;
 			int ya=0;
-			Tile standingAt = level.getTile(x>>3, y>>3);
+			Tile standingAt = Game.level.getTile(x>>3, y>>3);
 			if(standingAt==Tile.LOG||standingAt==Tile.LEAVES)
 			{
 				//	level.setTile(x>>3, (y>>3), Tile.GRASS);
@@ -261,7 +258,7 @@ public class Entity {
 		numSteps++;
 		if(!hasCollided(xa,ya))
 		{
-			if(!Collision.entityCollision(level.getEntities()))
+			if(!Collision.entityCollision(Game.level.getEntities()))
 			{
 				if(ya<0)
 				{//up
@@ -285,11 +282,11 @@ public class Entity {
 				y+=ya*speed;
 			}
 		}
-		if(level.getTile(this.x>>3, this.y>>3).getId()==3)
+		if(Game.level.getTile(this.x>>3, this.y>>3).getId()==3)
 		{
 			isSwimming= true;
 		}
-		if(isSwimming&&level.getTile(this.x>>3, this.y>>3).getId()!=3)
+		if(isSwimming&&Game.level.getTile(this.x>>3, this.y>>3).getId()!=3)
 		{
 			isSwimming=false;
 		}
@@ -328,12 +325,12 @@ public class Entity {
 	}
 	protected boolean isSolidTile(int nextX,int nextY,int x,int y)
 	{
-		if(level==null)
+		if(Game.level==null)
 		{
 			return false;
 		}
-		Tile lastTile = level.getTile((this.x+x)>>3,(this.y+y)>>3);
-		Tile newTile =level.getTile((this.x+x+nextX)>>3,(this.y+y+nextY)>>3);
+		Tile lastTile = Game.level.getTile((this.x+x)>>3,(this.y+y)>>3);
+		Tile newTile =Game.level.getTile((this.x+x+nextX)>>3,(this.y+y+nextY)>>3);
 		//Tile currentTile = level.getTile(x, y)
 		//System.out.println(this.x + "  " + x);
 		if(!lastTile.equals(newTile)&&newTile.isSolid())

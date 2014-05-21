@@ -4,7 +4,6 @@ import java.awt.Rectangle;
 
 import myMMO.Colours;
 import myMMO.Display;
-import myMMO.Level;
 
 
 public class Turtle extends Entity {
@@ -16,8 +15,8 @@ public class Turtle extends Entity {
 	protected int yOffset;
 
 
-	public Turtle(Level level, String name, int xOnMap, int yOnMap) {
-		super(level, "turtle", xOnMap, yOnMap, 1,"Yaawwnn...",0,23,colour);
+	public Turtle(String name, int xOnMap, int yOnMap) {
+		super("turtle", xOnMap, yOnMap, 1,"Yaawwnn...",0,23,colour);
 	}
 	
 	public void render(Display display) {

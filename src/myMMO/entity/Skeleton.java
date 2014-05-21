@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 
 import myMMO.Colours;
 import myMMO.Display;
+import myMMO.Game;
 import myMMO.Level;
 
 public class Skeleton extends Entity {
@@ -20,8 +21,8 @@ public class Skeleton extends Entity {
 	Arrow arrow;
 
 	//Rectangle monkeyBox=new Rectangle();
-	public Skeleton(Level level, String name, int x, int y) {
-		super(level, "Skelly", x, y, 1,message,0,0,colour);
+	public Skeleton(String name, int x, int y) {
+		super("Skelly", x, y, 1,message,0,0,colour);
 
 	}
 	//skeletons movement is different
@@ -29,9 +30,9 @@ public class Skeleton extends Entity {
 		int xa=0;
 		int ya=0;
 
-		if (level.getPlayer() != null && randomWalkTime == 0) {
-			int xd = level.getPlayer().x - x;
-			int yd = level.getPlayer().y - y;
+		if (Game.level.getPlayer() != null && randomWalkTime == 0) {
+			int xd = Game.level.getPlayer().x - x;
+			int yd = Game.level.getPlayer().y - y;
 			if ((xd * xd + yd * yd <= 80 * 80)&&(xd * xd + yd * yd >= 30 * 30)) {
 				xa = 0;
 				ya = 0;
@@ -58,7 +59,7 @@ public class Skeleton extends Entity {
 				{
 					lastFire=System.currentTimeMillis();
 					//System.out.println("new arrow");
-					arrow =new Arrow(level, xOffset, yOffset, movingDirection);
+					arrow =new Arrow(xOffset, yOffset, movingDirection);
 					Level.addEntity(arrow);
 				}
 			}

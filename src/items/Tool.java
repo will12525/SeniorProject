@@ -11,7 +11,7 @@ public class Tool extends Item{
 	}
 
 
-	public void doAction(PlayerEntity player) {
+	public void doAction(PlayerEntity player,Level level) {
 	
 		
 	}
@@ -47,4 +47,8 @@ public class Tool extends Item{
 		display.render(player.getX()+xModifier, player.getY()+yModifier, id, colour, rotateX, rotateY, 1);
 
 	}
+
+
+
+	
 }

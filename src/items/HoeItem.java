@@ -1,6 +1,7 @@
 package items;
 
 import myMMO.Colours;
+import myMMO.entity.PlayerEntity;
 
 public class HoeItem extends Tool{
 	
@@ -11,6 +12,10 @@ public class HoeItem extends Tool{
 	public HoeItem(String name,int hoeLevel) {
 		super(name, colour, id);
 		// TODO Auto-generated constructor stub
+	}
+	public void doAction(PlayerEntity player)
+	{
+		
 	}
 
 }

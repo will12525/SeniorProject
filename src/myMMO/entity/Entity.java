@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.util.Random;
 
 import myMMO.Collision;
+import myMMO.Colours;
 import myMMO.Display;
 import myMMO.Level;
 import myMMO.tile.Tile;
@@ -17,6 +18,8 @@ import myMMO.tile.Tile;
 @SuppressWarnings("all")
 public class Entity {
 
+	private int xTile;
+	private int yTile;;
 	public int x;
 	public int y;
 	public int xr=6;
@@ -26,6 +29,7 @@ public class Entity {
 	public Level level;
 
 	protected String name;
+	private String message=null;
 	protected int speed;
 	protected int numSteps=0;
 	protected boolean isMoving;
@@ -34,6 +38,7 @@ public class Entity {
 	protected boolean isSwimming;
 	public int maxHealth=10;
 	public int health=maxHealth;
+	public int colour;
 
 	Random random = new Random();
 	Monkey monkey;
@@ -41,61 +46,166 @@ public class Entity {
 	PlayerEntity player;
 	Collision collision;
 
-	public Entity(Level level)
-	{
-		this.level=level;
-	}
+	private boolean moveRight=false;
+	private boolean moveLeft=false;
+	private boolean moveUp=false;
+	private boolean moveDown=false;
+	private int timeToMove=0;
+	private long lastMove;
+	private int tickCount=0;
 
-	public Entity(Level level, String name, int x, int y, int speed, boolean isSwimming)
+	public Entity(Level level, String name, int x, int y, int speed, String message,int xTile,int yTile, int colour)
 	{
 		this.level = level;
 		this.name = name;
 		this.x = x;
 		this.y = y;
 		this.speed = speed;
-		this.isSwimming = isSwimming;
+		this.xTile=xTile;
+		this.yTile=yTile;
+		this.colour=colour;
+		this.message=message;
 	}
+
+	public void tick() {
+
+		if(!(this instanceof PlayerEntity)||!(this instanceof Skeleton))
+		{
+			//int tile =Tile.WATER.getId();
+			int xa=0;
+			int ya=0;
+			Tile standingAt = level.getTile(x>>3, y>>3);
+			if(standingAt==Tile.LOG||standingAt==Tile.LEAVES)
+			{
+				//	level.setTile(x>>3, (y>>3), Tile.GRASS);
+			}
+			if(standingAt!=Tile.WATER||standingAt!=Tile.SAND)
+			{
+				//level.searchForTile(x>>3,y>>3,Tile.WATER);
+			}
+
+			if((x>>3)<=0)
+			{
+				xa++;
+			}
+
+			if((x>>3)>=200)
+			{
+				xa--;
+			}
+			if((y>>3)>200)
+			{
+				ya--;
+			}
+			if((y>>3)<0)
+			{
+				ya++;
+			}
+			if ((System.currentTimeMillis() - lastMove) >= (timeToMove)) {
+				lastMove = System.currentTimeMillis();
+				int nextMove = (int) (Math.random()*5);
+				if(nextMove==0)
+				{
+					moveRight=false;
+					moveLeft=false;
+					moveUp=true;
+					moveDown=false;
+					ya++;
+				}
+				if(nextMove==1)
+				{
+					moveRight=false;
+					moveLeft=false;
+					moveUp=false;
+					moveDown=true;
+					ya--;
+				}
+				if(nextMove==2)
+				{
+					moveRight=false;
+					moveLeft=true;
+					moveUp=false;
+					moveDown=false;
+					xa--;
+				}
+				if(nextMove==3)
+				{
+					moveRight =true;
+					moveLeft=false;
+					moveUp=false;
+					moveDown=false;
+					xa++;
+				}
+				if(nextMove>=4)
+				{
+					moveRight=false;
+					moveLeft=false;
+					moveUp=false;
+					moveDown=false;
+					ya++;
+				}
+				timeToMove=3000+(int)(Math.random()*((8000-3000)+1));
+			}
+
+			if(moveDown)
+			{
+				ya--;
+			}
+			if(moveUp)
+			{
+				ya++;
+			}
+			if(moveLeft)
+			{
+				xa--;
+			}
+			if(moveRight)
+			{
+				xa++;
+			}
+			if(xa!=0||ya!=0)
+			{
+				move(xa,ya);
+				isMoving=true;
+			}
+			else
+			{
+				isMoving =false;
+			}
+			tickCount++;
+		}
+		if(health<=0)
+		{
+			die();
+		}
+	}
+
+	public void render(Display display)
+	{
+		//I tried to move all rendering here but it caused a lot of bugs, I tried to fix them but they wouldnt stop O_O   So I switched it back
+	}
+
 
 	public boolean intersects(int x1,int y1,int x2,int y2)
 	{
 		return !(x+xr<x1||y+yr<y1||x-xr>x2||y-yr>y2);
 	}
 
-	public boolean isBlockableBy(Entity entity)
-	{
-		return true;
-	}
-
-
 	public void die()
 	{
 		removed=true;
 	}
 
-	/**
-	 *
-	 * @param display = the display
-	 */
-	public void render(Display display) {
-		
-	}
-
-
-	protected void touchedBy(Entity entity)
-	{
-
-	}
-	
 	public int getX()
 	{
 		return x;
 	}
-	
+
 	public void setX(int x)
 	{
 		this.x = x;
 	}
-	
+
 	public int getY()
 	{
 		return y;
@@ -105,14 +215,39 @@ public class Entity {
 	{
 		this.y = y;
 	}
-	
-	public int getLightRadius()
+	//name of mob
+	public String getName()
 	{
-		return 0;
+		return name;
 	}
-	//protected void touchedBy(Entity entity)
-
-
+	//direction mob facing
+	public int getMovingDirection()
+	{
+		return movingDirection;
+	}
+	//bounds for collison
+	public Rectangle getBounds() 
+	{
+		return null;
+	}
+	//bounds for talking/actions
+	public Rectangle getActionBounds()
+	{
+		return null;
+	}
+	//what the mob says
+	public String getMessage()
+	{
+		return message;
+	}
+	//stop mobs from moving
+	public void stopMoving()
+	{
+		moveRight=false;
+		moveLeft=false;
+		moveUp=false;
+		moveDown=false;
+	}
 
 	public void move(int xa,int ya)
 	{
@@ -158,37 +293,39 @@ public class Entity {
 		{
 			isSwimming=false;
 		}
-
-
-
 	}
-	
-	public int getMovingDirection()
-	{
-		return movingDirection;
-	}
-
-	public boolean blocks(Entity e)
-	{
-		return e.isBlockableBy(this);
-	}
-
-	//public abstract Rectangle getBounds();
 
 	public boolean hasCollided(int xa,int ya) {
+		int xMin = 0;
+		int xMax = 7;
+		int yMin = 3;
+		int yMax = 7;
+		for (int x = xMin; x < xMax; x++) {
+			if (isSolidTile(xa, ya, x, yMin)) {
+				stopMoving();
+				return true;
+			}
+		}
+		for (int x = xMin; x < xMax; x++) {
+			if (isSolidTile(xa, ya, x, yMax)) {
+				stopMoving();
+				return true;
+			}
+		}
+		for (int y = yMin; y < yMax; y++) {
+			if (isSolidTile(xa, ya, xMin, y)) {
+				stopMoving();
+				return true;
+			}
+		}
+		for (int y = yMin; y < yMax; y++) {
+			if (isSolidTile(xa, ya, xMax, y)) {
+				stopMoving();
+				return true;
+			}
+		}
 		return false;
 	}
-
-
-	//public abstract void stopMoving();
-	/**
-	 * 
-	 * @param xa
-	 * @param ya
-	 * @param x
-	 * @param y
-	 * @return
-	 */
 	protected boolean isSolidTile(int nextX,int nextY,int x,int y)
 	{
 		if(level==null)
@@ -204,77 +341,5 @@ public class Entity {
 			return true;
 		}
 		return false;
-	}
-	/**
-	 * 
-	 * @return the name of the entity
-	 */
-	public String getName()
-	{
-		return name;
-	}
-
-
-	public void tick() {
-		if(health<=0)
-		{
-			die();
-		}
-	}
-
-
-
-	/**
-	 * stops mob from moving
-	 * @param mob
-	 */
-	public void stopMoving() {
-
-	}
-	/**
-	 * returns the mobs x position
-	 * @return
-	 */
-
-	public boolean checkMobs(Entity entity1, Entity entity2) {
-		if(entity1.getBounds().intersects(entity2.getBounds()))
-		{
-			return true;
-		}
-
-		return false;
-	}
-	public boolean checkMobsAction(Entity entity1, Entity entity2) {
-		if(entity1.getActionBounds().intersects(entity2.getActionBounds()))
-		{
-			return true;
-		}
-
-		return false;
-	}
-	/**
-	 * the bounds of the entity
-	 */
-	public Rectangle getBounds() 
-	{
-		return null;
-
-	}
-	public Rectangle getActionBounds()
-	{
-		return null;
-	}
-	public String getMessage()
-	{
-		return "";
-	}
-	public int spawnX()
-	{
-		return 0;
-	}
-	public int spawnY()
-	{
-		return 0;
-	}
-
+	}	
 }

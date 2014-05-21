@@ -2,6 +2,7 @@ package items;
 
 import myMMO.Colours;
 import myMMO.Display;
+import myMMO.Level;
 import myMMO.entity.PlayerEntity;
 
 public class InvyItemBlank extends Item {
@@ -21,7 +22,7 @@ private static int id =0;
 	}
 
 
-	public void doAction(PlayerEntity player) 
+	public void doAction(PlayerEntity player,Level level) 
 	{
 
 	}

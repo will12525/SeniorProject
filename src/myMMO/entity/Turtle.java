@@ -5,149 +5,21 @@ import java.awt.Rectangle;
 import myMMO.Colours;
 import myMMO.Display;
 import myMMO.Level;
-import myMMO.tile.Tile;
+
 
 public class Turtle extends Entity {
 
 	private int tickCount;
-	private int colour=Colours.get(-1, 232, 040, 000);
-	private int timeToMove=0;
-	private long lastMove;
-	private boolean moveRight=false;
-	private boolean moveLeft=false;
-	private boolean moveUp=false;
-	private boolean moveDown=false;
+	private static int colour=Colours.get(-1, 232, 040, 000);
+	
 	protected int xOffset;
 	protected int yOffset;
-	private String message ="Yaawwnn...";
 
 
-	public Turtle(Level level, String name, int x, int y, int speed,boolean isSwimming) {
-		super(level, "turtle", x, y, 1, isSwimming);
+	public Turtle(Level level, String name, int xOnMap, int yOnMap) {
+		super(level, "turtle", xOnMap, yOnMap, 1,"Yaawwnn...",0,23,colour);
 	}
-
-
-
-	public void tick() {
 	
-		super.tick();
-		//int tile =Tile.WATER.getId();
-		int xa=0;
-		int ya=0;
-		Tile standingAt = level.getTile(x>>3, y>>3);
-		if(standingAt==Tile.LOG||standingAt==Tile.LEAVES)
-		{
-			//	level.setTile(x>>3, (y>>3), Tile.GRASS);
-		}
-		if(standingAt!=Tile.WATER||standingAt!=Tile.SAND)
-		{
-			//level.searchForTile(x>>3,y>>3,Tile.WATER);
-		}
-
-		if((x>>3)<=0)
-		{
-			xa++;
-		}
-
-		if((x>>3)>=200)
-		{
-			xa--;
-		}
-		if((y>>3)>200)
-		{
-			ya--;
-		}
-		if((y>>3)<0)
-		{
-			ya++;
-		}
-		if ((System.currentTimeMillis() - lastMove) >= (timeToMove)) {
-			lastMove = System.currentTimeMillis();
-			int nextMove = (int) (Math.random()*5);
-			if(nextMove==0)
-			{
-				moveRight=false;
-				moveLeft=false;
-				moveUp=true;
-				moveDown=false;
-				ya++;
-			}
-			if(nextMove==1)
-			{
-				moveRight=false;
-				moveLeft=false;
-				moveUp=false;
-				moveDown=true;
-				ya--;
-			}
-			if(nextMove==2)
-			{
-				moveRight=false;
-				moveLeft=true;
-				moveUp=false;
-				moveDown=false;
-				xa--;
-			}
-			if(nextMove==3)
-			{
-				moveRight =true;
-				moveLeft=false;
-				moveUp=false;
-				moveDown=false;
-				xa++;
-			}
-			if(nextMove>=4)
-			{
-				moveRight=false;
-				moveLeft=false;
-				moveUp=false;
-				moveDown=false;
-				ya++;
-			}
-			timeToMove=3000+(int)(Math.random()*((8000-3000)+1));
-		}
-		
-		
-		switch((int)lastMove)
-		{
-		case 1: 
-			System.out.println(1);
-			break;
-		case 2:
-			System.out.println(2);
-			break;
-		}
-
-		if(moveDown)
-		{
-			ya--;
-		}
-		if(moveUp)
-		{
-			ya++;
-		}
-		if(moveLeft)
-		{
-			xa--;
-		}
-		if(moveRight)
-		{
-			xa++;
-		}
-		if(xa!=0||ya!=0)
-		{
-			move(xa,ya);
-			isMoving=true;
-		}
-		else
-		{
-			isMoving =false;
-		}
-		tickCount++;
-
-	}
-
-
 	public void render(Display display) {
 		int xTile=0;
 		int yTile=23;
@@ -161,7 +33,7 @@ public class Turtle extends Entity {
 		int modifier =8*scale;
 		xOffset =x-modifier/2;
 		yOffset =y-modifier/2-4;
-
+		//Font.render((x>>3)+", "+(y>>3), display, x, y, Colours.get(-1, -1, -1, 555), 1);
 		if(movingDirection==1)
 		{
 			xTile+=2;
@@ -211,66 +83,16 @@ public class Turtle extends Entity {
 			display.render(xOffset+modifier-(modifier*flipBottomL), yOffset+modifier, (xTile+1)+(yTile+1)*32, colour,flipBottomL,flipBottomR-1,scale);
 		}
 	}
-	public void stopMoving(Entity entity)
-	{
-		moveRight=false;
-		moveLeft=false;
-		moveUp=false;
-		moveDown=false;
-	}
+	
+	
 	public Rectangle getActionBounds()
 	{
 		return new Rectangle(x-2,y-2,12,12);
 	}
-	public String getMessage()
-	{
-		return message;
-	}
 
-	public int getX()
-	{
-		return x;
-	}
-	public int getY()
-	{
-		return y;
-	}
 	public Rectangle getBounds()
 	{
 		return new Rectangle(x-2,y-3,12,8);
 	}
-	public boolean hasCollided(int xa, int ya) {
-		int xMin = 0;
-		int xMax = 7;
-		int yMin = 3;
-		int yMax = 7;
-		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMin)) {
-				stopMoving(this);
-				return true;
-			}
-		}
-		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMax)) {
-				stopMoving(this);
-				return true;
-			}
-		}
-		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMin, y)) {
-				stopMoving(this);
-				return true;
-			}
-		}
-		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMax, y)) {
-				stopMoving(this);
-				return true;
-			}
-		}
-		return false;
-	}
-
-
-
+	
 }

@@ -27,7 +27,7 @@ public abstract class Item {
 		this.colour=colour;
 	}
 
-	public abstract void doAction(PlayerEntity player);
+	public abstract void doAction(PlayerEntity player,Level level);
 
 	public void renderOnGround(Display display)
 	{

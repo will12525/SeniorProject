@@ -297,8 +297,6 @@ public class Level
 
 				tile.drop(this);
 				tiles.set(i, newTile);
-
-
 			}
 		}
 	}

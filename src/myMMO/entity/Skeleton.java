@@ -8,11 +8,11 @@ import myMMO.Level;
 
 public class Skeleton extends Entity {
 	private int tickCount;
-	private int colour=Colours.get(-1, 555, 500, 000);
+	private static int colour=Colours.get(-1, 555, 500, 000);
 	private long lastMove;
 	protected int xOffset;
 	protected int yOffset;
-	private String message = "Ooh ooh ah ah!";
+	private static String message = "Ooh ooh ah ah!";
 	private int randomWalkTime=0;
 	private boolean stopMoving = false;
 	private int tryToFire=2000;
@@ -20,13 +20,12 @@ public class Skeleton extends Entity {
 	Arrow arrow;
 
 	//Rectangle monkeyBox=new Rectangle();
-	public Skeleton(Level level, String name, int x, int y, int speed,boolean isSwimming) {
-		super(level, "Skelly", x, y, 1,isSwimming);
+	public Skeleton(Level level, String name, int x, int y) {
+		super(level, "Skelly", x, y, 1,message,0,0,colour);
 
 	}
-
+	//skeletons movement is different
 	public void tick() {
-		super.tick();
 		int xa=0;
 		int ya=0;
 
@@ -88,12 +87,6 @@ public class Skeleton extends Entity {
 	{
 		stopMoving=true;
 	}
-
-	public void die()
-	{
-		super.die();
-	}
-
 
 	public void render(Display display) {
 		int xTile=0;
@@ -163,18 +156,7 @@ public class Skeleton extends Entity {
 	{
 		return new Rectangle(x-2,y-2,12,12);
 	}
-	public String getMessage()
-	{
-		return message;
-	}
-	public int getX()
-	{
-		return xOffset;
-	}
-	public int getY()
-	{
-		return yOffset;
-	}
+
 	public Rectangle getBounds()
 	{
 		return new Rectangle(x,y,8,8);
@@ -212,10 +194,4 @@ public class Skeleton extends Entity {
 		}
 		return false;
 	}
-	
-	
-
-
-
-
 }

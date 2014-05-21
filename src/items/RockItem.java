@@ -1,6 +1,7 @@
 package items;
 
 import myMMO.Colours;
+import myMMO.Level;
 import myMMO.entity.PlayerEntity;
 import myMMO.tile.Tile;
 import myMMO.tile.tiles.StoneTile;
@@ -16,7 +17,7 @@ public class RockItem extends Item {
 		super("Rock",colour,id);
 	}
 
-	public void doAction(PlayerEntity player) 
+	public void doAction(PlayerEntity player,Level level) 
 	{
 
 	}

@@ -7,7 +7,7 @@ import myMMO.Display;
 import myMMO.Level;
 
 public class Arrow extends Entity {
-	private int colours= Colours.get(-1,222,321,555);
+	private static int colours= Colours.get(-1,222,321,555);
 	private int facingDirection=0;
 	private int x,y;
 	private int airTime=60;
@@ -15,7 +15,7 @@ public class Arrow extends Entity {
 	private boolean adjusted=false;
 
 	public Arrow(Level level,int x,int y, int facingDirection) {
-		super(level, "Arrow", x, y, 1, false);
+		super(level, "Arrow", x, y, 1,"",2,19,colours);
 		this.x=x;
 		this.y=y;
 		this.facingDirection=facingDirection;

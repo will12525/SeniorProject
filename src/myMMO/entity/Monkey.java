@@ -10,128 +10,14 @@ import myMMO.tile.Tile;
 
 public class Monkey extends Entity {
 	private int tickCount;
-	private int colour=Colours.get(-1, 321, 322, 545);
-	private int timeToMove=0;
-	private long lastMove;
-	private boolean moveRight=false;
-	private boolean moveLeft=false;
-	private boolean moveUp=false;
-	private boolean moveDown=false;
+	private static int colour=Colours.get(-1, 321, 322, 545);
 	protected int xOffset;
 	protected int yOffset;
-	private String message = "Ooh ooh ah ah!";
+	private static String message = "Ooh ooh ah ah!";
 
 	//Rectangle monkeyBox=new Rectangle();
-	public Monkey(Level level, String name, int x, int y, int speed,boolean isSwimming) {
-		super(level, "Monkey", x, y, 1,isSwimming);
-
-	}
-
-	public void tick() {
-		super.tick();
-
-		int xa=0;
-		int ya=0;
-		Tile standingAt = level.getTile(x>>3, y>>3);
-		if(standingAt==Tile.LOG||standingAt==Tile.LEAVES)
-		{
-			//	level.setTile(x>>3, (y>>3), Tile.GRASS);
-		}
-		if((x>>3)<=0)
-		{
-			xa++;
-		}
-
-		if((x>>3) >= (Level.currentxMax - Level.currentxMin))
-		{
-			xa--;
-		}
-		if((x>>3) >= (Level.currentxMax - Level.currentxMin))
-		{
-			ya--;
-		}
-		if((y>>3)<0)
-		{
-			ya++;
-		}
-		if ((System.currentTimeMillis() - lastMove) >= (timeToMove)) {
-			lastMove = System.currentTimeMillis();
-			int nextMove = (int) (Math.random()*5);
-			if(nextMove==0)
-			{
-				moveRight=false;
-				moveLeft=false;
-				moveUp=true;
-				moveDown=false;
-				ya++;
-			}
-			if(nextMove==1)
-			{
-				moveRight=false;
-				moveLeft=false;
-				moveUp=false;
-				moveDown=true;
-				ya--;
-			}
-			if(nextMove==2)
-			{
-				moveRight=false;
-				moveLeft=true;
-				moveUp=false;
-				moveDown=false;
-				xa--;
-			}
-			if(nextMove==3)
-			{
-				moveRight =true;
-				moveLeft=false;
-				moveUp=false;
-				moveDown=false;
-				xa++;
-			}
-			if(nextMove>=4)
-			{
-				moveRight=false;
-				moveLeft=false;
-				moveUp=false;
-				moveDown=false;
-				ya++;
-			}
-			timeToMove=3000+(int)(Math.random()*((8000-3000)+1));
-
-		}
-
-		if(moveDown)
-		{
-			ya--;
-		}
-		if(moveUp)
-		{
-			ya++;
-		}
-		if(moveLeft)
-		{
-			xa--;
-		}
-		if(moveRight)
-		{
-			xa++;
-		}
-		if(xa!=0||ya!=0)
-		{
-			move(xa,ya);
-			isMoving=true;
-		}
-		else
-		{
-			isMoving =false;
-		}
-
-		if(xOffset<0)
-		{
-			//			level.removeEntity(this);
-		}
-		tickCount++;
+	public Monkey(Level level, String name, int x, int y) {
+		super(level, "Monkey", x, y, 1,message,1,1,colour);
 
 	}
 
@@ -204,13 +90,7 @@ public class Monkey extends Entity {
 			display.render(xOffset+modifier-(modifier*flipBottomL), yOffset+modifier, (xTile+1)+(yTile+1)*32, colour,flipBottomL,flipBottomR-1,scale);
 		}
 	}
-	public void stopMoving(Entity entity)
-	{
-		moveRight=false;
-		moveLeft=false;
-		moveUp=false;
-		moveDown=false;
-	}
+	
 	public Rectangle getActionBounds()
 	{
 		return new Rectangle(x-2,y-2,12,12);
@@ -232,40 +112,4 @@ public class Monkey extends Entity {
 		return new Rectangle(x,y,8,8);
 	}
 	
-	
-	public boolean hasCollided(int xa, int ya) {
-		int xMin = 0;
-		int xMax = 7;
-		int yMin = 3;
-		int yMax = 7;
-		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMin)) {
-				stopMoving(this);
-				return true;
-			}
-		}
-		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMax)) {
-				stopMoving(this);
-				return true;
-			}
-		}
-		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMin, y)) {
-				stopMoving(this);
-				return true;
-			}
-		}
-		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMax, y)) {
-				stopMoving(this);
-				return true;
-			}
-		}
-		return false;
-	}
-
-
-
-
 }

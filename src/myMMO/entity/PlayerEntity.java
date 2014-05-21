@@ -5,6 +5,7 @@ import items.InvyItemBlank;
 import items.Item;
 import items.RockItem;
 import items.SwordItem;
+import items.Tool;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ import myMMO.tile.Tile;
 public class PlayerEntity extends Entity {
 
 	private KeyInputHandler input;
-	private int colour=Colours.get(-1, 125, 111, 543);
+	private static int colour=Colours.get(-1, 125, 111, 543);
 	private int scale=1;
 	private int tickCount;
 	private long lastMove=0;
@@ -50,10 +51,14 @@ public class PlayerEntity extends Entity {
 	List<Item> items = new ArrayList<Item>();
 	public Item holdItem=null;
 
+	public long canDestroy=0;
+	public int cantDestroyYet=1000;
+	private static int xTile=0;
+	private static int yTile=28;
 
-
-	public PlayerEntity(Game game,Level level, int x, int y, KeyInputHandler input,String username,boolean isSwimming) {
-		super(level, "Player", x, y, 1,isSwimming);
+	public PlayerEntity(Game game,Level level, int xOnMap, int yOnMap, KeyInputHandler input,String username,boolean isSwimming) {
+		super(level, "Player", xOnMap, yOnMap, 1,"",xTile,yTile,colour);
+		//Level level, String name, int x, int y, int speed, String message,int xTile,int yTile, int colour
 		this.game=game;
 		this.input=input;
 		this.username=username;
@@ -107,7 +112,7 @@ public class PlayerEntity extends Entity {
 	}
 
 	public void tick() {
-		super.tick();
+		
 		int xa=0;
 		int ya=0;
 		Tile standingAt=level.getTile(x, y);
@@ -269,6 +274,7 @@ public class PlayerEntity extends Entity {
 
 
 	}
+	//interaction bounds such as talking or using a sword
 	public Rectangle getActionBounds()
 	{
 
@@ -293,12 +299,13 @@ public class PlayerEntity extends Entity {
 		}
 		return new Rectangle(x+xChange,y+yChange,8,8);
 	}
-
+	//intersection bounds for collision
 	public Rectangle getBounds()
 	{
 		return new Rectangle(x,y,8,8);
 	}
 
+	//collided with a solid tile
 	public boolean hasCollided(int xa, int ya) {
 		int xMin = 0;
 		int xMax = 7;
@@ -327,24 +334,26 @@ public class PlayerEntity extends Entity {
 		return false;
 	}
 
-	protected void touchedBy(Entity entity)
+	/*protected void touchedBy(Entity entity)
 	{
 		if(!(entity instanceof PlayerEntity))
 		{
 
 			entity.touchedBy(this);
 		}
-	}
+	}*/
 
-	public void die()
-	{
-		super.die();
-	}
+
 
 	public void doAction() {
+		if(!(holdItem instanceof Tool))
+		{
+			return;
+		}
+		holdItem.doAction(this,level);
 		System.out.println("hi");
-		
-		
+
+
 
 	}
 }

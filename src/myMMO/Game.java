@@ -280,7 +280,7 @@ public class Game extends Canvas implements Runnable{
 			level.addEntity(skelly);
 
 		}*/
-		turtle=new Turtle(level,"turtle",10,10,0,true);
+		turtle=new Turtle(level,"turtle",10,10);
 		//add each turtle
 		level.addEntity(turtle);
 

@@ -104,7 +104,7 @@ public class MultiPlayer extends Thread
 				otherPlayer.setX(x);
 				otherPlayer.setY(y);
 				break;
-			case
+			case 2:
 			}
 		}
 	}

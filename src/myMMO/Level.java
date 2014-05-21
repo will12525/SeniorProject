@@ -237,17 +237,12 @@ public class Level
 		{
 			return;
 		}
-<<<<<<< HEAD
+
 
 		//player.getItems().remove(0);
 
 		int x = (player.getX() >> 3);
 		int y = (player.getY() >> 3);
-=======
-		
-		int x = (player.getMobX() >> 3);
-		int y = (player.getMobY() >> 3);
->>>>>>> d2a105c6aeb7471a23c9cb66eb49c920cdfb6a68
 
 		switch(player.getMovingDirection())
 		{

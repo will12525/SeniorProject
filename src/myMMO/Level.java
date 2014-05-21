@@ -123,7 +123,7 @@ public class Level
 			}
 		}
 	}
-	
+
 	/*public void setHoldItem(Item item)
 	{
 		holdItem=item;
@@ -256,12 +256,12 @@ public class Level
 
 		Tile t = null;
 		t=item.getTile(x,y);
-		
+
 		if(t==null)
 		{
 			return;
 		}
-		
+
 		for(int i = 0; i < tiles.size(); i++)
 		{
 			if(tiles.get(i).getX() == x && tiles.get(i).getY() == y && tiles.get(i).getId() != t.getId())
@@ -293,11 +293,11 @@ public class Level
 			Tile tile =tiles.get(i);
 			if(tile.getX() == x && tile.getY() == y)
 			{
-				if(!(tile instanceof DirtTile))
-				{
-					tile.drop(this);
-					tiles.set(i, new DirtTile(x, y));
-				}
+				Tile newTile =tile.getDestroyedVarient();
+
+				tile.drop(this);
+				tiles.set(i, newTile);
+
 
 			}
 		}
@@ -497,7 +497,7 @@ public class Level
 			return player.y+sY;
 		}
 	}
-	
+
 	public void removeEntity(Entity e) {
 		this.entities.remove(e);
 	}

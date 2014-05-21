@@ -6,6 +6,7 @@ import items.RockItem;
 import myMMO.Colours;
 import myMMO.Level;
 import myMMO.tile.BaseTile;
+import myMMO.tile.Tile;
 
 public class FlowerTile extends BaseTile{
 
@@ -20,5 +21,8 @@ public class FlowerTile extends BaseTile{
 		item.setCoolDown(30);
 		level.addItem(item);
 
+	}
+	public Tile getDestroyedVarient(){
+		return new GrassTile(xcoord,ycoord);
 	}
 }

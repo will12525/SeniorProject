@@ -1,5 +1,6 @@
 package myMMO.entity;
 
+import items.HoeItem;
 import items.InvyItemBlank;
 import items.Item;
 import items.RockItem;
@@ -61,6 +62,10 @@ public class PlayerEntity extends Entity {
 			if(blankItems==0)
 			{
 				items.add(blankItems,new SwordItem("sword",1));
+			}
+			else if(blankItems==1)
+			{
+				items.add(blankItems,new HoeItem("hoe",1));
 			}
 			else
 			{
@@ -337,6 +342,8 @@ public class PlayerEntity extends Entity {
 	}
 
 	public void doAction() {
+		System.out.println("hi");
+		
 		
 
 	}

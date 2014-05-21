@@ -10,7 +10,7 @@ import myMMO.tile.Tile;
 public class DirtTile extends BaseTile{
 
 	public DirtTile(int xcoord, int ycoord) {
-		super(6,4,0,Colours.get(-1, -1, 211, 322),0xFF412000, 0, 0, xcoord, ycoord);
+		super(6,4,0,Colours.get(-1, 211, 211, 322),0xFF412000, 0, 0, xcoord, ycoord);
 	}
 	public void tick()
 	{
@@ -36,6 +36,9 @@ public class DirtTile extends BaseTile{
 			System.out.println(turnToGrass);*/
 		}
 		
+	}
+	public Tile getDestroyedVarient(){
+		return new DirtTile(xcoord,ycoord);
 	}
 
 }

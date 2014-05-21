@@ -18,6 +18,8 @@ public class Tile {
 	public static final Tile LEAVES = new AnimatedTile(7,new int[][] { { 0, 4 }, { 1, 4 }, { 2, 4 }, { 1, 4 } },Colours.get(121, -1, 151, -1),0xFF9eff7d,500,0,0, 0, 0);
 	public static final Tile FENCE = new FenceTile(8,new int[][] {{3,5},{4,5},{5,5},{6,5},{7,5},{8,5},{9,5},{10,5},{11,5}},Colours.get(253, 200,321,141),0xFFFF7d01,0,0, 0, 0);
 	public static final Tile PLANK = new SolidTile(9,6,0,Colours.get(-1, 321, 432, -1),0xFF845510, 0, 0);
+	public static final Tile FlowerTile = new BaseTile(10, 5, 0, Colours.get(131, 500, 141, 253),0xFFf40a10, 0, 0, 0, 0);
+	
 	
 	//public static final Tile[] tiles = {};
 
@@ -163,6 +165,10 @@ public class Tile {
 	public void drop(Level level) {
 		
 		
+	}
+	public Tile getDestroyedVarient() {
+		
+		return null;
 	}
 
 	

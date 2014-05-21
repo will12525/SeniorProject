@@ -5,6 +5,7 @@ import items.RockItem;
 import myMMO.Colours;
 import myMMO.Level;
 import myMMO.tile.SolidTile;
+import myMMO.tile.Tile;
 
 public class StoneTile extends SolidTile {
 
@@ -19,5 +20,7 @@ public class StoneTile extends SolidTile {
 		level.addItem(item);
 
 	}
-
+	public Tile getDestroyedVarient(){
+		return new DirtTile(xcoord,ycoord);
+	}
 }

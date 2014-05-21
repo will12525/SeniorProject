@@ -6,6 +6,7 @@ import myMMO.Colours;
 import myMMO.Level;
 import myMMO.entity.Entity;
 import myMMO.tile.AnimatedTile;
+import myMMO.tile.Tile;
 
 @SuppressWarnings("all")
 public class LeafTile extends AnimatedTile{
@@ -32,4 +33,7 @@ public class LeafTile extends AnimatedTile{
 			this.tileId = (animationTileCoords[newAnimation][0] + (animationTileCoords[currentAnimationIndex][1] * 32));
 		}
 	}*/
+	public Tile getDestroyedVarient(){
+		return new GrassTile(xcoord,ycoord);
+	}
 }

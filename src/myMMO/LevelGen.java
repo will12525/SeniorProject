@@ -11,6 +11,7 @@ import myMMO.tile.Tile;
 import myMMO.tile.tiles.FlowerTile;
 import myMMO.tile.tiles.GrassTile;
 import myMMO.tile.tiles.PlankTile;
+import myMMO.tile.tiles.PlowedDirt;
 import myMMO.tile.tiles.StoneTile;
 
 @SuppressWarnings("all")
@@ -46,6 +47,10 @@ public class LevelGen {
 				if(x == 0 && y == 0) 
 				{
 					t = new PlankTile(0, 0);
+				}
+				else if(x==1&&y<5&&y>0)
+				{
+					t= new PlowedDirt(x,y);
 				}
 				else
 				{

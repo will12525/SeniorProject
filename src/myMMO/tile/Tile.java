@@ -139,9 +139,19 @@ public class Tile {
 		return xcoord;
 	}
 	
+	public void setX(int xcoord)
+	{
+		this.xcoord = xcoord;
+	}
+	
 	public int getY()
 	{
 		return ycoord;
+	}
+	
+	public void setY(int ycoord)
+	{
+		this.ycoord = ycoord;
 	}
 	
 	public void setID(int id)

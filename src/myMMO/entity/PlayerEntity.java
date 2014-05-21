@@ -170,6 +170,8 @@ public class PlayerEntity extends Entity {
 		}
 		//System.out.println("X: "+getMobX()+", Y: "+getMobY());
 
+		//update server of player's new position
+		Game.multiplayer.send("1:" + getX() + ":" + getY());
 
 	}
 

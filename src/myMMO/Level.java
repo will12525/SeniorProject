@@ -496,5 +496,9 @@ public class Level
 			return player.y+sY;
 		}
 	}
+	
+	public void removeEntity(Entity e) {
+		this.entities.remove(e);
+	}
 
 }

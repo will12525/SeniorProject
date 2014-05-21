@@ -6,7 +6,11 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import myMMO.entity.Entity;
+import myMMO.entity.Monkey;
 import myMMO.entity.PlayerEntity;
+import myMMO.entity.Turtle;
+import myMMO.tile.Tile;
 
 @SuppressWarnings("all")
 public class MultiPlayer extends Thread
@@ -91,8 +95,11 @@ public class MultiPlayer extends Thread
 			
 			String info = new String(data);
 			//we now have a string of data from the server to work with
+			String[] split = info.split(":");
+
+			int id = Integer.parseInt(split[0]);
 			
-			int id = Integer.parseInt(info.split(":")[0]);
+			String type;
 			
 			switch(id)
 			{
@@ -104,10 +111,78 @@ public class MultiPlayer extends Thread
 				otherPlayer.setX(x);
 				otherPlayer.setY(y);
 				break;
-			case 2:
+			case 3:
+				//recieving the map
+				
+				for(int i = 1; i < split.length; i += 3)
+				{
+					int tileX = Integer.parseInt(split[i]);
+					int tileY = Integer.parseInt(split[i + 1]);
+					int tileID = Integer.parseInt(split[i + 2]);
+					
+					Tile t = Tile.getTile(tileID);
+					t.setX(tileX);
+					t.setY(tileY);
+					
+					Game.level.addTile(t);
+				}
+				
+				break;
+			case 4:
+				//add an entity
+				type = split[1];
+				
+				if(type.equalsIgnoreCase("turtle"))
+				{
+					Game.level.addEntity(new Turtle(Game.level, "turtle", 0, 0, 1, false));
+				}
+				else if(type.equalsIgnoreCase("player"))
+				{
+					//Game.level.addEntity(new PlayerEntity(Game.instance, Game.level, 0, 0, null, "player", false));	
+					Game.level.addEntity(new Monkey(Game.level, "monkey", 0, 0, 1, false));
+				}
+				break;
+			case 5:
+				//remove an entity
+				type = split[1];
+				
+				if(type.equalsIgnoreCase("turtle"))
+				{
+					for(Entity e : Game.level.getEntities())
+					{
+						if(e instanceof Turtle)
+						{
+							Game.level.removeEntity(e);
+							break;
+						}
+					}
+				}
+				else if(type.equalsIgnoreCase("player"))
+				{
+					for(Entity e : Game.level.getEntities())
+					{
+						if(e instanceof Monkey && e != Game.level.getPlayer())
+						{
+							Game.level.removeEntity(e);
+							break;
+						}
+					}	
+				}
+				break;
 			}
 		}
+	}	
+	
+	public void send(String info) 
+	{
+		try
+		{
+			this.out.flush();
+			this.out.write(info);
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
-	
-	
 }

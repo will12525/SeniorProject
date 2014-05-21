@@ -20,6 +20,8 @@ import javax.swing.JFrame;
 
 
 
+import javax.swing.JOptionPane;
+
 import myMMO.entity.Chicken;
 import myMMO.entity.Dogs;
 import myMMO.entity.Entity;
@@ -78,9 +80,6 @@ public class Game extends Canvas implements Runnable{
 
 
 
-
-
-
 	ArrayList<Entity>boxs = new ArrayList<Entity>();
 	//the players random x and y starting position
 	private int playerNewX=0;
@@ -98,6 +97,12 @@ public class Game extends Canvas implements Runnable{
 	int HEIGHT=WIDTH/12*9;
 	//scale to easily change size while keeping ratio
 	int SCALE = 7;
+	
+	//instance of the class
+	static Game instance;
+	
+	//Multiplayer object for sending data from other classes
+	public static MultiPlayer multiplayer;
 
 	/**
 	 * the image that contains everything
@@ -651,10 +656,16 @@ public class Game extends Canvas implements Runnable{
 	 */
 	public static void main(String[] args) {
 		//multiplayer
-		//String s = JOptionPane.showInputDialog("Please enter IP for multiplayer (or blank for no multiplayer)");
-		//new MultiPlayer(s);
+		String s = JOptionPane.showInputDialog("Please enter IP for multiplayer (or blank for no multiplayer)");
+		if(!s.isEmpty())
+		{
+			multiplayer = new MultiPlayer(s);
+		}
+		
 
-		new Game().start();
+		Game g = new Game();
+		instance = g;
+		g.start();
 
 	}
 

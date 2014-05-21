@@ -71,33 +71,35 @@ public class PlayerEntity extends Entity {
 	{
 		holdItem=item;
 	}
+	
 	public Item getHoldItem()
 	{
 		return holdItem;
 	}
+	
 	public void changeItem(Item item,int position)
 	{
 		items.remove(position);
 		items.add(position,item);
 	}
+	
 	public List<Item> getItems()
 	{
 		return this.items;
 	}
+	
 	public Item getItem(int position)
 	{
 		return items.get(position);
 	}
+	
 	//a delay time between actions
 	public void setLastAction(long last)
 	{
 		this.lastAction=last;
 	}
 
-
-
 	public void tick() {
-
 		int xa=0;
 		int ya=0;
 		Tile standingAt=Game.level.getTile(x, y);
@@ -121,18 +123,22 @@ public class PlayerEntity extends Entity {
 		{
 			ya--;
 		}
+		
 		if(input.down.down)
 		{
 			ya++;
 		}
+		
 		if(input.left.down)
 		{
 			xa--;
 		}
+		
 		if(input.right.down)
 		{
 			xa++;
 		}
+		
 		if ((System.currentTimeMillis() - lastMove) >= stall) {
 			lastMove = System.currentTimeMillis();
 			if ((xa != 0 || ya != 0)&&!talking) {
@@ -144,6 +150,7 @@ public class PlayerEntity extends Entity {
 				isMoving = false;
 			}
 		}
+		
 		tickCount++;
 
 		if((System.currentTimeMillis() - lastAction) >= (waitForNextAction)) 
@@ -173,9 +180,7 @@ public class PlayerEntity extends Entity {
 		//update server of player's new position
 		if(Game.multiplayer != null)
 			Game.multiplayer.send("1:" + getX() + ":" + getY());
-
 	}
-
 
 	public void render(Display display) {
 		int xTile=0;
@@ -186,9 +191,6 @@ public class PlayerEntity extends Entity {
 		int flipTopY=(numSteps>>walkingSpeed)&1;
 		int flipBottomL=(numSteps>>walkingSpeed)&1;
 		int flipBottomR=(numSteps>>walkingSpeed)&1;
-
-
-
 
 		if(movingDirection==1)
 		{
@@ -251,12 +253,8 @@ public class PlayerEntity extends Entity {
 		}
 
 		Font.renderFont((x>>3)+", "+(y>>3), display, xOffset, yOffset-20, Colours.get(-1, -1, -1, 555), 1);
-
-
-
-
-
 	}
+	
 	//interaction bounds such as talking or using a sword
 	public Rectangle getActionBounds()
 	{
@@ -282,15 +280,13 @@ public class PlayerEntity extends Entity {
 		}
 		return new Rectangle(x+xChange,y+yChange,8,8);
 	}
+	
 	//intersection bounds for collision
 	public Rectangle getBounds()
 	{
 		return new Rectangle(x,y,8,8);
 	}
-
-
-
-
+	
 	public void doAction() {
 		if(!(holdItem instanceof Tool))
 		{
@@ -298,8 +294,5 @@ public class PlayerEntity extends Entity {
 		}
 		holdItem.doAction(this,Game.level);
 		System.out.println("hi");
-
-
-
 	}
 }

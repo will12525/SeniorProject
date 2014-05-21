@@ -2,7 +2,6 @@ package myMMO.tile.tiles;
 
 import items.FlowerItem;
 import items.Item;
-import items.RockItem;
 import myMMO.Colours;
 import myMMO.Level;
 import myMMO.tile.BaseTile;

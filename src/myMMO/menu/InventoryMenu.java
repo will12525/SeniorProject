@@ -28,7 +28,7 @@ int colours =Colours.get(-1, -1, 000, 222);
 				if(input.inventory.down)
 				{
 					player.setLastAction(System.currentTimeMillis());
-					game.setMenu(null);
+					Game.setMenu(null);
 					lastAction=System.currentTimeMillis();
 				}
 			}

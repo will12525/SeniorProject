@@ -8,7 +8,6 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.MouseInfo;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -16,10 +15,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JFrame;
-
-
-
-
 import javax.swing.JOptionPane;
 
 import myMMO.entity.Chicken;
@@ -99,7 +94,7 @@ public class Game extends Canvas implements Runnable{
 	int SCALE = 7;
 	
 	//instance of the class
-	static Game instance;
+	public static Game instance;
 	
 	//Multiplayer object for sending data from other classes
 	public static MultiPlayer multiplayer;
@@ -120,7 +115,8 @@ public class Game extends Canvas implements Runnable{
 	public static void setMenu(Menu menu)
 	{
 		//System.out.println(menu);
-		Game.instance.menu=menu;
+		Game.menu=menu;
+		
 		if(menu!=null)
 		{
 			menu.init(instance, input);
@@ -171,6 +167,7 @@ public class Game extends Canvas implements Runnable{
 	/**
 	 * the game, contains everything/calls needed things
 	 */
+	@SuppressWarnings("unused")
 	public void run()
 	{
 		long lastLoopTime = System.nanoTime();

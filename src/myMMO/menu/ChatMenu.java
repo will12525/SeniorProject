@@ -3,6 +3,7 @@ package myMMO.menu;
 import myMMO.Colours;
 import myMMO.Display;
 import myMMO.Font;
+import myMMO.Game;
 import myMMO.Level;
 import myMMO.entity.PlayerEntity;
 
@@ -32,7 +33,7 @@ public class ChatMenu extends Menu{
 				if(!talking)
 				{
 					player.setLastAction(System.currentTimeMillis());
-					game.setMenu(null);
+					Game.setMenu(null);
 				}
 
 				if((nextLine.length()<=stringLimit)&&talking)

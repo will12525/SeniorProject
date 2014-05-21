@@ -57,7 +57,7 @@ public class KeyInputHandler implements KeyListener {
 		{
 			if(Game.menu!=null)
 			{
-				game.setMenu(null);
+				Game.setMenu(null);
 			}
 			else
 			{

@@ -93,16 +93,16 @@ public class PlayerEntity extends Entity {
 	{
 		return items.get(position);
 	}
-//a delay time between actions
+	//a delay time between actions
 	public void setLastAction(long last)
 	{
 		this.lastAction=last;
 	}
 
-	
-	
+
+
 	public void tick() {
-		
+
 		int xa=0;
 		int ya=0;
 		Tile standingAt=level.getTile(x, y);

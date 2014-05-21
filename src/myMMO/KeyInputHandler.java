@@ -68,8 +68,8 @@ public class KeyInputHandler implements KeyListener {
 		{
 			Game.level.placeTile();
 		}
-		
-		
+
+
 		toggleKey(pressed.getKeyCode(),true);
 
 	}
@@ -95,41 +95,44 @@ public class KeyInputHandler implements KeyListener {
 	}
 	public void toggleKey(int keyCode, boolean isPressed)
 	{
-		if(keyCode==KeyEvent.VK_1)
+		if(isPressed)
 		{
-			Game.selectedBox=1;
-		}
-		if(keyCode==KeyEvent.VK_2)
-		{
-			Game.selectedBox=2;
-		}
-		if(keyCode==KeyEvent.VK_3)
-		{
-			Game.selectedBox=3;
-		}
-		if(keyCode==KeyEvent.VK_4)
-		{
-			Game.selectedBox=4;
-		}
-		if(keyCode==KeyEvent.VK_5)
-		{
-			Game.selectedBox=5;
-		}
-		
-		
-		if(keyCode==KeyEvent.VK_F)
-		{
-			Game.level.destroyTile();
-			destroyTile.toggle(isPressed);
-		}
-		
-		if(keyCode==KeyEvent.VK_ENTER)
-		{
-			enter.toggle(isPressed);
-		}
-		if(keyCode==KeyEvent.VK_SPACE)
-		{
-			action.toggle(isPressed);
+			if(keyCode==KeyEvent.VK_1)
+			{
+				Game.selectedBox=1;
+			}
+			if(keyCode==KeyEvent.VK_2)
+			{
+				Game.selectedBox=2;
+			}
+			if(keyCode==KeyEvent.VK_3)
+			{
+				Game.selectedBox=3;
+			}
+			if(keyCode==KeyEvent.VK_4)
+			{
+				Game.selectedBox=4;
+			}
+			if(keyCode==KeyEvent.VK_5)
+			{
+				Game.selectedBox=5;
+			}
+
+
+			if(keyCode==KeyEvent.VK_F)
+			{
+				Game.level.destroyTile();
+				destroyTile.toggle(isPressed);
+			}
+
+			if(keyCode==KeyEvent.VK_ENTER)
+			{
+				enter.toggle(isPressed);
+			}
+			if(keyCode==KeyEvent.VK_SPACE)
+			{
+				action.toggle(isPressed);
+			}
 		}
 		if(keyCode==KeyEvent.VK_W||keyCode==KeyEvent.VK_UP)
 		{

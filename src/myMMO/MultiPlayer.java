@@ -94,6 +94,8 @@ public class MultiPlayer extends Thread
 				data[i] = (byte)cData[i];
 			
 			String info = new String(data);
+			info = info.trim();
+			
 			//we now have a string of data from the server to work with
 			String[] split = info.split(":");
 

@@ -17,7 +17,7 @@ public class FlowerTile extends BaseTile{
 		Item item=new FlowerItem("Flower");
 		item.setX(xcoord);
 		item.setY(ycoord);
-		item.setCoolDown(100);
+		item.setCoolDown(30);
 		level.addItem(item);
 
 	}

@@ -2,7 +2,9 @@ package items;
 
 import myMMO.Display;
 import myMMO.Game;
+import myMMO.Level;
 import myMMO.entity.PlayerEntity;
+import myMMO.tile.Tile;
 
 public abstract class Item {
 	protected int x, y, id, colour;
@@ -58,6 +60,30 @@ public abstract class Item {
 			display.render(((position-10)*8)+40, 64, id, colour, 0, 0, 1);
 		}
 	}
+	public void renderOnHand(Display display,Level level,PlayerEntity player) {
+		int xModifier=0;
+		int yModifier=0;
+		if(player.getMovingDirection()==0)
+		{
+			xModifier=8;
+		}
+		if(player.getMovingDirection()==1)
+		{
+			xModifier=-8;
+		}
+		if(player.getMovingDirection()==2)
+		{
+			xModifier=-4;
+		}
+		if(player.getMovingDirection()==3)
+		{
+			xModifier=4;
+		}
+		
+		display.render(player.getMobX()+xModifier, player.getMobY()+yModifier, id, colour, 0, 0, 1);
+
+	}
+
 
 	public boolean tryPickup(PlayerEntity player)
 	{
@@ -104,7 +130,11 @@ public abstract class Item {
 	{
 		this.y = y;
 	}
+	public Tile getTile(int newX,int newY)
+	{
+		return null;
+	}
 
-	
+
 
 }

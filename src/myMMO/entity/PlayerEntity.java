@@ -3,6 +3,7 @@ package myMMO.entity;
 import items.InvyItemBlank;
 import items.Item;
 import items.RockItem;
+import items.SwordItem;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -57,7 +58,14 @@ public class PlayerEntity extends Entity {
 		this.username=username;
 		for(int blankItems=0;blankItems<15;blankItems++)
 		{
-			items.add(blankItems, new InvyItemBlank("empty"));
+			if(blankItems==0)
+			{
+				items.add(blankItems,new SwordItem("sword",1));
+			}
+			else
+			{
+				items.add(blankItems, new InvyItemBlank("empty"));
+			}
 		}
 
 	}
@@ -240,6 +248,11 @@ public class PlayerEntity extends Entity {
 		}
 
 		Font.renderFont((x>>3)+", "+(y>>3), display, xOffset, yOffset-20, Colours.get(-1, -1, -1, 555), 1);
+
+
+
+
+
 	}
 	public Rectangle getActionBounds()
 	{
@@ -303,7 +316,7 @@ public class PlayerEntity extends Entity {
 	{
 		if(!(entity instanceof PlayerEntity))
 		{
-			System.out.println("hi");
+
 			entity.touchedBy(this);
 		}
 	}

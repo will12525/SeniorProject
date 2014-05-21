@@ -70,9 +70,9 @@ public class Game extends Canvas implements Runnable{
 	public static boolean mouseHas=false;
 	public static boolean mouseHolding=false;
 	public static int mouseItemPosition=0;
-	public static Item mouseHoldingItem=null;
-	public int itemCheck=1000*10;
+
 	public long lastItemCheck=0;
+	public static int selectedBox=1;
 
 	//	InventoryMenu inventory = new InventoryMenu();
 
@@ -445,6 +445,7 @@ public class Game extends Canvas implements Runnable{
 
 
 		level.renderEntities(display,xOffset,yOffset);
+		level.renderHoldItem(display);
 
 
 		renderGui();
@@ -519,16 +520,38 @@ public class Game extends Canvas implements Runnable{
 
 		//render inventory bar
 		//display.render(160-8-1, 108,(4+27*32), Colours.get(000, -1, -1, -1), 0, 0, 1);
-
+		int boxColour=0;
 		for(int i = 0; i != 5; i++)
 		{
-			display.render(151 - 8*i, 108 ,(4+27*32), Colours.get(000, -1, -1, -1), 0, 0, 1);
+			if(i==selectedBox-1)
+			{
+				boxColour=Colours.get(005, -1, -1, -1);
+			}
+			else
+			{
+				boxColour= Colours.get(000, -1, -1, -1);
+			}
+			display.render((8*i)+119, 108 ,(4+27*32), boxColour, 0, 0, 1);
 		}
 
 		//render items in player's inventory
 		for(int i = 0; i != 5 && i < level.getPlayer().getItems().size(); i++)
 		{
-			level.getPlayer().getItems().get(i).renderInInventory(display,i);
+			Item item=level.getPlayer().getItems().get(i);
+			if((i==selectedBox-1))
+			{
+				if(!(item instanceof InvyItemBlank))
+				{
+					level.setHoldItem(item);
+				}
+				else
+				{
+					level.setHoldItem(null);
+				}
+			}
+			
+			
+			item.renderInInventory(display,i);
 		}
 
 		//render  menu
@@ -553,10 +576,6 @@ public class Game extends Canvas implements Runnable{
 				mouseHolding=false;
 			}
 		}
-
-		//render inventory
-		//inventory.render(display);
-
 	}
 
 	public void checkMouse()
@@ -578,17 +597,24 @@ public class Game extends Canvas implements Runnable{
 					lastItemCheck=System.currentTimeMillis();
 					allowCheck=false;
 				}
+				if(!(item instanceof InvyItemBlank))
+				{
+					System.out.println("switching");
+					level.getPlayer().changeItem(mouseItem, mouseItemPosition);
+					level.getMouseItem().remove(0);
+					level.getMouseItem().add(item);
+					mouseHas=false;
+				}
 			}
 		}
-
-
+		
+		
 		if(mouseHas&&!mouseHolding&&allowCheck)
 		{
-			System.out.println("destroy");
+
 			Item item = level.getPlayer().getItem(mouseItemPosition);
 			if(item instanceof InvyItemBlank)
 			{
-				System.out.println("return");
 				mouseHas=false;
 				mouseItemPosition=0;
 				return;
@@ -598,8 +624,19 @@ public class Game extends Canvas implements Runnable{
 
 			mouseHas=false;
 			mouseHolding=true;
-
-
+		}
+		
+		
+		//drops item if clicked outside inventory
+		if(mouseItemPosition==18&&level.getMouseItem().size()>0)
+		{
+			Item item = level.getMouseItem().get(0);
+			level.getMouseItem().remove(0);
+			level.addItem(item);
+			item.setX(Player.x>>3);
+			item.setY(Player.y>>3);
+			item.setCoolDown(300);
+			mouseHolding=false;
 		}
 	}
 

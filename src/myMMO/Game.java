@@ -547,11 +547,11 @@ public class Game extends Canvas implements Runnable{
 			{
 				if(!(item instanceof InvyItemBlank))
 				{
-					level.setHoldItem(item);
+					Player.setHoldItem(item);
 				}
 				else
 				{
-					level.setHoldItem(null);
+					Player.setHoldItem(null);
 				}
 			}
 			

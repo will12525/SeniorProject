@@ -47,7 +47,7 @@ public class PlayerEntity extends Entity {
 	//	private int r = 0;
 
 	List<Item> items = new ArrayList<Item>();
-
+	public Item holdItem=null;
 
 
 
@@ -69,7 +69,14 @@ public class PlayerEntity extends Entity {
 		}
 
 	}
-
+	public void setHoldItem(Item item)
+	{
+		holdItem=item;
+	}
+	public Item getHoldItem()
+	{
+		return holdItem;
+	}
 	public void changeItem(Item item,int position)
 	{
 		items.remove(position);
@@ -280,7 +287,7 @@ public class PlayerEntity extends Entity {
 		}
 		return new Rectangle(x+xChange,y+yChange,8,8);
 	}
-	
+
 	public Rectangle getBounds()
 	{
 		return new Rectangle(x,y,8,8);
@@ -326,5 +333,10 @@ public class PlayerEntity extends Entity {
 	public void die()
 	{
 		super.die();
+	}
+
+	public void doAction() {
+		
+
 	}
 }

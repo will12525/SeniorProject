@@ -7,7 +7,6 @@ public abstract class Packet
 		
 	public Packet(String info)
 	{
-		System.out.println("new Packet(): " + info);
 		this.info = info;
 		args = info.split(":");
 		

@@ -71,7 +71,7 @@ public class Entity {
 			//int tile =Tile.WATER.getId();
 			int xa=0;
 			int ya=0;
-			Tile standingAt = Game.level.getTile(x>>3, y>>3);
+			byte standingAt = Game.level.getTile(x>>3, y>>3).getId();
 			if(standingAt==Tile.LOG||standingAt==Tile.LEAVES)
 			{
 				//	level.setTile(x>>3, (y>>3), Tile.GRASS);

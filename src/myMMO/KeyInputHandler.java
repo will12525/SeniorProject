@@ -119,11 +119,7 @@ public class KeyInputHandler implements KeyListener {
 			}
 
 
-			if(keyCode==KeyEvent.VK_F)
-			{
-				Game.level.destroyTile();
-				destroyTile.toggle(isPressed);
-			}
+			
 
 			if(keyCode==KeyEvent.VK_ENTER)
 			{

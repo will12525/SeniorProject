@@ -3,6 +3,7 @@ package myMMO.entity;
 import items.HoeItem;
 import items.InvyItemBlank;
 import items.Item;
+import items.SeedItem;
 import items.SwordItem;
 import items.Tool;
 
@@ -59,6 +60,10 @@ public class PlayerEntity extends Entity {
 			else if(blankItems==1)
 			{
 				items.add(blankItems,new HoeItem("hoe",1));
+			}
+			else if(blankItems==2)
+			{
+				items.add(blankItems,new SeedItem("seed"));
 			}
 			else
 			{

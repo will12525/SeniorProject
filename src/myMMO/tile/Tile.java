@@ -16,9 +16,21 @@ import myMMO.tile.tiles.VoidTile;
 import myMMO.tile.tiles.WaterTile;
 
 public abstract class Tile {
-
-	public static final Tile[] tiles = new Tile[256];
-	public static final Tile VOID = new SolidTile(0,0,0,Colours.get(000, 500, -1, -1),0xFF000000, 0, 0);
+	public static final int VOID = 0;
+	public static final int STONE = 1;
+	public static final int GRASS = 2;
+	public static final int WATER = 3;
+	public static final int LOG = 4;
+	public static final int SAND = 5;
+	public static final int DIRT = 6;
+	public static final int LEAVES = 7;
+	public static final int FENCE = 8;
+	public static final int PLANK = 9;
+	public static final int FLOWER_TILE = 10;
+	public static final int PLOWED_DIRT = 11;
+	
+	//public static final Tile[] tiles = new Tile[256];
+	/*public static final Tile VOID = new SolidTile(0,0,0,Colours.get(000, 500, -1, -1),0xFF000000, 0, 0);
 	public static final Tile STONE = new SolidTile(1,1,0,Colours.get(332, 333, 333, 343),0xFF555555, 0, 0);
 	public static final Tile GRASS = new BaseTile(2,2,0,Colours.get(253, -1, 141, 250),0xFF00FF00,0,0, 0, 0);
 	public static final Tile WATER =new AnimatedTile(3,new int[][] { { 0, 5 }, { 1, 5 }, { 2, 5 }, { 1, 5 } },Colours.get(-1, 004, 115, -1),0xFF0000FF,500, 0, 0, 0, 0);
@@ -29,8 +41,8 @@ public abstract class Tile {
 	public static final Tile FENCE = new FenceTile(8,new int[][] {{3,5},{4,5},{5,5},{6,5},{7,5},{8,5},{9,5},{10,5},{11,5}},Colours.get(253, 200,321,141),0xFFFF7d01,0,0, 0, 0);
 	public static final Tile PLANK = new SolidTile(9,6,0,Colours.get(-1, 321, 432, -1),0xFF845510, 0, 0);
 	public static final Tile FlowerTile = new BaseTile(10, 5, 0, Colours.get(131, 500, 141, 253),0xFFf40a10, 0, 0, 0, 0);
-	
-	
+	*/
+	public static final Tile FENCE_TILE = new FenceTile(8,new int[][] {{3,5},{4,5},{5,5},{6,5},{7,5},{8,5},{9,5},{10,5},{11,5}},Colours.get(253, 200,321,141),0xFFFF7d01,0,0, 0, 0);
 	//public static final Tile[] tiles = {};
 
 
@@ -53,14 +65,14 @@ public abstract class Tile {
 	{
 
 		this.id=(byte)id;
-		if(tiles[id]!=null)
-		{
+		//if(tiles[id]!=null)
+		//{
 			//throw new RuntimeException("Duplicate tile id on: "+id);
-		}
+		//}
 		this.solid=isSolid;
 		this.emitter=isEmitter;
 		this.levelColour=levelColour;
-		tiles[id]=this;
+		//tiles[id]=this;
 		
 		this.xcoord = xcoord;
 		this.ycoord = ycoord;

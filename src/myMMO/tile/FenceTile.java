@@ -56,92 +56,92 @@ public class FenceTile extends BaseTile {
 		flipY=0;
 
 
-		if(level.getTile(x1, y1)==Tile.FENCE)
+		if(level.getTile(x1, y1)==Tile.FENCE_TILE)
 		{
 			renderId=0;
 			//one left
-			if(level.getTile(x1+1, y1)==Tile.FENCE)
+			if(level.getTile(x1+1, y1)==Tile.FENCE_TILE)
 			{
 				renderId=1;
 
 			}
 			//1 right
-			if(level.getTile(x1-1, y1)==Tile.FENCE)
+			if(level.getTile(x1-1, y1)==Tile.FENCE_TILE)
 			{
 				renderId=1;
 				flipX=1;
 			}
 			//one up
-			if(level.getTile(x1, y1-1)==Tile.FENCE)
+			if(level.getTile(x1, y1-1)==Tile.FENCE_TILE)
 			{
 				renderId=2;
 
 			}
 			//1 down
-			if(level.getTile(x1, y1+1)==Tile.FENCE)
+			if(level.getTile(x1, y1+1)==Tile.FENCE_TILE)
 			{
 				renderId=2;
 				flipY=1;
 			}
 			//2 on x
-			if(level.getTile(x1-1, y1)==Tile.FENCE&&level.getTile(x1+1, y1)==Tile.FENCE)
+			if(level.getTile(x1-1, y1)==Tile.FENCE_TILE&&level.getTile(x1+1, y1)==Tile.FENCE_TILE)
 			{
 				renderId=3;
 			}
 			//2 on y
-			if(level.getTile(x1, y1-1)==Tile.FENCE&&level.getTile(x1, y1+1)==Tile.FENCE)
+			if(level.getTile(x1, y1-1)==Tile.FENCE_TILE&&level.getTile(x1, y1+1)==Tile.FENCE_TILE)
 			{
 				renderId=4;
 			}
 			//corner left down
-			if(level.getTile(x1-1, y1)==Tile.FENCE&&level.getTile(x1, y1+1)==Tile.FENCE)
+			if(level.getTile(x1-1, y1)==Tile.FENCE_TILE&&level.getTile(x1, y1+1)==Tile.FENCE_TILE)
 			{
 				renderId=5;
 				flipX=1;
 				flipY=1;
 			}
 			//corner left up
-			if(level.getTile(x1-1, y1)==Tile.FENCE&&level.getTile(x1, y1-1)==Tile.FENCE)
+			if(level.getTile(x1-1, y1)==Tile.FENCE_TILE&&level.getTile(x1, y1-1)==Tile.FENCE_TILE)
 			{
 				renderId=5;
 				flipX=1;
 			}
 			//corner right down
-			if(level.getTile(x1+1, y1)==Tile.FENCE&&level.getTile(x1, y1+1)==Tile.FENCE)
+			if(level.getTile(x1+1, y1)==Tile.FENCE_TILE&&level.getTile(x1, y1+1)==Tile.FENCE_TILE)
 			{
 				renderId=5;
 				flipY=1;
 			}
 			//corner right up
-			if(level.getTile(x1+1, y1)==Tile.FENCE&&level.getTile(x1, y1-1)==Tile.FENCE)
+			if(level.getTile(x1+1, y1)==Tile.FENCE_TILE&&level.getTile(x1, y1-1)==Tile.FENCE_TILE)
 			{
 				renderId=5;
 			}
 			//three down
-			if(level.getTile(x1-1, y1)==Tile.FENCE&&level.getTile(x1+1, y1)==Tile.FENCE&&level.getTile(x1, y1+1)==Tile.FENCE)
+			if(level.getTile(x1-1, y1)==Tile.FENCE_TILE&&level.getTile(x1+1, y1)==Tile.FENCE_TILE&&level.getTile(x1, y1+1)==Tile.FENCE_TILE)
 			{
 				renderId=6;
 				flipY=1;
 			}
 			//three up
-			if(level.getTile(x1-1, y1)==Tile.FENCE&&level.getTile(x1+1, y1)==Tile.FENCE&&level.getTile(x1, y1-1)==Tile.FENCE)
+			if(level.getTile(x1-1, y1)==Tile.FENCE_TILE&&level.getTile(x1+1, y1)==Tile.FENCE_TILE&&level.getTile(x1, y1-1)==Tile.FENCE_TILE)
 			{
 
 				renderId=6;
 			}
 			//three right
-			if(level.getTile(x1+1, y1)==Tile.FENCE&&level.getTile(x1, y1-1)==Tile.FENCE&&level.getTile(x1, y1+1)==Tile.FENCE)
+			if(level.getTile(x1+1, y1)==Tile.FENCE_TILE&&level.getTile(x1, y1-1)==Tile.FENCE_TILE&&level.getTile(x1, y1+1)==Tile.FENCE_TILE)
 			{
 				renderId=7;
 
 			}
 			//three left
-			if(level.getTile(x1-1, y1)==Tile.FENCE&&level.getTile(x1, y1-1)==Tile.FENCE&&level.getTile(x1, y1+1)==Tile.FENCE)
+			if(level.getTile(x1-1, y1)==Tile.FENCE_TILE&&level.getTile(x1, y1-1)==Tile.FENCE_TILE&&level.getTile(x1, y1+1)==Tile.FENCE_TILE)
 			{
 				renderId=7;
 				flipX=1;
 				//four connector
-				if(level.getTile(x1+1, y1)==Tile.FENCE)
+				if(level.getTile(x1+1, y1)==Tile.FENCE_TILE)
 				{
 					renderId=8;
 				}

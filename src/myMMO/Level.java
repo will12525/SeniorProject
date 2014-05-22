@@ -99,7 +99,7 @@ public class Level
 	//levelColour is how each tile identifies with the tile on the jPeg
 	private void loadTiles()
 	{
-		//loads each pixel from the imagePath and gets the color code into an array of ints
+/*		//loads each pixel from the imagePath and gets the color code into an array of ints
 		int[] tileColours =this.image.getRGB(0, 0, width, height, null, 0, width);
 
 		//width and height of the image
@@ -121,7 +121,7 @@ public class Level
 					}
 				}
 			}
-		}
+		}*/
 	}
 
 	/*public void setHoldItem(Item item)
@@ -298,7 +298,6 @@ public class Level
 			Item playersItem=player.getHoldItem();
 			if(tile.getX() == x && tile.getY() == y)
 			{
-				System.out.println(playersItem.getDestroyables()[0]);
 				for(int k=0;k<playersItem.getDestroyables().length;k++)
 				{
 					if(playersItem.getDestroyables()[k]==tile.getId())

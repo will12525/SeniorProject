@@ -2,6 +2,7 @@ package myMMO.tile.tiles;
 
 import items.Item;
 import myMMO.Colours;
+import myMMO.Level;
 import myMMO.tile.SolidTile;
 import myMMO.tile.Tile;
 
@@ -13,5 +14,10 @@ public class PlankTile extends SolidTile{
 	}
 	public Tile getDestroyedVarient(Item item){
 		return new DirtTile(xcoord,ycoord);
+	}
+	
+	public void drop(Level level) {
+		
+		
 	}
 }

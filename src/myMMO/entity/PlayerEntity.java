@@ -297,6 +297,7 @@ public class PlayerEntity extends Entity {
 		{
 			return;
 		}
+	
 		holdItem.doAction(this,Game.level);
 	
 	}

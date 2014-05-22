@@ -11,6 +11,7 @@ public abstract class BaseTile extends Tile {
 	protected int tileColour;
 	private int flipX;
 	private int flipY;
+	
 
 	public BaseTile(int id, int x, int y, int tileColour, int levelColour, int flipX, int flipY, int xcoord, int ycoord) {
 		super(id, false, false, levelColour, xcoord, ycoord);

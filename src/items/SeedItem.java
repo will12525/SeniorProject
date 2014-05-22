@@ -1,6 +1,7 @@
 package items;
 
 import myMMO.Colours;
+import myMMO.Game;
 import myMMO.Level;
 import myMMO.entity.PlayerEntity;
 import myMMO.tile.Tile;
@@ -17,7 +18,7 @@ public class SeedItem extends Tool{
 
 
 	public void doAction(PlayerEntity player, Level level) {
-
+		Game.level.destroyTile();
 
 	}
 	public int[] getDestroyables()

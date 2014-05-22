@@ -1,5 +1,6 @@
 package myMMO.tile;
 
+import items.Item;
 import myMMO.Colours;
 import myMMO.Display;
 import myMMO.Level;
@@ -14,7 +15,7 @@ import myMMO.tile.tiles.StoneTile;
 import myMMO.tile.tiles.VoidTile;
 import myMMO.tile.tiles.WaterTile;
 
-public class Tile {
+public abstract class Tile {
 
 	public static final Tile[] tiles = new Tile[256];
 	public static final Tile VOID = new SolidTile(0,0,0,Colours.get(000, 500, -1, -1),0xFF000000, 0, 0);
@@ -189,14 +190,9 @@ public class Tile {
 	}
 
 
-	public void drop(Level level) {
-		
-		
-	}
-	public Tile getDestroyedVarient() {
-		
-		return null;
-	}
+	public abstract void drop(Level level);
+	
+	public abstract Tile getDestroyedVarient(Item item);
 
 	
 

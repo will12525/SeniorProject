@@ -1,10 +1,11 @@
 package myMMO.tile;
 
+import items.Item;
 import myMMO.Display;
 import myMMO.Level;
 import myMMO.entity.Entity;
 
-public class BaseTile extends Tile {
+public abstract class BaseTile extends Tile {
 
 	protected int tileId;
 	protected int tileColour;
@@ -27,10 +28,9 @@ public class BaseTile extends Tile {
 	public void render(Display display, Level level, int x, int y) {
 		display.render(x, y, tileId, tileColour, flipX, flipY, 1);
 	}
-	public void drop(Level level) {
-
-
-	}
+	public abstract void drop(Level level);
+	
+	public abstract Tile getDestroyedVarient(Item item);
 
 
 }

@@ -1,5 +1,7 @@
 package items;
 
+import java.util.List;
+
 import myMMO.Display;
 import myMMO.Game;
 import myMMO.Level;
@@ -131,6 +133,10 @@ public abstract class Item {
 		this.y = y;
 	}
 	public Tile getTile(int newX,int newY)
+	{
+		return null;
+	}
+	public int[] getDestroyables()
 	{
 		return null;
 	}

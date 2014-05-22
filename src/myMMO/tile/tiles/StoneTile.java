@@ -20,7 +20,7 @@ public class StoneTile extends SolidTile {
 		level.addItem(item);
 
 	}
-	public Tile getDestroyedVarient(){
+	public Tile getDestroyedVarient(Item item){
 		return new DirtTile(xcoord,ycoord);
 	}
 }

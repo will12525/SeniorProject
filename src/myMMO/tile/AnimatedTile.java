@@ -1,9 +1,10 @@
 package myMMO.tile;
 
+import items.Item;
 import myMMO.Level;
 import myMMO.entity.Entity;
 
-public class AnimatedTile extends BaseTile{
+public abstract class AnimatedTile extends BaseTile{
 	private int[][] animationTileCoords;
 	private int currentAnimationIndex;
 	private long lastIterationTime;
@@ -27,4 +28,7 @@ public class AnimatedTile extends BaseTile{
 			this.tileId = (animationTileCoords[currentAnimationIndex][0] + (animationTileCoords[currentAnimationIndex][1] * 32));
 		}
 	}
+	public abstract Tile getDestroyedVarient(Item item);
+	
+	public abstract void drop(Level level);
 }

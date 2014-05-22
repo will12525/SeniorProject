@@ -295,12 +295,26 @@ public class Level
 		for(int i = 0; i < tiles.size(); i++)
 		{
 			Tile tile =tiles.get(i);
+			Item playersItem=player.getHoldItem();
 			if(tile.getX() == x && tile.getY() == y)
 			{
-				Tile newTile =tile.getDestroyedVarient();
+				System.out.println(playersItem.getDestroyables()[0]);
+				for(int k=0;k<playersItem.getDestroyables().length;k++)
+				{
+					if(playersItem.getDestroyables()[k]==tile.getId())
+					{
+						Tile newTile =tile.getDestroyedVarient(playersItem);
+
+						tile.drop(this);
+						tiles.set(i, newTile);
+					}
+					
+				}
+				
+				/*Tile newTile =tile.getDestroyedVarient(playersItem);
 
 				tile.drop(this);
-				tiles.set(i, newTile);
+				tiles.set(i, newTile);*/
 			}
 		}
 	}

@@ -1,8 +1,11 @@
 package items;
 
+import java.util.List;
+
 import myMMO.Display;
 import myMMO.Level;
 import myMMO.entity.PlayerEntity;
+import myMMO.tile.Tile;
 
 public class Tool extends Item{
 
@@ -47,7 +50,10 @@ public class Tool extends Item{
 		display.render(player.getX()+xModifier, player.getY()+yModifier, id, colour, rotateX, rotateY, 1);
 
 	}
-
+	public int[] getDestroyables()
+	{
+		return null;
+	}
 
 
 	

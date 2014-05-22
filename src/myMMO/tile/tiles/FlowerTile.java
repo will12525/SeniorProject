@@ -1,6 +1,7 @@
 package myMMO.tile.tiles;
 
 import items.FlowerItem;
+import items.HoeItem;
 import items.Item;
 import myMMO.Colours;
 import myMMO.Level;
@@ -21,7 +22,11 @@ public class FlowerTile extends BaseTile{
 		level.addItem(item);
 
 	}
-	public Tile getDestroyedVarient(){
+	public Tile getDestroyedVarient(Item item){
+		if(item instanceof HoeItem)
+		{
+			return new PlowedDirt(xcoord,ycoord);
+		}
 		return new GrassTile(xcoord,ycoord);
 	}
 }

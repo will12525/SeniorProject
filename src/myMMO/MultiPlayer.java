@@ -7,9 +7,13 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import myMMO.entity.Entity;
+import myMMO.entity.EntityType;
+import myMMO.entity.Monkey;
 import myMMO.packet.Packet;
 import myMMO.packet.Packet01Move;
 import myMMO.packet.Packet03TileUpdate;
+import myMMO.packet.Packet04AddEntity;
+import myMMO.packet.Packet05RemoveEntity;
 import myMMO.tile.Tile;
 
 @SuppressWarnings("all")
@@ -117,8 +121,31 @@ public class MultiPlayer extends Thread
 				Packet03TileUpdate p03 = new Packet03TileUpdate(info);
 				Tile t = p03.getTile();
 				Game.level.setTile(t.getX(), t.getY(), t.getId());
+				break;
 			
+			case 4: 
+				//adding an entity
+				Packet04AddEntity p04 = new Packet04AddEntity(info);
+				Entity e = p04.getEntity();
+				Game.level.addEntity(e);
+				//temp //TODO: fix
+				otherPlayer = e;
+				break;
 			
+			case 5:
+				//removing an entity
+				Packet05RemoveEntity p05 = new Packet05RemoveEntity(info);
+				EntityType toRemove = p05.getToRemove();
+				
+				switch(toRemove)
+				{
+				case MONKEY:
+					Game.level.addEntity(new Monkey("Name", 0, 0));
+					break;
+				
+				case PLAYER:
+					Game.level.addEntity(new Monkey("Name", 0, 0));
+				}
 			}
 			/*
 			//we now have a string of data from the server to work with

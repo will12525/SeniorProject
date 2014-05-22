@@ -1,5 +1,8 @@
 package myMMO.tile.tiles;
 
+import items.HoeItem;
+import items.Item;
+
 import java.util.Random;
 
 import myMMO.Colours;
@@ -37,8 +40,17 @@ public class DirtTile extends BaseTile{
 		}
 		
 	}
-	public Tile getDestroyedVarient(){
+	public Tile getDestroyedVarient(Item item){
+		
+		if(item instanceof HoeItem)
+		{
+			return new PlowedDirt(xcoord,ycoord);
+		}
 		return new DirtTile(xcoord,ycoord);
+	}
+	public void drop(Level level) {
+		
+		
 	}
 
 }

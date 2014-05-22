@@ -1,5 +1,7 @@
 package myMMO.tile.tiles;
 
+import items.Item;
+
 import java.util.Random;
 
 import myMMO.Colours;
@@ -33,7 +35,7 @@ public class LeafTile extends AnimatedTile{
 			this.tileId = (animationTileCoords[newAnimation][0] + (animationTileCoords[currentAnimationIndex][1] * 32));
 		}
 	}*/
-	public Tile getDestroyedVarient(){
+	public Tile getDestroyedVarient(Item item){
 		return new GrassTile(xcoord,ycoord);
 	}
 }

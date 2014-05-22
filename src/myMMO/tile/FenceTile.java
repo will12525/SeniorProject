@@ -1,9 +1,11 @@
 package myMMO.tile;
 
+import items.Item;
 import myMMO.Colours;
 import myMMO.Display;
 import myMMO.Level;
 import myMMO.entity.Entity;
+import myMMO.tile.tiles.GrassTile;
 
 public class FenceTile extends BaseTile {
 	private int[][] animationTileCoords;
@@ -18,15 +20,15 @@ public class FenceTile extends BaseTile {
 	 * can change from 0 to 8 , anything else will crash, decides what the tile will be
 	 */
 	int renderId=0;
-/**
- * the fence tile
- * @param id = Id of tile
- * @param animationCoords = coordinates on the sprite sheet for the tile
- * @param tileColour = color of tile in game
- * @param levelColour = color of tile on map sheet
- * @param flipX = 1 if the tile should be flipped on the x axis, 0 if not
- * @param flipY = 1 if the tile should be flipped on the y axis, 0 if not
- */
+	/**
+	 * the fence tile
+	 * @param id = Id of tile
+	 * @param animationCoords = coordinates on the sprite sheet for the tile
+	 * @param tileColour = color of tile in game
+	 * @param levelColour = color of tile on map sheet
+	 * @param flipX = 1 if the tile should be flipped on the x axis, 0 if not
+	 * @param flipY = 1 if the tile should be flipped on the y axis, 0 if not
+	 */
 	public FenceTile(int id, int[][] animationCoords, int tileColour, int levelColour, int flipX,int flipY, int xcoord, int ycoord) {
 		super(8, animationCoords[0][0], animationCoords[0][1],Colours.get(253, 200,321,141),0xFFFF7d01,flipX,flipY, xcoord, ycoord);
 		this.solid=true;
@@ -43,17 +45,17 @@ public class FenceTile extends BaseTile {
 	}
 	
 	public boolean mayPass(Level level, int x,int y, Entity e)
-	 {
-		 return false;
-	 }
+	{
+		return false;
+	}
 	public void render(Display display, Level level, int x, int y) {
 
 		int x1 =(x>>3);
 		int y1=(y>>3);
 		flipX=0;
 		flipY=0;
-		
-		
+
+
 		if(level.getTile(x1, y1)==Tile.FENCE)
 		{
 			renderId=0;
@@ -61,7 +63,7 @@ public class FenceTile extends BaseTile {
 			if(level.getTile(x1+1, y1)==Tile.FENCE)
 			{
 				renderId=1;
-				
+
 			}
 			//1 right
 			if(level.getTile(x1-1, y1)==Tile.FENCE)
@@ -73,7 +75,7 @@ public class FenceTile extends BaseTile {
 			if(level.getTile(x1, y1-1)==Tile.FENCE)
 			{
 				renderId=2;
-				
+
 			}
 			//1 down
 			if(level.getTile(x1, y1+1)==Tile.FENCE)
@@ -124,14 +126,14 @@ public class FenceTile extends BaseTile {
 			//three up
 			if(level.getTile(x1-1, y1)==Tile.FENCE&&level.getTile(x1+1, y1)==Tile.FENCE&&level.getTile(x1, y1-1)==Tile.FENCE)
 			{
-				
+
 				renderId=6;
 			}
 			//three right
 			if(level.getTile(x1+1, y1)==Tile.FENCE&&level.getTile(x1, y1-1)==Tile.FENCE&&level.getTile(x1, y1+1)==Tile.FENCE)
 			{
 				renderId=7;
-				
+
 			}
 			//three left
 			if(level.getTile(x1-1, y1)==Tile.FENCE&&level.getTile(x1, y1-1)==Tile.FENCE&&level.getTile(x1, y1+1)==Tile.FENCE)
@@ -144,10 +146,18 @@ public class FenceTile extends BaseTile {
 					renderId=8;
 				}
 			}
-			
+
 		}
 
 		renderThis =(animationTileCoords[renderId][0] + (animationTileCoords[currentAnimationIndex][1] * 32));
 		display.render(x, y, renderThis, tileColour, flipX, flipY, 1);
+	}
+	public Tile getDestroyedVarient(Item item) {
+
+		return new GrassTile(xcoord,ycoord);
+	}
+
+	public void drop(Level level) {
+		
 	}
 }

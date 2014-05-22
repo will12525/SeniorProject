@@ -293,6 +293,6 @@ public class PlayerEntity extends Entity {
 			return;
 		}
 		holdItem.doAction(this,Game.level);
-		System.out.println("hi");
+	
 	}
 }

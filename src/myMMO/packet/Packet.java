@@ -3,12 +3,15 @@ package myMMO.packet;
 public abstract class Packet
 {
 	protected String info;
-	protected static String[] args;
+	protected String[] args;
 		
 	public Packet(String info)
 	{
+		System.out.println("new Packet(): " + info);
 		this.info = info;
 		args = info.split(":");
+		
+		parse();
 		
 	}
 	
@@ -16,7 +19,7 @@ public abstract class Packet
 	
 	public static int getID(String info)
 	{
-		return Integer.parseInt(args[0]);
+		return Integer.parseInt(info.split(":")[0]);
 	}
 	
 }

@@ -2,6 +2,7 @@ package myMMO.tile.tiles;
 
 import items.Item;
 import myMMO.Colours;
+import myMMO.Level;
 import myMMO.tile.AnimatedTile;
 import myMMO.tile.Tile;
 
@@ -13,5 +14,10 @@ public class WaterTile extends AnimatedTile{
 	}
 	public Tile getDestroyedVarient(Item item){
 		return new SandTile(xcoord,ycoord);
+	}
+	
+	public void drop(Level level) {
+		
+		
 	}
 }

@@ -38,4 +38,9 @@ public class LeafTile extends AnimatedTile{
 	public Tile getDestroyedVarient(Item item){
 		return new GrassTile(xcoord,ycoord);
 	}
+
+	public void drop(Level level) {
+		
+		
+	}
 }

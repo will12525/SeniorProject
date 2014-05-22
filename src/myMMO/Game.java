@@ -310,7 +310,7 @@ public class Game extends Canvas implements Runnable{
 	 */
 	public void getPlayerXY()
 	{//players x
-		playerNewX=rand.nextInt((100)*8);
+	/*	playerNewX=rand.nextInt((100)*8);
 		//players y
 		playerNewY=rand.nextInt((100)*8);
 		//if the tile hes going to spawn on is water, this makes sure the swimming animation is playing
@@ -328,7 +328,7 @@ public class Game extends Canvas implements Runnable{
 			playerNewY=0;
 			getPlayerXY();
 
-		}
+		}*/
 	}
 
 

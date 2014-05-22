@@ -2,6 +2,7 @@ package myMMO.tile.tiles;
 
 import items.Item;
 import myMMO.Colours;
+import myMMO.Level;
 import myMMO.tile.BaseTile;
 import myMMO.tile.Tile;
 
@@ -12,5 +13,9 @@ public class SandTile extends BaseTile{
 	}
 	public Tile getDestroyedVarient(Item item){
 		return new DirtTile(xcoord,ycoord);
+	}
+	
+	public void drop(Level level) {
+				
 	}
 }

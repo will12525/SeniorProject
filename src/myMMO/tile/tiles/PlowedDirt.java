@@ -2,6 +2,7 @@ package myMMO.tile.tiles;
 
 import items.HoeItem;
 import items.Item;
+import items.SeedItem;
 import myMMO.Colours;
 import myMMO.Level;
 import myMMO.tile.BaseTile;
@@ -14,7 +15,10 @@ public class PlowedDirt extends BaseTile{
 		// TODO Auto-generated constructor stub
 	}
 	public Tile getDestroyedVarient(Item item){
-		
+		if(item instanceof SeedItem)
+		{
+			return new WheatTile(xcoord,ycoord);
+		}
 		if(item instanceof HoeItem)
 		{
 			return new PlowedDirt(xcoord,ycoord);

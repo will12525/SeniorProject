@@ -6,6 +6,7 @@ import items.Item;
 import items.SeedItem;
 import items.SwordItem;
 import items.Tool;
+import items.WheatItem;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class PlayerEntity extends Entity {
 
 	List<Item> items = new ArrayList<Item>();
 	public Item holdItem=null;
+	public int holdItemPosition=1;
 
 	public long canDestroy=0;
 	public int cantDestroyYet=1000;
@@ -65,6 +67,10 @@ public class PlayerEntity extends Entity {
 			{
 				items.add(blankItems,new SeedItem("seed"));
 			}
+			else if(blankItems==3)
+			{
+				items.add(blankItems,new WheatItem("wheat"));
+			}
 			else
 			{
 				items.add(blankItems, new InvyItemBlank("empty"));
@@ -72,11 +78,15 @@ public class PlayerEntity extends Entity {
 		}
 
 	}
-	public void setHoldItem(Item item)
+	public void setHoldItem(Item item,int position)
 	{
+		holdItemPosition=position;
 		holdItem=item;
 	}
-	
+	public int getHoldItemPosition()
+	{
+		return holdItemPosition;
+	}
 	public Item getHoldItem()
 	{
 		return holdItem;

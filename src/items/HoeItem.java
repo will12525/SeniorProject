@@ -26,7 +26,7 @@ public class HoeItem extends Tool{
 	public int[] getDestroyables()
 	{
 		
-		return new int[] {Tile.DIRT,Tile.GRASS};
+		return new int[] {Tile.DIRT,Tile.GRASS,Tile.WHEAT};
 	}
 
 }

@@ -163,8 +163,12 @@ public class Level
 			if(t.getX() == x && t.getY() == y)
 			{
 				t.setID(id);
+				return;
 			}
 		}
+		
+		Tile t = Tile.createTile(x,  y, id);
+		tiles.add(t);
 	}
 
 	public Tile getTile(int x, int y)

@@ -4,6 +4,15 @@ import myMMO.Colours;
 import myMMO.Display;
 import myMMO.Level;
 import myMMO.entity.Entity;
+import myMMO.tile.tiles.DirtTile;
+import myMMO.tile.tiles.GrassTile;
+import myMMO.tile.tiles.LeafTile;
+import myMMO.tile.tiles.LogTile;
+import myMMO.tile.tiles.PlankTile;
+import myMMO.tile.tiles.SandTile;
+import myMMO.tile.tiles.StoneTile;
+import myMMO.tile.tiles.VoidTile;
+import myMMO.tile.tiles.WaterTile;
 
 public class Tile {
 
@@ -57,7 +66,26 @@ public class Tile {
 	}
 	
 
-	public static Tile getTile(int id)
+	public static Tile createTile(int x, int y, int id)
+	{
+		switch(id)
+		{
+		case 0: return new VoidTile(x, y);
+		case 1: return new StoneTile(x, y);
+		case 2: return new GrassTile(x, y);
+		case 3: return new WaterTile(x, y);
+		case 4: return new LogTile(x, y);
+		case 5: return new SandTile(x, y);
+		case 6: return new DirtTile(x, y);
+		case 7: return new LeafTile(x, y);
+		case 8: return new FenceTile(x, y);
+		case 9: return new PlankTile(x, y);
+			
+		default: return new DirtTile(x, y);
+		}
+	}
+	/*
+	 * public static Tile getTile(int id)
 	{
 		switch(id)
 		{
@@ -74,10 +102,9 @@ public class Tile {
 			
 		default: return DIRT;
 		}
-		
-		
-		
 	}
+	 */
+	
 	/**
 	 * @return int, the id of the block
 	 */

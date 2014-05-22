@@ -7,9 +7,9 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import myMMO.entity.Entity;
-import myMMO.entity.Monkey;
-import myMMO.entity.PlayerEntity;
-import myMMO.entity.Turtle;
+import myMMO.packet.Packet;
+import myMMO.packet.Packet01Move;
+import myMMO.packet.Packet03TileUpdate;
 import myMMO.tile.Tile;
 
 @SuppressWarnings("all")
@@ -96,6 +96,31 @@ public class MultiPlayer extends Thread
 			String info = new String(data);
 			info = info.trim();
 			
+			int id = Packet.getID(info);
+			
+			switch(id)
+			{
+			case 0:
+				break;
+				
+			case 1:
+				Packet01Move p01 = new Packet01Move(info);
+				otherPlayer.setX(p01.getNewX());
+				otherPlayer.setY(p01.getNewY());
+				break;
+			
+			case 2:
+				break;
+				
+			case 3:
+				//getting a tile
+				Packet03TileUpdate p03 = new Packet03TileUpdate(info);
+				Tile t = p03.getTile();
+				Game.level.setTile(t.getX(), t.getY(), t.getId());
+			
+			
+			}
+			/*
 			//we now have a string of data from the server to work with
 			String[] split = info.split(":");
 
@@ -175,6 +200,7 @@ public class MultiPlayer extends Thread
 				}
 				break;
 			}
+			*/
 		}
 	}	
 	

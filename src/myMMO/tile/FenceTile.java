@@ -36,6 +36,12 @@ public class FenceTile extends BaseTile {
 		this.flipY=flipY;
 
 	}
+	
+	public FenceTile(int x, int y)
+	{
+		super(8, 0, 0, Colours.get(253, 200,321,141),0xFFFF7d01, 0, 0, x, y);
+	}
+	
 	public boolean mayPass(Level level, int x,int y, Entity e)
 	 {
 		 return false;

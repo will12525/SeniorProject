@@ -1,7 +1,7 @@
 package myMMO.packet;
 
 import myMMO.entity.Entity;
-import myMMO.entity.Monkey;
+import myMMO.entity.FakePlayerEntity;
 
 public class Packet04AddEntity extends Packet {
 	
@@ -15,7 +15,7 @@ public class Packet04AddEntity extends Packet {
 	public void parse() {
 		//temp
 		//TODO: add actual functionality
-		e = new Monkey("Monkey", 0, 0);
+		e = new FakePlayerEntity("Monkey", 0, 0);
 	}
 	
 	public Entity getEntity()

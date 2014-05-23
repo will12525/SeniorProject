@@ -438,8 +438,8 @@ public class Game extends Canvas implements Runnable{
 			return;
 		}
 
-		int xOffset=Player.x-(display.width/2);
-		int yOffset=Player.y-(display.height/2);
+		int xOffset=Player.getX()-(display.width/2);
+		int yOffset=Player.getY()-(display.height/2);
 
 		level.renderTiles(display, xOffset, yOffset);
 
@@ -572,8 +572,8 @@ public class Game extends Canvas implements Runnable{
 				Item item = level.getMouseItem().get(0);
 				level.getMouseItem().remove(0);
 				level.addItem(item);
-				item.setX(Player.x>>3);
-				item.setY(Player.y>>3);
+				item.setX(Player.getX()>>3);
+				item.setY(Player.getY()>>3);
 				item.setCoolDown(300);
 				mouseHolding=false;
 			}
@@ -634,8 +634,8 @@ public class Game extends Canvas implements Runnable{
 			Item item = level.getMouseItem().get(0);
 			level.getMouseItem().remove(0);
 			level.addItem(item);
-			item.setX(Player.x>>3);
-			item.setY(Player.y>>3);
+			item.setX(Player.getX()>>3);
+			item.setY(Player.getY()>>3);
 			item.setCoolDown(300);
 			mouseHolding=false;
 		}

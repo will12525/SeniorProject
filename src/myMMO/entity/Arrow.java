@@ -110,9 +110,16 @@ public class Arrow extends Entity {
 	}
 	
 	
-	public void die()
-	{
-		super.die();
+	
+	protected int getXTile() {
+
+		return 2;
+	}
+
+	
+	protected int getYTile() {
+
+		return 19;
 	}
 
 }

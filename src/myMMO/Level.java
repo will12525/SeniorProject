@@ -36,6 +36,7 @@ public class Level
 	private String imagePath;
 
 	private static List<Entity> entities = new ArrayList<Entity>();
+	private static List<Entity> entitiesToRemove = new ArrayList<Entity>();
 	private static PlayerEntity player;
 
 	public static List<Tile> tiles = new ArrayList<Tile>();
@@ -99,7 +100,7 @@ public class Level
 	//levelColour is how each tile identifies with the tile on the jPeg
 	private void loadTiles()
 	{
-/*		//loads each pixel from the imagePath and gets the color code into an array of ints
+		/*		//loads each pixel from the imagePath and gets the color code into an array of ints
 		int[] tileColours =this.image.getRGB(0, 0, width, height, null, 0, width);
 
 		//width and height of the image
@@ -134,9 +135,12 @@ public class Level
 		entities.add(e);
 	}
 
-	public static List<Entity> getEntities()
+	public List<Entity> getEntities()
 	{
 		return entities;
+	}
+	public void removeEntity(Entity e) {
+		this.entitiesToRemove.add(e);
 	}
 
 	public void setPlayer(PlayerEntity player)
@@ -166,7 +170,7 @@ public class Level
 				return;
 			}
 		}
-		
+
 		Tile t = Tile.createTile(x,  y, id);
 		tiles.add(t);
 	}
@@ -202,7 +206,7 @@ public class Level
 	{
 		items.add(i);
 	}
-	public List<Item> getItems()
+	public synchronized List<Item> getItems()
 	{
 		return items;
 	}
@@ -311,9 +315,9 @@ public class Level
 							player.changeItem(new InvyItemBlank("empty"), player.getHoldItemPosition());
 						}
 					}
-					
+
 				}
-				
+
 				/*Tile newTile =tile.getDestroyedVarient(playersItem);
 
 				tile.drop(this);
@@ -331,10 +335,11 @@ public class Level
 			t.tick();
 		}
 
-		for(Entity e : entities)
+		for(Entity e : getEntities())
 		{
 			e.tick();
 		}
+		entities.removeAll(entitiesToRemove);
 
 		for(Item item : items)
 		{
@@ -350,26 +355,26 @@ public class Level
 
 		//generates more tiles as needed based on the players location
 
-		if((player.x>>3)>currentxMax-20)
+		if((player.getX()>>3)>currentxMax-20)
 		{
 			//this
 			currentxMax=currentxMax+8;
 			LevelGen.addMorePosXTiles(currentxMax,originalxMax,currentyMax,currentyMin,this);
 		}
-		if((player.x>>3)<currentxMin+20)
+		if((player.getX()>>3)<currentxMin+20)
 		{
 			//System.out.println(player.x+", "+currentxMin+ " :player x smaller");
 			currentxMin=currentxMin-8;
 			LevelGen.addMoreNegXTiles(currentxMin,originalxMin,currentyMax,currentyMin,this);
 		}
 
-		if((player.y>>3)>currentyMax-20)
+		if((player.getY()>>3)>currentyMax-20)
 		{
 
 			currentyMax=currentyMax+8;
 			LevelGen.addMorePosYTiles(currentyMax,originalyMax,currentxMax,currentxMin,this);
 		}
-		if((player.y>>3)<currentyMin+20)
+		if((player.getY()>>3)<currentyMin+20)
 		{
 			//System.out.println(player.y+", "+currentyMin+" :player y smaller");
 			currentyMin=currentyMin-8;
@@ -425,9 +430,9 @@ public class Level
 		for(Tile t : tiles)
 		{
 			//draws tiles only if there within a 20 block radius of player
-			if((t.getX()<<3)<player.x+(12<<3)&&(t.getX()<<3)>player.x-(12<<3))
+			if((t.getX()<<3)<player.getX()+(12<<3)&&(t.getX()<<3)>player.getX()-(12<<3))
 			{
-				if((t.getY()<<3)<player.y+(12<<3)&&(t.getY()<<3)>player.y-(12<<3))
+				if((t.getY()<<3)<player.getY()+(12<<3)&&(t.getY()<<3)>player.getY()-(12<<3))
 				{
 					t.render(display, this, t.getX()<<3, t.getY()<<3);
 				}
@@ -438,7 +443,7 @@ public class Level
 
 	public void renderItems(Display display)
 	{
-		for(Item i : items)
+		for(Item i : getItems())
 		{
 			i.renderOnGround(display);
 		}
@@ -467,10 +472,10 @@ public class Level
 		for(Entity e : entities)
 		{
 			//draws entities only if they're in a 20 block radius of player
-			if((e.getX())<(player.x)+(20<<3)&&(e.getX())>(player.x)-(20<<3))
+			if((e.getX())<(player.getX())+(20<<3)&&(e.getX())>(player.getX())-(20<<3))
 
 			{
-				if((e.getY())<(player.y)+(20<<3)&&(e.getY())>(player.y)-(20<<3))
+				if((e.getY())<(player.getY())+(20<<3)&&(e.getY())>(player.getY())-(20<<3))
 				{
 					e.render(display);
 				}
@@ -494,11 +499,11 @@ public class Level
 		int posNeg=random.nextInt(2);
 		if(posNeg==0)
 		{
-			return player.x-sX;
+			return player.getX()-sX;
 		}
 		else
 		{
-			return player.x+sX;
+			return player.getX()+sX;
 		}
 
 
@@ -509,16 +514,14 @@ public class Level
 		int posNeg=random.nextInt(2);
 		if(posNeg==0)
 		{
-			return player.y-sY;
+			return player.getY()-sY;
 		}
 		else
 		{
-			return player.y+sY;
+			return player.getX()+sY;
 		}
 	}
 
-	public void removeEntity(Entity e) {
-		this.entities.remove(e);
-	}
+	
 
 }

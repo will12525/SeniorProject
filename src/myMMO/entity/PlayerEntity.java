@@ -54,6 +54,8 @@ public class PlayerEntity extends Entity {
 		//Level level, String name, int x, int y, int speed, String message,int xTile,int yTile, int colour
 		this.input=input;
 		this.username=username;
+		//	this.x=xnMap;
+		//this.y=yOnMap;
 		for(int blankItems=0;blankItems<15;blankItems++)
 		{
 			if(blankItems==0)
@@ -92,23 +94,23 @@ public class PlayerEntity extends Entity {
 	{
 		return holdItem;
 	}
-	
+
 	public void changeItem(Item item,int position)
 	{
 		items.remove(position);
 		items.add(position,item);
 	}
-	
+
 	public List<Item> getItems()
 	{
 		return this.items;
 	}
-	
+
 	public Item getItem(int position)
 	{
 		return items.get(position);
 	}
-	
+
 	//a delay time between actions
 	public void setLastAction(long last)
 	{
@@ -139,22 +141,22 @@ public class PlayerEntity extends Entity {
 		{
 			ya--;
 		}
-		
+
 		if(input.down.down)
 		{
 			ya++;
 		}
-		
+
 		if(input.left.down)
 		{
 			xa--;
 		}
-		
+
 		if(input.right.down)
 		{
 			xa++;
 		}
-		
+
 		if ((System.currentTimeMillis() - lastMove) >= stall) {
 			lastMove = System.currentTimeMillis();
 			if ((xa != 0 || ya != 0)&&!talking) {
@@ -166,7 +168,7 @@ public class PlayerEntity extends Entity {
 				isMoving = false;
 			}
 		}
-		
+
 		tickCount++;
 
 		if((System.currentTimeMillis() - lastAction) >= (waitForNextAction)) 
@@ -179,7 +181,7 @@ public class PlayerEntity extends Entity {
 			}
 			if(input.action.down)
 			{
-				Entity actedEntity = Collision.getEntityActedWith(Game.level.getEntities());
+				Entity actedEntity = Collision.getEntityActedWith();
 				if(actedEntity==null)
 				{
 					return;
@@ -191,86 +193,22 @@ public class PlayerEntity extends Entity {
 
 			}
 		}
-		//System.out.println("X: "+getMobX()+", Y: "+getMobY());
 
 		//update server of player's new position
 		if(Game.multiplayer != null)
+		{
 			new Packet01Move("1:" + getX() + ":" + getY()).send(Game.multiplayer.getOutput());
+		}
+		
+		if(health<=0)
+		{
+			this.holdItem=null;
+			this.items.clear();
+			die();
+		}
 	}
 
-	public void render(Display display) {
-		int xTile=0;
-		int yTile=28;
-		int walkingSpeed=3;
 
-		int flipTopX=(numSteps>>walkingSpeed)&1;
-		int flipTopY=(numSteps>>walkingSpeed)&1;
-		int flipBottomL=(numSteps>>walkingSpeed)&1;
-		int flipBottomR=(numSteps>>walkingSpeed)&1;
-
-		if(movingDirection==1)
-		{
-			xTile+=2;
-		}
-		else if(movingDirection>1)
-		{
-			xTile+=4+((numSteps>>walkingSpeed)&1)*2;
-			flipTopX=(movingDirection-1)%2;
-		}
-
-		int modifier =8*scale;
-		xOffset = x-modifier/2;
-		yOffset = y-modifier/2-4;
-		if(isSwimming)
-		{
-			int waterColour = 0;
-			yOffset+=4;
-			if(tickCount%60<15)
-			{
-				yOffset-=1;
-				waterColour=Colours.get(-1, -1, 225, -1);
-
-			}
-			else if(15<=tickCount%60&&tickCount%60<30)
-			{
-				waterColour=Colours.get(-1, 225, 115, -1);
-			}
-			else if(30<=tickCount%60&&tickCount%60<45)
-			{
-				yOffset-=1;
-				waterColour=Colours.get(-1, 115, -1, 225);
-			}
-			else
-			{
-				waterColour=Colours.get(-1, 225, 115, -1);
-			}
-
-			//waves around head
-			display.render(xOffset, yOffset+3, 0+27*32, waterColour, flipTopX-1,flipTopY-1, 1);
-			display.render(xOffset+8, yOffset+4, 0+27*32, waterColour, 1,1, 1);
-		}
-
-
-		//face
-		display.render(xOffset+(modifier*flipTopX), yOffset, (xTile+yTile*32), colour,flipTopX,flipTopY-1,scale);
-		display.render(xOffset+modifier-(modifier*flipTopX), yOffset, (xTile+1)+yTile*32, colour,flipTopX,flipTopY-1,scale);
-
-
-		if(!isSwimming)
-		{
-			//body and feet
-			display.render(xOffset+(modifier*flipBottomL), yOffset+modifier, xTile+(yTile+1)*32, colour,flipBottomL,flipBottomR-1,scale);
-			display.render(xOffset+modifier-(modifier*flipBottomL), yOffset+modifier, (xTile+1)+(yTile+1)*32, colour,flipBottomL,flipBottomR-1,scale);
-		}
-
-		if(username!=null)
-		{
-			Font.renderFont(username, display, xOffset-(username.length()-1), yOffset-10, Colours.get(-1, -1, -1, 555), 1);
-		}
-
-		Font.renderFont((x>>3)+", "+(y>>3), display, xOffset, yOffset-20, Colours.get(-1, -1, -1, 555), 1);
-	}
-	
 	//interaction bounds such as talking or using a sword
 	public Rectangle getActionBounds()
 	{
@@ -296,21 +234,108 @@ public class PlayerEntity extends Entity {
 		}
 		return new Rectangle(x+xChange,y+yChange,8,8);
 	}
-	
+
 	//intersection bounds for collision
 	public Rectangle getBounds()
 	{
 		return new Rectangle(x,y,8,8);
 	}
-	
+
 	public void doAction() {
-		
+
 		if(!(holdItem instanceof Tool))
 		{
 			return;
 		}
-	
+
 		holdItem.doAction(this,Game.level);
-	
+
 	}
+	//MUY IMPORTANTE!!!!!
+	protected int getXTile() 
+	{
+		return 0;
+	}
+	protected int getYTile() 
+	{
+		return 28;
+	}
+	
+	
 }
+
+
+
+
+/*public void render(Display display) {
+int xTile=0;
+int yTile=28;
+int walkingSpeed=3;
+
+int flipTopX=(numSteps>>walkingSpeed)&1;
+int flipTopY=(numSteps>>walkingSpeed)&1;
+int flipBottomL=(numSteps>>walkingSpeed)&1;
+int flipBottomR=(numSteps>>walkingSpeed)&1;
+
+if(movingDirection==1)
+{
+	xTile+=2;
+}
+else if(movingDirection>1)
+{
+	xTile+=4+((numSteps>>walkingSpeed)&1)*2;
+	flipTopX=(movingDirection-1)%2;
+}
+
+int modifier =8*scale;
+xOffset = x-modifier/2;
+yOffset = y-modifier/2-4;
+if(isSwimming)
+{
+	int waterColour = 0;
+	yOffset+=4;
+	if(tickCount%60<15)
+	{
+		yOffset-=1;
+		waterColour=Colours.get(-1, -1, 225, -1);
+
+	}
+	else if(15<=tickCount%60&&tickCount%60<30)
+	{
+		waterColour=Colours.get(-1, 225, 115, -1);
+	}
+	else if(30<=tickCount%60&&tickCount%60<45)
+	{
+		yOffset-=1;
+		waterColour=Colours.get(-1, 115, -1, 225);
+	}
+	else
+	{
+		waterColour=Colours.get(-1, 225, 115, -1);
+	}
+
+	//waves around head
+	display.render(xOffset, yOffset+3, 0+27*32, waterColour, flipTopX-1,flipTopY-1, 1);
+	display.render(xOffset+8, yOffset+4, 0+27*32, waterColour, 1,1, 1);
+}
+
+
+//face
+display.render(xOffset+(modifier*flipTopX), yOffset, (xTile+yTile*32), colour,flipTopX,flipTopY-1,scale);
+display.render(xOffset+modifier-(modifier*flipTopX), yOffset, (xTile+1)+yTile*32, colour,flipTopX,flipTopY-1,scale);
+
+
+if(!isSwimming)
+{
+	//body and feet
+	display.render(xOffset+(modifier*flipBottomL), yOffset+modifier, xTile+(yTile+1)*32, colour,flipBottomL,flipBottomR-1,scale);
+	display.render(xOffset+modifier-(modifier*flipBottomL), yOffset+modifier, (xTile+1)+(yTile+1)*32, colour,flipBottomL,flipBottomR-1,scale);
+}
+
+if(username!=null)
+{
+	Font.renderFont(username, display, xOffset-(username.length()-1), yOffset-10, Colours.get(-1, -1, -1, 555), 1);
+}
+
+Font.renderFont((x>>3)+", "+(y>>3), display, xOffset, yOffset-20, Colours.get(-1, -1, -1, 555), 1);
+}*/

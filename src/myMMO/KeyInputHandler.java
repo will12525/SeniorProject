@@ -125,10 +125,11 @@ public class KeyInputHandler implements KeyListener {
 			{
 				enter.toggle(isPressed);
 			}
-			if(keyCode==KeyEvent.VK_SPACE)
-			{
-				action.toggle(isPressed);
-			}
+			
+		}
+		if(keyCode==KeyEvent.VK_SPACE)
+		{
+			action.toggle(isPressed);
 		}
 		if(keyCode==KeyEvent.VK_W||keyCode==KeyEvent.VK_UP)
 		{

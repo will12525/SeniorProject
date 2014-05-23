@@ -10,8 +10,9 @@ public class Collision {
 	//private Level level;
 	static long lastArrowHit=0;
 
-	public static boolean entityCollision(List<Entity>entities)
+	public static boolean entityCollision()
 	{
+		List<Entity>entities=Game.level.getEntities();
 		if(entities.isEmpty())
 		{
 			return false;
@@ -45,7 +46,7 @@ public class Collision {
 
 							entity1.die();
 							entity2.health=entity2.health-1;
-							
+
 							lastArrowHit=System.currentTimeMillis();
 
 
@@ -76,23 +77,23 @@ public class Collision {
 					if(entity2.getX()>entity1.getX())
 					{
 
-						entity2.x=entity2.x+1;
-						entity1.x=entity1.x-1;
+						entity2.setX(entity2.getX()+1);
+						entity1.setX(entity1.getX()-1);
 					}
 					if(entity2.getX()<entity1.getX())
 					{
-						entity2.x=entity2.x-1;
-						entity1.x=entity1.x+1;
+						entity2.setX(entity2.getX()-1);
+						entity1.setX(entity1.getX()+1);
 					}
 					if(entity2.getY()>entity1.getY())
 					{
-						entity2.y=entity2.y+1;
-						entity1.y=entity1.y-1;
+						entity2.setY(entity2.getY()+1);
+						entity1.setY(entity1.getY()-1);
 					}
 					if(entity2.getY()<=entity1.getY())
 					{
-						entity2.y=entity2.y-1;
-						entity1.y=entity1.y+1;
+						entity2.setY(entity2.getY()-1);
+						entity1.setY(entity1.getY()+1);
 					}
 					return true;
 				}
@@ -102,9 +103,9 @@ public class Collision {
 		return false;
 	}
 
-	public static Entity getEntityActedWith(List<Entity>entities)
+	public static Entity getEntityActedWith()
 	{
-
+		List<Entity>entities = Game.level.getEntities();
 		for(int i=0;i<entities.size();i++)
 		{
 			for(int k=i+1;k<entities.size();k++)
@@ -121,6 +122,7 @@ public class Collision {
 
 					if(entity1.getActionBounds().intersects(entity2.getActionBounds()))
 					{
+						//System.out.println(entity1+", "+entity2);
 						entity1.stopMoving();
 						entity2.stopMoving();
 

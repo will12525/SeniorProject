@@ -1,6 +1,11 @@
 package myMMO.entity;
 
+import items.ArrowItem;
+import items.BowItem;
+import items.Item;
+
 import java.awt.Rectangle;
+import java.util.Random;
 
 import myMMO.Colours;
 import myMMO.Display;
@@ -17,7 +22,7 @@ public class Skeleton extends Entity {
 	private int tryToFire=2000;
 	private long lastFire;
 	Arrow arrow;
-
+	
 	//Rectangle monkeyBox=new Rectangle();
 	public Skeleton(String name, int x, int y) {
 		super("Skelly", x, y, 1,message,0,0,colour);
@@ -80,6 +85,10 @@ public class Skeleton extends Entity {
 		}
 
 		tickCount++;
+		if(health<=0)
+		{
+			die();
+		}
 	}
 
 	public void stopMoving(Entity entity)
@@ -142,5 +151,26 @@ public class Skeleton extends Entity {
 	protected int getYTile() 
 	{
 		return 21;
+	}
+
+	protected void drops() {
+		int r= random.nextInt(3);
+		for(int k =0;k<r;k++)
+		{
+			Item arrowItem=new ArrowItem("arrow");
+			arrowItem.setX(x>>3);
+			arrowItem.setY(y>>3);
+			arrowItem.setCoolDown(30);
+			Game.level.addItem(arrowItem);
+		}
+		if(r==2)
+		{
+			Item bow = new BowItem("Bow");
+			bow.setX(x>>3);
+			bow.setY(y>>3);
+			bow.setCoolDown(30);
+			Game.level.addItem(bow);
+		}
+		
 	}
 }

@@ -37,6 +37,7 @@ public class Level
 
 	private static List<Entity> entities = new ArrayList<Entity>();
 	private static List<Entity> entitiesToRemove = new ArrayList<Entity>();
+	private static List<Entity> entitiesToAdd = new ArrayList<Entity>();
 	private static PlayerEntity player;
 
 	public static List<Tile> tiles = new ArrayList<Tile>();
@@ -132,7 +133,7 @@ public class Level
 
 	public static void addEntity(Entity e)
 	{
-		entities.add(e);
+		entitiesToAdd.add(e);
 	}
 
 	public List<Entity> getEntities()
@@ -340,6 +341,9 @@ public class Level
 			e.tick();
 		}
 		entities.removeAll(entitiesToRemove);
+		entitiesToRemove.clear();
+		entities.addAll(entitiesToAdd);
+		entitiesToAdd.clear();
 
 		for(Item item : items)
 		{

@@ -26,7 +26,6 @@ public abstract class Entity {
 	protected int xOffset,yOffset;
 	public int xr=6;
 	public int yr=6;
-	public boolean removed;
 
 	protected String name;
 	private String message=null;
@@ -262,12 +261,9 @@ protected abstract int getYTile();
 	public void die()
 	{
 		Game.level.removeEntity(this);
-		//removed=true;
+		drops();
 	}
-	public boolean timeToDie()
-	{
-		return removed;
-	}
+protected abstract void drops();
 	public int getX()
 	{
 		return x;

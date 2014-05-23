@@ -33,4 +33,11 @@ public class Chicken  extends Entity {
 	{
 		return 23;
 	}
+
+
+	
+	protected void drops() {
+		
+		
+	}
 }

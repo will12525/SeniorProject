@@ -41,5 +41,11 @@ public class Monkey extends Entity {
 	{
 		return 25;
 	}
+
+	
+	protected void drops() {
+		
+		
+	}
 	
 }

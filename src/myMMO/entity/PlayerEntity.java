@@ -1,5 +1,6 @@
 package myMMO.entity;
 
+import items.BowItem;
 import items.HoeItem;
 import items.InvyItemBlank;
 import items.Item;
@@ -73,6 +74,10 @@ public class PlayerEntity extends Entity {
 			else if(blankItems==3)
 			{
 				items.add(blankItems,new WheatItem("wheat"));
+			}
+			else if(blankItems==4)
+			{
+				items.add(blankItems,new BowItem("Bow"));
 			}
 			else
 			{
@@ -259,6 +264,11 @@ public class PlayerEntity extends Entity {
 	protected int getYTile() 
 	{
 		return 28;
+	}
+
+	protected void drops() {
+
+		
 	}
 	
 	

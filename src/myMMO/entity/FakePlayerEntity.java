@@ -120,15 +120,18 @@ public class FakePlayerEntity extends Entity
 	{
 		return new Rectangle(x,y,8,8);
 	}
-	@Override
+
 	protected int getXTile() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
-	@Override
+
 	protected int getYTile() {
-		// TODO Auto-generated method stub
+	
 		return 28;
+	}
+
+	protected void drops() {
+		
 	}
 
 	

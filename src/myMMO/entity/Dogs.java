@@ -33,6 +33,12 @@ public class Dogs extends Entity {
 	{
 		return 25;
 	}
+
+
+	protected void drops() {
+		
+		
+	}
 	
 
 

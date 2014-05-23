@@ -60,47 +60,60 @@ public class Collision {
 						}
 
 					}
-
-					if(entity1 instanceof Arrow || entity2 instanceof Arrow)
-					{
-						return false;
-					}
+					entity1.stopMoving();
+					entity2.stopMoving();
 					//regular collision stuff
-					if(entity1.getClass()!=PlayerEntity.class)
+					/*if(entity1.getClass()!=PlayerEntity.class)
 					{
 						entity1.stopMoving();
 					}
 					if(entity2.getClass()!=PlayerEntity.class)
 					{
 						entity2.stopMoving();
-					}
-					if(entity2.getX()>entity1.getX())
+					}*/
+					if(entity1 instanceof Arrow||entity2 instanceof Arrow)
 					{
-
-						entity2.setX(entity2.getX()+1);
-						entity1.setX(entity1.getX()-1);
+						pushBack(entity1,entity2,5);
 					}
-					if(entity2.getX()<entity1.getX())
+					else
 					{
-						entity2.setX(entity2.getX()-1);
-						entity1.setX(entity1.getX()+1);
+						pushBack(entity1,entity2,1);
 					}
-					if(entity2.getY()>entity1.getY())
-					{
-						entity2.setY(entity2.getY()+1);
-						entity1.setY(entity1.getY()-1);
-					}
-					if(entity2.getY()<=entity1.getY())
-					{
-						entity2.setY(entity2.getY()-1);
-						entity1.setY(entity1.getY()+1);
-					}
+					
 					return true;
 				}
 
 			}
 		}
 		return false;
+	}
+	private static void pushBack(Entity entity1,Entity entity2, int pushBack)
+	{
+		if(entity2.getX()>entity1.getX())
+		{
+
+			entity2.setX(entity2.getX()+pushBack);
+			entity1.setX(entity1.getX()-pushBack);
+			return;
+		}
+		if(entity2.getX()<entity1.getX())
+		{
+			entity2.setX(entity2.getX()-pushBack);
+			entity1.setX(entity1.getX()+pushBack);
+			return;
+		}
+		if(entity2.getY()>entity1.getY())
+		{
+			entity2.setY(entity2.getY()+pushBack);
+			entity1.setY(entity1.getY()-pushBack);
+			return;
+		}
+		if(entity2.getY()<=entity1.getY())
+		{
+			entity2.setY(entity2.getY()-pushBack);
+			entity1.setY(entity1.getY()+pushBack);
+			return;
+		}
 	}
 
 	public static Entity getEntityActedWith()

@@ -6,6 +6,7 @@ import myMMO.Display;
 import myMMO.Game;
 import myMMO.Level;
 import myMMO.entity.PlayerEntity;
+import myMMO.sound.Sound;
 import myMMO.tile.Tile;
 
 public abstract class Item {
@@ -123,6 +124,7 @@ public abstract class Item {
 					{
 						Game.getLevel().getItems().remove(this);
 						player.changeItem(this, position);
+						Sound.pickUP.play();
 						//player.getItems().add(this);
 						return true;	
 					}

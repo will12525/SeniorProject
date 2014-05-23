@@ -1,9 +1,13 @@
 package myMMO.entity;
 
+import items.ArrowItem;
+import items.Item;
+
 import java.awt.Rectangle;
 
 import myMMO.Colours;
 import myMMO.Display;
+import myMMO.Game;
 
 public class Arrow extends Entity {
 	private static int colours= Colours.get(-1,222,321,555);
@@ -12,6 +16,7 @@ public class Arrow extends Entity {
 	private int airTime=60;
 
 	private boolean adjusted=false;
+	private boolean dontRenderYet=true;
 
 	public Arrow(int x,int y, int facingDirection) {
 		super("Arrow", x, y, 1,"",2,19,colours);
@@ -22,34 +27,36 @@ public class Arrow extends Entity {
 
 	public void tick()
 	{
-		super.tick();
-
 		if(!adjusted)
 		{
-			x=x+4;
-			y=y+4;
+
 			if(facingDirection==0)
 			{
 				y=y-8;
+				x=x+5;
 				adjusted=true;
 			}
 			if(facingDirection==1)
 			{
-				y=y+14;
+				y=y+5;
+				x=x-4;
 				adjusted=true;
 			}
 			if(facingDirection==2)
 			{
-				x=x-6;
+				y=y-3;
+				x=x-7;
 				adjusted=true;
 			}
 			if(facingDirection==3)
 			{
-				x=x+4;
+				y=y-3;
+				x=x+5;
 				adjusted=true;
 			}
+			dontRenderYet=false;
 		}
-		
+
 		if(facingDirection==0)
 		{
 			y--;
@@ -73,11 +80,29 @@ public class Arrow extends Entity {
 		if(airTime<0)
 		{
 			die();
+
 		}
+	}
+	protected void drops()
+	{
+		int r=random.nextInt(2);
+		System.out.println(r);
+		if(r==1)
+		{
+			Item arrowItem=new ArrowItem("arrow");
+			arrowItem.setX(x>>3);
+			arrowItem.setY(y>>3);
+			arrowItem.setCoolDown(30);
+			Game.level.addItem(arrowItem);
+		}
+	}
+	public Rectangle getActionBounds()
+	{
+		return new Rectangle(x,y,0,0);
 	}
 	public Rectangle getBounds()
 	{
-		if(airTime>50)
+		if(airTime>55)
 		{
 			return new Rectangle(x,y,0,0);
 		}
@@ -88,7 +113,10 @@ public class Arrow extends Entity {
 	}
 	public void render(Display display)
 	{
-
+		if(dontRenderYet)
+		{
+			return;
+		}
 		int xTile=2;
 		int yTile=19;
 		if(facingDirection==0)
@@ -108,15 +136,15 @@ public class Arrow extends Entity {
 			display.render(x, y, (xTile+1)+yTile*32, colours, 1, 0, 1);
 		}
 	}
-	
-	
-	
+
+
+
 	protected int getXTile() {
 
 		return 2;
 	}
 
-	
+
 	protected int getYTile() {
 
 		return 19;

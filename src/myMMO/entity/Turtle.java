@@ -34,4 +34,9 @@ public class Turtle extends Entity {
 		
 		return 23;
 	}
+
+
+	protected void drops() {
+		
+	}
 }

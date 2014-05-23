@@ -15,18 +15,17 @@ public class SwordItem extends Tool{
 
 	public SwordItem(String name,int swordLevel) {
 		super(name, colour, id);
-this.swordLevel=swordLevel;
+		this.swordLevel=swordLevel;
 	}
 
 	public void doAction(PlayerEntity player,Level level) {
 		Entity entity=Collision.getEntityActedWith();
-		//System.out.println(entity);
-		
+
 		if(entity==null)
 		{
 			return;
 		}
-		
+
 		entity.hurt(swordLevel);
 
 	}

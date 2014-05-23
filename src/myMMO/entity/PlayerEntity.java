@@ -304,6 +304,7 @@ public class PlayerEntity extends Entity {
 	}
 	
 	public void doAction() {
+		
 		if(!(holdItem instanceof Tool))
 		{
 			return;

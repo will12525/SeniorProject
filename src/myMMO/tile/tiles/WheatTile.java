@@ -74,7 +74,7 @@ public class WheatTile extends AnimatedTile{
 		if(growth==0)
 		{
 			Item item=null;
-			int r=random.nextInt(3)+1;
+			int r=random.nextInt(3);
 			
 
 			for(int k=0;k<r;k++)
@@ -86,7 +86,7 @@ public class WheatTile extends AnimatedTile{
 				level.addItem(item);
 			}
 			item=new SeedItem("Seed");
-			item.setX(xcoord+6);
+			item.setX(xcoord+1);
 			item.setY(ycoord);
 			item.setCoolDown(30);
 			level.addItem(item);

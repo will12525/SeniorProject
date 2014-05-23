@@ -28,7 +28,7 @@ public class GrassTile extends BaseTile{
 
 	public void drop(Level level) {
 		Item item=null;
-		int r=random.nextInt(2);
+		int r=random.nextInt(3);
 		
 		if(level.getPlayer().getHoldItem() instanceof HoeItem)
 		{

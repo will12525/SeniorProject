@@ -548,7 +548,7 @@ public class Game extends Canvas implements Runnable{
 				}
 				else
 				{
-					Player.setHoldItem(null,i);
+					Player.setHoldItem(new InvyItemBlank("empty"),i);
 				}
 			}
 			
@@ -601,7 +601,6 @@ public class Game extends Canvas implements Runnable{
 				}
 				if(!(item instanceof InvyItemBlank))
 				{
-					System.out.println("switching");
 					level.getPlayer().changeItem(mouseItem, mouseItemPosition);
 					level.getMouseItem().remove(0);
 					level.getMouseItem().add(item);

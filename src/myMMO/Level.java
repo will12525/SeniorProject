@@ -272,7 +272,7 @@ public class Level
 			{
 				tiles.set(i, t);
 				player.changeItem(new InvyItemBlank("empty"), itemPosition);
-				player.setHoldItem(null,i);
+				player.setHoldItem(new InvyItemBlank("empty"),i);
 
 			}
 		}

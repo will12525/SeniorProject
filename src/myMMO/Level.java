@@ -272,7 +272,7 @@ public class Level
 			{
 				tiles.set(i, t);
 				player.changeItem(new InvyItemBlank("empty"), itemPosition);
-				player.setHoldItem(null);
+				player.setHoldItem(null,i);
 
 			}
 		}
@@ -306,6 +306,10 @@ public class Level
 
 						tile.drop(this);
 						tiles.set(i, newTile);
+						if(playersItem.shouldDelete())
+						{
+							player.changeItem(new InvyItemBlank("empty"), player.getHoldItemPosition());
+						}
 					}
 					
 				}

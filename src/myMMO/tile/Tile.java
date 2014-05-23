@@ -28,6 +28,7 @@ public abstract class Tile {
 	public static final int PLANK = 9;
 	public static final int FLOWER_TILE = 10;
 	public static final int PLOWED_DIRT = 11;
+	public static final int WHEAT = 12;
 	
 	//public static final Tile[] tiles = new Tile[256];
 	/*public static final Tile VOID = new SolidTile(0,0,0,Colours.get(000, 500, -1, -1),0xFF000000, 0, 0);

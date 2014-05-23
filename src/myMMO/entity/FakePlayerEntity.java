@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import myMMO.Colours;
-import myMMO.Display;
-import myMMO.Font;
 
 public class FakePlayerEntity extends Entity
 {

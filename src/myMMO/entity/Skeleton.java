@@ -5,10 +5,8 @@ import items.BowItem;
 import items.Item;
 
 import java.awt.Rectangle;
-import java.util.Random;
 
 import myMMO.Colours;
-import myMMO.Display;
 import myMMO.Game;
 import myMMO.Level;
 

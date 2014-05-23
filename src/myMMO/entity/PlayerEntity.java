@@ -23,7 +23,9 @@ import myMMO.KeyInputHandler;
 import myMMO.menu.ChatMenu;
 import myMMO.menu.InventoryMenu;
 import myMMO.packet.Packet01Move;
+import myMMO.sound.Sound;
 import myMMO.tile.Tile;
+import myMMO.tile.tiles.SandTile;
 
 @SuppressWarnings("all")
 public class PlayerEntity extends Entity {
@@ -38,6 +40,8 @@ public class PlayerEntity extends Entity {
 	protected int xOffset;
 	protected int yOffset;
 
+	private double soundPlayWait=1000*1.4;
+	private long soundPlay;
 	private boolean talking = false;
 	private int waitForNextAction = 200;
 	private long lastAction;
@@ -122,7 +126,16 @@ public class PlayerEntity extends Entity {
 	public void tick() {
 		int xa=0;
 		int ya=0;
-		Tile standingAt=Game.level.getTile(x, y);
+		Tile standingAt=Game.level.getTile(x>>3, y>>3);
+		if(standingAt instanceof SandTile)
+		{
+			if(System.currentTimeMillis()-soundPlay>=soundPlayWait)
+			{
+				Sound.sand.play();
+				soundPlay=System.currentTimeMillis();
+			}
+			
+		}
 		//System.out.println(standingAt);
 		//System.out.println(standingAt+", X: "+x+", Y: "+y);
 		/*Tile standingAt = level.getTile(((x+4)>>3), ((y+3)>>3)+1);

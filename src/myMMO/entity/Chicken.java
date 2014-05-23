@@ -3,7 +3,7 @@ package myMMO.entity;
 import java.awt.Rectangle;
 
 import myMMO.Colours;
-import myMMO.Display;
+
 
 public class Chicken  extends Entity {
 	private static int colour=Colours.get(-1, 000, 555, 500);

@@ -3,8 +3,6 @@ package myMMO.entity;
 import java.awt.Rectangle;
 
 import myMMO.Colours;
-import myMMO.Display;
-
 
 public class Turtle extends Entity {
 

@@ -1,7 +1,6 @@
 package items;
 
 import myMMO.Colours;
-import myMMO.Display;
 import myMMO.Level;
 import myMMO.entity.PlayerEntity;
 

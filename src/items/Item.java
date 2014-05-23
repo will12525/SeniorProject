@@ -1,7 +1,5 @@
 package items;
 
-import java.util.List;
-
 import myMMO.Display;
 import myMMO.Game;
 import myMMO.Level;

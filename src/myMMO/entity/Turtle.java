@@ -13,7 +13,7 @@ public class Turtle extends Entity {
 
 	public Turtle(String name, int x, int y) {
 		super("turtle", x, y, 1,"Yaawwnn...",0,23,colour);
-		
+		health=100;
 	}
 		
 	public Rectangle getActionBounds()

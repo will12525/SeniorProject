@@ -8,6 +8,7 @@ import myMMO.Game;
 import myMMO.Level;
 
 public class Skeleton extends Entity {
+	private int tickCount;
 	private static int colour=Colours.get(-1, 555, 500, 000);
 	private long lastMove;
 	private static String message = "Ooh ooh ah ah!";

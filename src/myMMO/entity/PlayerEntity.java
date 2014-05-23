@@ -19,6 +19,7 @@ import myMMO.Game;
 import myMMO.KeyInputHandler;
 import myMMO.menu.ChatMenu;
 import myMMO.menu.InventoryMenu;
+import myMMO.packet.Packet01Move;
 import myMMO.tile.Tile;
 
 @SuppressWarnings("all")
@@ -184,7 +185,7 @@ public class PlayerEntity extends Entity {
 
 		//update server of player's new position
 		if(Game.multiplayer != null)
-			Game.multiplayer.send("1:" + getX() + ":" + getY());
+			new Packet01Move("1:" + getX() + ":" + getY()).send(Game.multiplayer.getOutput());
 	}
 
 	public void render(Display display) {

@@ -27,7 +27,7 @@ import myMMO.entity.Turtle;
 import myMMO.menu.InventoryMenu;
 import myMMO.menu.Menu;
 import myMMO.menu.TitleMenu;
-import myMMO.tile.Tile;
+import myMMO.packet.Packet02Disconnect;
 
 
 /**
@@ -77,8 +77,8 @@ public class Game extends Canvas implements Runnable{
 
 	ArrayList<Entity>boxs = new ArrayList<Entity>();
 	//the players random x and y starting position
-	private int playerNewX=0;
-	private int playerNewY=0;
+	//private int playerNewX=0;
+	//private int playerNewY=0;
 	//if an entity is swimming on start this will be true for them
 	private boolean swimming = false;
 	//public List<Entity>entities;
@@ -663,6 +663,18 @@ public class Game extends Canvas implements Runnable{
 		Game g = new Game();
 		instance = g;
 		g.start();
+		
+		//when the program exits, tell the server we are disconnecting
+		Runtime.getRuntime().addShutdownHook(new Thread(){
+			
+			@Override
+			public void run()
+			{
+				new Packet02Disconnect("2").send(Game.multiplayer.getOutput());
+			}
+		});
+			
+		
 
 	}
 

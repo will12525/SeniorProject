@@ -140,11 +140,13 @@ public class MultiPlayer extends Thread
 				switch(toRemove)
 				{
 				case MONKEY:
-					Game.level.addEntity(new Monkey("Name", 0, 0));
+					//Game.level.addEntity(new Monkey("Name", 0, 0));
+					Game.level.removeEntity(otherPlayer);
 					break;
 				
 				case PLAYER:
-					Game.level.addEntity(new Monkey("Name", 0, 0));
+					//Game.level.addEntity(new Monkey("Name", 0, 0));
+					Game.level.removeEntity(otherPlayer);
 				}
 			}
 			/*
@@ -231,16 +233,8 @@ public class MultiPlayer extends Thread
 		}
 	}	
 	
-	public void send(String info) 
+	public OutputStreamWriter getOutput()
 	{
-		try
-		{
-			this.out.flush();
-			this.out.write(info);
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
+		return this.out;
 	}
 }

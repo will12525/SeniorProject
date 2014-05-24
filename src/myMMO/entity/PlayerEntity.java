@@ -26,6 +26,7 @@ import myMMO.packet.Packet01Move;
 import myMMO.sound.Sound;
 import myMMO.tile.Tile;
 import myMMO.tile.tiles.SandTile;
+import myMMO.tile.tiles.WaterTile;
 
 @SuppressWarnings("all")
 public class PlayerEntity extends Entity {
@@ -126,7 +127,8 @@ public class PlayerEntity extends Entity {
 	public void tick() {
 		int xa=0;
 		int ya=0;
-		Tile standingAt=Game.level.getTile(x>>3, y>>3);
+		Tile standingAt=Game.level.getTile(((x)>>3), ((y+8)>>3));
+		
 		if(standingAt instanceof SandTile)
 		{
 			if(System.currentTimeMillis()-soundPlay>=soundPlayWait)
@@ -135,6 +137,16 @@ public class PlayerEntity extends Entity {
 				soundPlay=System.currentTimeMillis();
 			}
 			
+		}
+
+		if(standingAt instanceof WaterTile)
+		{
+			isSwimming=true;
+		
+		}
+		else
+		{
+			isSwimming=false;
 		}
 		//System.out.println(standingAt);
 		//System.out.println(standingAt+", X: "+x+", Y: "+y);

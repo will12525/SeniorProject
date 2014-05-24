@@ -308,7 +308,10 @@ public class Level
 					if(playersItem.getDestroyables()[k]==tile.getId())
 					{
 						Tile newTile =tile.getDestroyedVarient(playersItem);
+if(newTile==null)
+{return;
 
+}
 						tile.drop(this);
 						tiles.set(i, newTile);
 						if(playersItem.shouldDelete())

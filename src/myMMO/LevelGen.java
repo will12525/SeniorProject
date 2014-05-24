@@ -14,6 +14,7 @@ import myMMO.tile.tiles.PlankTile;
 import myMMO.tile.tiles.PlowedDirt;
 import myMMO.tile.tiles.SandTile;
 import myMMO.tile.tiles.StoneTile;
+import myMMO.tile.tiles.WaterTile;
 
 @SuppressWarnings("all")
 public class LevelGen {
@@ -42,8 +43,8 @@ public class LevelGen {
 				level.addTile(t);
 				System.out.println(t);
 				 */
-				
-				
+
+
 				Tile t=null;
 				if(x == 0 && y == 0) 
 				{
@@ -61,17 +62,23 @@ public class LevelGen {
 				{
 					if(r<=1)
 					{
+
+
 						t=new FlowerTile(x,y);
+
 					}
 					else
 					{
-						t= new GrassTile(x, y);
+						if(level.getTile(x, y).getId()!=Tile.WATER)
+						{
+							t= new GrassTile(x, y);
+						}
 					}
 				}
 				level.addTile(t);
 
-				
-				
+
+
 				//Tile t = new LeafTile(x<<3, y<<3);
 
 				//Tile t= new DirtTile(x<<3, y<<3);
@@ -81,7 +88,7 @@ public class LevelGen {
 			}
 		}
 
-
+		//spawnPond(level);
 
 		for(int rocky=0;rocky<20;rocky++)
 		{
@@ -90,8 +97,50 @@ public class LevelGen {
 			rock.setY(6);
 			level.addItem(rock);
 		}
+	}
 
 
+	private static void spawnPond(Level level)
+	{
+		int k= r.nextInt(level.getTiles().size());
+		int tileX= level.getTiles().get(k).getX();
+		int tileY=level.getTiles().get(k).getY();
+		System.out.println(tileX+", "+tileY);
+		
+		
+		for(int i = 0; i < Level.tiles.size(); i++)
+		{
+			Tile tile = Level.tiles.get(i);
+			
+			if(tile.getX() == tileX && tile.getY() == tileY)
+			{
+				//System.out.println(tile);
+				Level.tiles.set(i, new WaterTile(tileX, tileY));
+				//Level.tiles.set(i+1, new WaterTile(tileX+1, tileY));
+				//Level.tiles.set(i+2, new WaterTile(tileX+1, tileY+1));
+				//Level.tiles.set(i+3, new WaterTile(tileX+1, tileY+1));
+				//Level.tiles.set(i+4, new WaterTile(tileX+1, tileY+2));
+				//Level.tiles.set(i+5, new WaterTile(tileX+1, tileY+3));
+				//Level.tiles.set(i+6, new WaterTile(tileX+1, tileY+4));
+				//System.out.println(Level.getTiles().get(i));
+			}
+		}
+		
+		//level.addTile(new WaterTile(tileX,tileY));
+		//level.setTile(tileX, tileY, Tile.WATER);
+	
+		/*level.addTile(new WaterTile(tileX,tileY));
+		level.addTile(new WaterTile(tileX+1,tileY));
+		level.addTile(new WaterTile(tileX,tileY+1));
+		level.addTile(new WaterTile(tileX+1,tileY+1));
+		/*Tile t=null;
+		System.out.println(x);
+		for(int x2=x;x<13;x++)
+		{
+			t=new WaterTile(x2,y);
+		}
+
+		level.addTile(t);*/
 	}
 
 	public static void addMorePosXTiles(int newXMax,int origXMax,int currentYMax,int currentYMin,Level level)

@@ -6,9 +6,11 @@ import java.util.Random;
 import myMMO.Collision;
 import myMMO.Colours;
 import myMMO.Display;
+import myMMO.Font;
 import myMMO.Game;
 import myMMO.Level;
 import myMMO.tile.Tile;
+import myMMO.tile.tiles.WaterTile;
 
 
 /**
@@ -175,6 +177,14 @@ public abstract class Entity {
 		{
 			die();
 		}
+		if(Game.level.getTile((x),(y)) instanceof WaterTile)
+		{
+			isSwimming= true;
+		}
+		else
+		{
+			isSwimming=false;
+		}
 	}
 
 	public void render(Display display)
@@ -243,11 +253,14 @@ public abstract class Entity {
 			display.render(xOffset+modifier-(modifier*flipBottomL), yOffset+modifier, (xTile+1)+(yTile+1)*32, colour,flipBottomL,flipBottomR-1,scale);
 		}
 		
+		if(this instanceof PlayerEntity)
+		{
+			Font.renderFont((x>>3)+", "+(y>>3), display, x, y-10, Colours.get(-1, -1, -1, 555), 1);
+		}
 		
 		
 		
 		
-		//I tried to move all rendering here but it caused a lot of bugs, I tried to fix them but they wouldnt stop O_O   So I switched it back
 	}
 
 protected abstract int getXTile();
@@ -357,14 +370,8 @@ protected abstract void drops();
 				y+=ya*speed;
 			}
 		}
-		if(Game.level.getTile(this.x>>3, this.y>>3).getId()==3)
-		{
-			isSwimming= true;
-		}
-		if(isSwimming&&Game.level.getTile(this.x>>3, this.y>>3).getId()!=3)
-		{
-			isSwimming=false;
-		}
+	
+		
 	}
 
 	public boolean hasCollided(int xa,int ya) {

@@ -88,7 +88,7 @@ public class LevelGen {
 			}
 		}
 
-		//spawnPond(level);
+
 
 		for(int rocky=0;rocky<20;rocky++)
 		{
@@ -100,47 +100,39 @@ public class LevelGen {
 	}
 
 
-	private static void spawnPond(Level level)
+	public static void spawnPond(Level level)
 	{
-		int k= r.nextInt(level.getTiles().size());
-		int tileX= level.getTiles().get(k).getX();
-		int tileY=level.getTiles().get(k).getY();
+		int r1= r.nextInt(level.getTiles().size());
+		int tileX= level.getTiles().get(r1).getX();
+		int tileY=level.getTiles().get(r1).getY();
 		System.out.println(tileX+", "+tileY);
-		
-		
-		for(int i = 0; i < Level.tiles.size(); i++)
+
+		Tile tile =new WaterTile(tileX,tileY);
+
+		level.levelGenPlace(tile,tileX, tileY);
+
+
+//I dont even get how this is working
+		for(int k = 0;k<level.getTiles().size();k++)
 		{
-			Tile tile = Level.tiles.get(i);
-			
-			if(tile.getX() == tileX && tile.getY() == tileY)
+			if(level.getTiles().get(k).getId()==Tile.WATER)
 			{
-				//System.out.println(tile);
-				Level.tiles.set(i, new WaterTile(tileX, tileY));
-				//Level.tiles.set(i+1, new WaterTile(tileX+1, tileY));
-				//Level.tiles.set(i+2, new WaterTile(tileX+1, tileY+1));
-				//Level.tiles.set(i+3, new WaterTile(tileX+1, tileY+1));
-				//Level.tiles.set(i+4, new WaterTile(tileX+1, tileY+2));
-				//Level.tiles.set(i+5, new WaterTile(tileX+1, tileY+3));
-				//Level.tiles.set(i+6, new WaterTile(tileX+1, tileY+4));
-				//System.out.println(Level.getTiles().get(i));
+				tileX=level.getTiles().get(k).getX()+1;
+				for(int gaahhh=0;gaahhh<6;gaahhh++)
+				{
+					
+				}
+				tileY=level.getTiles().get(k).getY();
+				level.levelGenPlace(new WaterTile(tileX,tileY), tileX, tileY);
+System.out.println(k);
+
 			}
 		}
-		
-		//level.addTile(new WaterTile(tileX,tileY));
-		//level.setTile(tileX, tileY, Tile.WATER);
-	
-		/*level.addTile(new WaterTile(tileX,tileY));
-		level.addTile(new WaterTile(tileX+1,tileY));
-		level.addTile(new WaterTile(tileX,tileY+1));
-		level.addTile(new WaterTile(tileX+1,tileY+1));
-		/*Tile t=null;
-		System.out.println(x);
-		for(int x2=x;x<13;x++)
-		{
-			t=new WaterTile(x2,y);
-		}
 
-		level.addTile(t);*/
+
+
+
+
 	}
 
 	public static void addMorePosXTiles(int newXMax,int origXMax,int currentYMax,int currentYMin,Level level)

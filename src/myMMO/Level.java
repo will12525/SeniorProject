@@ -28,6 +28,7 @@ import myMMO.tile.tiles.GrassTile;
 import myMMO.tile.tiles.LogTile;
 import myMMO.tile.tiles.StoneTile;
 import myMMO.tile.tiles.VoidTile;
+import myMMO.tile.tiles.WaterTile;
 
 @SuppressWarnings("all")
 public class Level
@@ -48,10 +49,10 @@ public class Level
 
 	private Random random = new Random();
 
-	public static int currentxMax=20;
-	public static int currentxMin=-20;
-	public static int currentyMax=20;
-	public static int currentyMin=-20;
+	public static int currentxMax=100;
+	public static int currentxMin=-100;
+	public static int currentyMax=100;
+	public static int currentyMin=-100;
 
 	public static int originalxMax= currentxMax;
 	public static int originalxMin=currentxMin;
@@ -77,6 +78,7 @@ public class Level
 		//else
 		//{
 		LevelGen.createWorld(this,currentxMax,currentyMax,currentxMin,currentyMin);
+		LevelGen.spawnPond(this);
 		//}
 	}
 	public Image getImage()
@@ -237,6 +239,18 @@ public class Level
 		return null;//new OceanBiome(0,0,0,0);
 	}
 
+	public void levelGenPlace(Tile tile,int x,int y)
+	{
+		
+		for(int i=0;i<tiles.size();i++)
+		{
+			if(tiles.get(i).getX()==x&&tiles.get(i).getY()==y)
+			{
+				tiles.set(i, tile);
+			}
+		}
+	}
+	
 	public void placeTile()
 	{
 

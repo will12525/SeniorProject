@@ -255,7 +255,7 @@ public abstract class Entity {
 		
 		if(this instanceof PlayerEntity)
 		{
-			Font.renderFont((x>>3)+", "+(y>>3), display, x, y-10, Colours.get(-1, -1, -1, 555), 1);
+			Font.renderFont((x>>3)+", "+(y>>3), display, x, y-16, Colours.get(-1, -1, -1, 555), 1);
 		}
 		
 		

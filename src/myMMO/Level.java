@@ -49,10 +49,10 @@ public class Level
 
 	private Random random = new Random();
 
-	public static int currentxMax=100;
-	public static int currentxMin=-100;
-	public static int currentyMax=100;
-	public static int currentyMin=-100;
+	public static int currentxMax=20;
+	public static int currentxMin=-20;
+	public static int currentyMax=20;
+	public static int currentyMin=-20;
 
 	public static int originalxMax= currentxMax;
 	public static int originalxMin=currentxMin;
@@ -78,7 +78,7 @@ public class Level
 		//else
 		//{
 		LevelGen.createWorld(this,currentxMax,currentyMax,currentxMin,currentyMin);
-		LevelGen.spawnPond(this);
+		//LevelGen.spawnPond(this);
 		//}
 	}
 	public Image getImage()

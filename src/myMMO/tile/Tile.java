@@ -6,14 +6,17 @@ import myMMO.Display;
 import myMMO.Level;
 import myMMO.entity.Entity;
 import myMMO.tile.tiles.DirtTile;
+import myMMO.tile.tiles.FlowerTile;
 import myMMO.tile.tiles.GrassTile;
 import myMMO.tile.tiles.LeafTile;
 import myMMO.tile.tiles.LogTile;
 import myMMO.tile.tiles.PlankTile;
+import myMMO.tile.tiles.PlowedDirt;
 import myMMO.tile.tiles.SandTile;
 import myMMO.tile.tiles.StoneTile;
 import myMMO.tile.tiles.VoidTile;
 import myMMO.tile.tiles.WaterTile;
+import myMMO.tile.tiles.WheatTile;
 
 public abstract class Tile {
 	public static final int VOID = 0;
@@ -29,7 +32,7 @@ public abstract class Tile {
 	public static final int FLOWER_TILE = 10;
 	public static final int PLOWED_DIRT = 11;
 	public static final int WHEAT = 12;
-	
+
 	//public static final Tile[] tiles = new Tile[256];
 	/*public static final Tile VOID = new SolidTile(0,0,0,Colours.get(000, 500, -1, -1),0xFF000000, 0, 0);
 	public static final Tile STONE = new SolidTile(1,1,0,Colours.get(332, 333, 333, 343),0xFF555555, 0, 0);
@@ -42,7 +45,7 @@ public abstract class Tile {
 	public static final Tile FENCE = new FenceTile(8,new int[][] {{3,5},{4,5},{5,5},{6,5},{7,5},{8,5},{9,5},{10,5},{11,5}},Colours.get(253, 200,321,141),0xFFFF7d01,0,0, 0, 0);
 	public static final Tile PLANK = new SolidTile(9,6,0,Colours.get(-1, 321, 432, -1),0xFF845510, 0, 0);
 	public static final Tile FlowerTile = new BaseTile(10, 5, 0, Colours.get(131, 500, 141, 253),0xFFf40a10, 0, 0, 0, 0);
-	*/
+	 */
 	public static final Tile FENCE_TILE = new FenceTile(8,new int[][] {{3,5},{4,5},{5,5},{6,5},{7,5},{8,5},{9,5},{10,5},{11,5}},Colours.get(253, 200,321,141),0xFFFF7d01,0,0, 0, 0);
 	//public static final Tile[] tiles = {};
 
@@ -55,30 +58,30 @@ public abstract class Tile {
 	protected boolean emitter;
 	private int levelColour;
 	public int xcoord, ycoord;
-/**
- * 
- * @param id = int Id of tile
- * @param isSolid = boolean true if entity cant pass through tile
- * @param isEmitter = boolean true if can produce light
- * @param levelColour = int color associated with tile on map sheet
- */
+	/**
+	 * 
+	 * @param id = int Id of tile
+	 * @param isSolid = boolean true if entity cant pass through tile
+	 * @param isEmitter = boolean true if can produce light
+	 * @param levelColour = int color associated with tile on map sheet
+	 */
 	public Tile(int id, boolean isSolid,boolean isEmitter,int levelColour, int xcoord, int ycoord)
 	{
 
 		this.id=(byte)id;
 		//if(tiles[id]!=null)
 		//{
-			//throw new RuntimeException("Duplicate tile id on: "+id);
+		//throw new RuntimeException("Duplicate tile id on: "+id);
 		//}
 		this.solid=isSolid;
 		this.emitter=isEmitter;
 		this.levelColour=levelColour;
 		//tiles[id]=this;
-		
+
 		this.xcoord = xcoord;
 		this.ycoord = ycoord;
 	}
-	
+
 
 	public static Tile createTile(int x, int y, int id)
 	{
@@ -94,7 +97,7 @@ public abstract class Tile {
 		case 7: return new LeafTile(x, y);
 		case 8: return new FenceTile(x, y);
 		case 9: return new PlankTile(x, y);
-			
+
 		default: return new DirtTile(x, y);
 		}
 	}
@@ -113,12 +116,12 @@ public abstract class Tile {
 		case 7: return LEAVES;
 		case 8: return FENCE;
 		case 9: return PLANK;
-			
+
 		default: return DIRT;
 		}
 	}
 	 */
-	
+
 	/**
 	 * @return int, the id of the block
 	 */
@@ -149,22 +152,22 @@ public abstract class Tile {
 	}
 	public void bumpedInto(Level level,int x1,int y1,Entity entity)
 	{
-		
+
 	}
 	public void steppedOn(Level level, int x1,int y1, Entity entity)
 	{
-		
+
 	}
 	public void hurt(Level level, int x, int y, Entity entity, int damage, int direction)
 	{
-		
+
 	}
 	/**
 	 * represents each tiles tick function
 	 */
 	public void tick()
 	{
-		
+
 	}
 	/**
 	 * @param display = display
@@ -174,29 +177,29 @@ public abstract class Tile {
 	 */
 	public void render(Display display, Level level, int x, int y)
 	{
-		
+
 	}
-	
+
 	public int getX()
 	{
 		return xcoord;
 	}
-	
+
 	public void setX(int xcoord)
 	{
 		this.xcoord = xcoord;
 	}
-	
+
 	public int getY()
 	{
 		return ycoord;
 	}
-	
+
 	public void setY(int ycoord)
 	{
 		this.ycoord = ycoord;
 	}
-	
+
 	public void setID(int id)
 	{
 		this.id = (byte)id;
@@ -204,9 +207,48 @@ public abstract class Tile {
 
 
 	public abstract void drop(Level level);
+
+	public static Tile getTileFromColor(int color, int x, int y) {
+		switch(color)
+		{
+		case 0xFF000000: return new VoidTile(x,y);
+		case 0xFF555555: return new StoneTile(x,y);
+		case 0xFF00FF00: return new GrassTile(x,y);
+		case 0xFF0000FF: return new WaterTile(x,y);
+		case 0xFFaa5500: return new LogTile(x,y);
+		case 0xFFFFFF00: return new SandTile(x,y);
+		case 0xFF412000: return new DirtTile(x,y);
+		case 0xFF9eff7d: return new LeafTile(x,y);
+		case 0xFFFF7d01: return new DirtTile(x,y);
+		case 0xFF845510: return new PlankTile(x,y);
+		case 0xFFf40a10: return new FlowerTile(x,y);
+		case 0xFF422000: return new PlowedDirt(x,y);
+		case 0xFF84ff7d: return new WheatTile(x,y);
+		
+/*
+ * public static final int VOID = 0;
+	public static final int STONE = 1;
+	public static final int GRASS = 2;
+	public static final int WATER = 3;
+	public static final int LOG = 4;
+	public static final int SAND = 5;
+	public static final int DIRT = 6;
+	public static final int LEAVES = 7;
+	public static final int FENCE = 8;
+	public static final int PLANK = 9;
+	public static final int FLOWER_TILE = 10;
+	public static final int PLOWED_DIRT = 11;
+	public static final int WHEAT = 12;
+ */
+
+
+		default: return null;
+		}
 	
+	}
+
 	public abstract Tile getDestroyedVarient(Item item);
 
-	
+
 
 }

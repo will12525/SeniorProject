@@ -4,11 +4,16 @@ import items.InvyItemBlank;
 import items.Item;
 import items.Tool;
 
+import java.awt.AlphaComposite;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.PointerInfo;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,21 +65,24 @@ public class Level
 	public int width;
 	public int height;
 	public BufferedImage image;
+	public BufferedImage imageNegX;
+	public BufferedImage imageNegY;
+	public BufferedImage imageNegBoth;
 
 	public Level(Game game, String imagePath)
 	{
 		this.game = game;
 		this.imagePath = imagePath;
-		//if(imagePath!=null)
-		//{
-		//	this.imagePath=imagePath;
-		//	loadLevelFromFile();
-		//}
-		//else
-		//{
+		if(imagePath!=null)
+		{
+			this.imagePath=imagePath;
+			loadLevelFromFile();
+		}
+		else
+		{
 		LevelGen.createWorld(this,currentxMax,currentyMax,currentxMin,currentyMin);
 		//LevelGen.spawnPond(this);
-		//}
+		}
 	}
 	public Image getImage()
 	{
@@ -100,6 +108,19 @@ public class Level
 	//levelColour is how each tile identifies with the tile on the jPeg
 	private void loadTiles()
 	{
+		
+		
+		for(int x=0;x<image.getWidth();x++)
+		{
+			for(int y=0;y<image.getHeight();y++)
+			{
+				int color =image.getRGB(x, y);
+				
+				Tile t = Tile.getTileFromColor(color,x,y);
+				tiles.add(t);
+			}
+		}
+		
 		/*		//loads each pixel from the imagePath and gets the color code into an array of ints
 		int[] tileColours =this.image.getRGB(0, 0, width, height, null, 0, width);
 
@@ -124,12 +145,6 @@ public class Level
 			}
 		}*/
 	}
-
-	/*public void setHoldItem(Item item)
-	{
-		holdItem=item;
-	}*/
-
 	public static void addEntity(Entity e)
 	{
 		entitiesToAdd.add(e);
@@ -174,7 +189,7 @@ public class Level
 		//it is a new tile, add it to the list
 		Tile t = Tile.createTile(x,  y, id);
 		tiles.add(t);
-		
+
 		//if the level is done generating (we are placing blocks or something) send updates
 		//to the server to be redistributed
 		Packet03TileUpdate p03 = new Packet03TileUpdate("3:" + x + ":" + y + ":" + id);
@@ -346,6 +361,7 @@ public class Level
 		for(Tile t : tiles)
 		{
 			t.tick();
+
 		}
 
 		for(Entity e : getEntities())
@@ -377,39 +393,61 @@ public class Level
 
 		//generates more tiles as needed based on the players location
 
-		/*if((player.getX()>>3)>currentxMax-20)
+
+		int whatToSave=0;
+		//adds pos x tiles
+		if((player.getX()>>3)>currentxMax-20)
 		{
 			//this
 			currentxMax=currentxMax+8;
-			LevelGen.addMorePosXTiles(currentxMax,originalxMax,currentyMax,currentyMin,this);
+			whatToSave=0;
+
+			//LevelGen.addMorePosXTiles(currentxMax,originalxMax,currentyMax,currentyMin,this);
 		}
+		//adds neg x tiles
 		if((player.getX()>>3)<currentxMin+20)
 		{
 			//System.out.println(player.x+", "+currentxMin+ " :player x smaller");
 			currentxMin=currentxMin-8;
-			LevelGen.addMoreNegXTiles(currentxMin,originalxMin,currentyMax,currentyMin,this);
+			whatToSave=1;
+			//LevelGen.addMoreNegXTiles(currentxMin,originalxMin,currentyMax,currentyMin,this);
 		}
 
 		if((player.getY()>>3)>currentyMax-20)
 		{
 
 			currentyMax=currentyMax+8;
-			LevelGen.addMorePosYTiles(currentyMax,originalyMax,currentxMax,currentxMin,this);
+			//whatToSave=2;
+			//LevelGen.addMorePosYTiles(currentyMax,originalyMax,currentxMax,currentxMin,this);
 		}
 		if((player.getY()>>3)<currentyMin+20)
 		{
 			//System.out.println(player.y+", "+currentyMin+" :player y smaller");
 			currentyMin=currentyMin-8;
-			LevelGen.addMoreNegYTiles(currentyMin,originalyMin,currentxMax,currentxMin,this);
-		}*/
+			//whatToSave=3;
+			//LevelGen.addMoreNegYTiles(currentyMin,originalyMin,currentxMax,currentxMin,this);
+		}
 
 
 		List<Tile> tilesToRemove = new ArrayList<Tile>();
 		List<Tile> tilesToAdd = new ArrayList<Tile>();
-		
-		if(tickCount % 20 == 0)
+
+		/*if(tickCount % 20 == 0)
 		{
-			for(Tile t : tiles)
+			/*switch(whatToSave)
+			{
+			case 0: saveTiles();
+			break;
+			case 1: saveNegXTiles();
+			break;
+			case 2: saveNegYTiles();
+			break;
+			case 3: saveBothNegTiles();
+			break;
+
+			}*/
+			
+		/*	for(Tile t : tiles)
 			{
 				int x1 = (player.getX()>>3);
 				int x2 = (t.getX());
@@ -436,31 +474,40 @@ public class Level
 			tiles.removeAll(tilesToRemove);
 
 			tilesToRemove.clear();
-			
-			
+
+
 			for(int pX=(player.getX()>>3)-15;pX<(player.getX()>>3)+15;pX++)
 			{
 				for(int pY=(player.getY()>>3)-15;pY<(player.getY()>>3)+15;pY++)
 				{
-				//	System.out.println((player.getX()>>3)+", "+(player.getY()>>3)+", "+pX+", "+pY);
-					
+					//	System.out.println((player.getX()>>3)+", "+(player.getY()>>3)+", "+pX+", "+pY);
+
 					if(getTile(pX,pY)==null)
 					{
-						
+
 						tilesToAdd.add(new GrassTile(pX,pY));
-					
+
 					}
-			
+
 				}
-				
+
 			}
 			tiles.addAll(tilesToAdd);
 			tilesToAdd.clear();
-			
-			
+
+
 		}
 		tickCount++;
+
+
+*/
+		//adjust image sizes
+
+
+
+
 	}
+
 
 	public void renderTiles(Display display, int xoffset, int yoffset)
 	{
@@ -521,6 +568,222 @@ public class Level
 
 		}
 	}
+
+	public void saveTiles()
+	{
+
+		int xOffset=0;
+		int yOffset=0;
+		int imgWidth=Math.abs(currentxMin)+currentxMax;
+		int imgHeight=Math.abs(currentyMin)+currentyMax;
+		
+		
+		File f= new File("C:/Users/William/Desktop/imgTest.png");
+		Image img = null;
+		try {
+			img = ImageIO.read(f);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		if(img==null)
+		{
+			image=(BufferedImage) resizeImage(image,imgWidth,imgHeight);
+		}
+		else
+		{
+		image=(BufferedImage) resizeImage(image,imgWidth,imgHeight);
+		}
+		for(Tile t:tiles)
+		{
+			int x=t.getX();
+			int y=t.getY();
+			int c=t.getLevelColour();
+
+			if(x<0)
+			{
+				continue;
+			}
+			if(y<0)
+			{
+				continue;	
+			}
+
+			image.setRGB(x, y, c);
+		}		
+
+		try {
+			ImageIO.write(image, "png", new File("C:/Users/William/Desktop/imgTest.png"));
+			System.out.println("wrote file");
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+	}
+	public void saveNegXTiles()
+	{
+		int xOffset=0;
+		int yOffset=0;
+		int imgWidth=Math.abs(currentxMin)+currentxMax;
+		int imgHeight=Math.abs(currentyMin)+currentyMax;
+		File f= new File("C:/Users/William/Desktop/imgTestNegX.png");
+		Image img = null;
+		try {
+			img = ImageIO.read(f);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		if(img==null)
+		{
+			imageNegX=(BufferedImage) resizeImage(imageNegX,imgWidth,imgHeight);
+		}
+		else
+		{
+			imageNegX=(BufferedImage) resizeImage(img,imgWidth,imgHeight);
+		}
+		for(Tile t:tiles)
+		{
+			int x=t.getX();
+			int y=Math.abs(t.getY());
+			int c=t.getLevelColour();
+			
+			if(x>0)
+			{
+				continue;
+			}
+			if(y<0)
+			{
+				continue;	
+			}
+			x=Math.abs(x);
+			//System.out.println(imgWidth+", "+imgHeight+", "+(x+xOffset)+", "+(y+yOffset));
+
+			imageNegX.setRGB(x, y, c);
+		}
+		
+
+		try {
+			ImageIO.write(imageNegX, "png", new File("C:/Users/William/Desktop/imgTestNegX.png"));
+			System.out.println("wrote file");
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+	}
+
+
+
+	public void saveNegYTiles()
+	{
+System.out.println("case 2");
+		int xOffset=0;
+		int yOffset=0;
+		int imgWidth=Math.abs(currentxMin)+currentxMax;
+		int imgHeight=Math.abs(currentyMin)+currentyMax;
+		image=(BufferedImage) resizeImage(image,imgWidth,imgHeight);
+
+		for(Tile t:tiles)
+		{
+			int x=t.getX();
+			int y=t.getY();
+			int c=t.getLevelColour();
+
+			if(x<0)
+			{
+				continue;
+			}
+			if(y<0)
+			{
+				continue;	
+			}
+			//System.out.println(imgWidth+", "+imgHeight+", "+(x+xOffset)+", "+(y+yOffset));
+
+			image.setRGB(x, y, c);
+		}
+
+
+		if(image==null)
+		{
+			System.out.println("null");
+			return;
+		}
+
+		try {
+			ImageIO.write(image, "png", new File("C:/Users/William/Desktop/imgTest.png"));
+			System.out.println("wrote file");
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+	}
+
+	public void saveBothNegTiles()
+	{
+System.out.println("case 3");
+		int xOffset=0;
+		int yOffset=0;
+		int imgWidth=Math.abs(currentxMin)+currentxMax;
+		int imgHeight=Math.abs(currentyMin)+currentyMax;
+		image=(BufferedImage) resizeImage(image,imgWidth,imgHeight);
+
+		for(Tile t:tiles)
+		{
+			int x=t.getX();
+			int y=t.getY();
+			int c=t.getLevelColour();
+
+			if(x<0)
+			{
+				continue;
+			}
+			if(y<0)
+			{
+				continue;	
+			}
+			//System.out.println(imgWidth+", "+imgHeight+", "+(x+xOffset)+", "+(y+yOffset));
+
+			image.setRGB(x, y, c);
+		}
+
+		if(image==null)
+		{
+			System.out.println("null");
+			return;
+		}
+
+		try {
+			ImageIO.write(image, "png", new File("C:/Users/William/Desktop/imgTest.png"));
+			System.out.println("wrote file");
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+	}
+
+	private Image resizeImage(Image originalImage, int biggerWidth, int biggerHeight) {
+		int type = BufferedImage.TYPE_INT_RGB;
+
+
+		BufferedImage resizedImage = new BufferedImage(biggerWidth, biggerHeight, type);
+		Graphics2D g = resizedImage.createGraphics();
+
+		g.setComposite(AlphaComposite.Src);
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+		g.drawImage(originalImage, 0, 0, biggerWidth, biggerHeight,null);
+		g.dispose();
+
+
+		return resizedImage;
+	}
+
+
+
+
+
 	public void spawnHostiles()
 	{
 		int amount = random.nextInt(20)+10;

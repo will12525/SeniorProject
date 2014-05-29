@@ -58,7 +58,7 @@ public class PlayerEntity extends Entity {
 	private static int yTile=28;
 
 	public PlayerEntity(int xOnMap, int yOnMap, KeyInputHandler input,String username,boolean isSwimming) {
-		super("Player", xOnMap, yOnMap, 1,"",xTile,yTile,colour);
+		super("Player", xOnMap, yOnMap, 3,"",xTile,yTile,colour);
 		//Level level, String name, int x, int y, int speed, String message,int xTile,int yTile, int colour
 		this.input=input;
 		this.username=username;

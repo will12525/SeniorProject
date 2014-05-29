@@ -4,6 +4,7 @@ import java.util.List;
 
 import myMMO.entity.Arrow;
 import myMMO.entity.Entity;
+import myMMO.entity.FakePlayerEntity;
 import myMMO.entity.PlayerEntity;
 
 public class Collision {
@@ -24,6 +25,11 @@ public class Collision {
 				Entity entity1 = entities.get(i);
 				//entity2 is usually player
 				Entity entity2 = entities.get(k);
+				
+				if(entity1 instanceof FakePlayerEntity || entity2 instanceof FakePlayerEntity)
+				{
+					return false;
+				}
 				/*
 				 * handles collision of entities
 				 */

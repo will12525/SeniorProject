@@ -1,17 +1,17 @@
 package myMMO.tile.tiles;
 
-import java.util.Random;
-
-import items.FlowerItem;
-import items.HoeItem;
 import items.Item;
 import items.SeedItem;
 import items.WheatItem;
+
+import java.util.Random;
+
 import myMMO.Colours;
 import myMMO.Level;
 import myMMO.tile.AnimatedTile;
 import myMMO.tile.Tile;
 
+@SuppressWarnings("unused")
 public class WheatTile extends AnimatedTile{
 	private int growth=3000;
 	Random random=new Random();

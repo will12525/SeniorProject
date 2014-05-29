@@ -34,7 +34,7 @@ import myMMO.packet.Packet02Disconnect;
  * The game!
  */
 public class Game extends Canvas implements Runnable{
-//test
+
 	private static final long serialVersionUID = 1L;
 
 	//the frame the game is in
@@ -91,7 +91,7 @@ public class Game extends Canvas implements Runnable{
 	int WIDTH= 160;
 	int HEIGHT=WIDTH/12*9;
 	//scale to easily change size while keeping ratio
-	int SCALE = 7;
+	int SCALE = 6;
 	
 	//instance of the class
 	public static Game instance;
@@ -167,7 +167,6 @@ public class Game extends Canvas implements Runnable{
 	/**
 	 * the game, contains everything/calls needed things
 	 */
-	@SuppressWarnings("unused")
 	public void run()
 	{
 		long lastLoopTime = System.nanoTime();
@@ -279,9 +278,15 @@ public class Game extends Canvas implements Runnable{
 		}*/
 		skelly = new Skeleton("Skelly",30,30);
 		//level.addEntity(skelly);
-		turtle=new Turtle("turtle",10,10);
+		
+		//TODO
+		//removing 
+		//turtle=new Turtle("turtle",10,10);
+		
 		//add each turtle
-		level.addEntity(turtle);
+		
+		//TODO also removing
+		//level.addEntity(turtle);
 
 		//generates monkeys, random amount between 3 and 5
 		/*for(int monk=0;monk<rand.nextInt(20)+10;monk++)
@@ -671,7 +676,14 @@ public class Game extends Canvas implements Runnable{
 			@Override
 			public void run()
 			{
-				new Packet02Disconnect("2").send(Game.multiplayer.getOutput());
+				try
+				{
+					new Packet02Disconnect("2").send(Game.multiplayer.getOutput());
+				}
+				catch (NullPointerException e)
+				{
+					//no multiplayer,ignore the exception
+				}
 			}
 		});
 			

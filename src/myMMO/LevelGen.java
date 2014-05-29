@@ -46,18 +46,24 @@ public class LevelGen {
 
 
 				Tile t=null;
+				
 				if(x == 0 && y == 0) 
 				{
-					t = new PlankTile(0, 0);
+					//t = new PlankTile(0, 0);
+					t = new GrassTile(0, 0);
 				}
 				else if(x==1&&y<5&&y>0)
 				{
-					t= new PlowedDirt(x,y);
+					//t= new PlowedDirt(x,y);
+					t = new GrassTile(x, y);
 				}
+				
 				else if(x>1&&x<4&&y>0&&y<5)
 				{
-					t=new SandTile(x,y);
+					//t=new SandTile(x,y);
+					t = new GrassTile(x, y);
 				}
+				
 				else
 				{
 					if(r<=1)

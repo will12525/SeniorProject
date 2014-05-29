@@ -20,6 +20,7 @@ import myMMO.Display;
 import myMMO.Font;
 import myMMO.Game;
 import myMMO.KeyInputHandler;
+import myMMO.Level;
 import myMMO.menu.ChatMenu;
 import myMMO.menu.InventoryMenu;
 import myMMO.packet.Packet01Move;
@@ -222,9 +223,11 @@ public class PlayerEntity extends Entity {
 		}
 
 		//update server of player's new position
-		if(Game.multiplayer != null)
+		if(Game.multiplayer != null && Level.tickCount % 6 == 0)
 		{
+			//System.out.println(xa + "  " + ya);
 			new Packet01Move("1:" + getX() + ":" + getY()).send(Game.multiplayer.getOutput());
+			System.out.println("sending move packet");
 		}
 		
 		if(health<=0)

@@ -15,7 +15,7 @@ public class Packet04AddEntity extends Packet {
 	public void parse() {
 		//temp
 		//TODO: add actual functionality
-		e = new FakePlayerEntity("Monkey", 0, 0);
+		e = new FakePlayerEntity("Player", 0, 0);
 	}
 	
 	public Entity getEntity()

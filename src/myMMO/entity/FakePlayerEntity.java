@@ -16,6 +16,7 @@ public class FakePlayerEntity extends Entity
 {
 
 	private static int colour = Colours.get(-1, 050, 111, 543);
+	@SuppressWarnings("unused")
 	private String userName;
 	protected int xOffset;
 	protected int yOffset;

@@ -108,9 +108,11 @@ public class MultiPlayer extends Thread
 				break;
 				
 			case 1:
+				//moving
 				Packet01Move p01 = new Packet01Move(info);
 				otherPlayer.setX(p01.getNewX());
 				otherPlayer.setY(p01.getNewY());
+				System.out.println("got move packet");
 				break;
 			
 			case 2:

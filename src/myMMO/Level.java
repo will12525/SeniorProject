@@ -1,9 +1,7 @@
 package myMMO;
 
-import items.FlowerItem;
 import items.InvyItemBlank;
 import items.Item;
-import items.RockItem;
 import items.Tool;
 
 import java.awt.Image;
@@ -20,15 +18,10 @@ import javax.imageio.ImageIO;
 
 import myMMO.biome.Biome;
 import myMMO.entity.Entity;
+import myMMO.entity.FakePlayerEntity;
 import myMMO.entity.PlayerEntity;
 import myMMO.tile.Tile;
-import myMMO.tile.tiles.DirtTile;
-import myMMO.tile.tiles.FlowerTile;
-import myMMO.tile.tiles.GrassTile;
 import myMMO.tile.tiles.LogTile;
-import myMMO.tile.tiles.StoneTile;
-import myMMO.tile.tiles.VoidTile;
-import myMMO.tile.tiles.WaterTile;
 
 @SuppressWarnings("all")
 public class Level
@@ -59,7 +52,7 @@ public class Level
 	public static int originalyMax=currentyMax;
 	public static int originalyMin=currentyMin;
 
-	private int tickCount = 0;
+	public static int tickCount = 0;
 
 
 	public int width;
@@ -356,6 +349,11 @@ if(newTile==null)
 		for(Entity e : getEntities())
 		{
 			e.tick();
+			
+			if(e instanceof FakePlayerEntity)
+			{
+				//System.out.println(e.getX() + " " + e.getY());
+			}
 		}
 		entities.removeAll(entitiesToRemove);
 		entitiesToRemove.clear();

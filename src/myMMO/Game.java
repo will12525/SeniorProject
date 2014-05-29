@@ -91,13 +91,16 @@ public class Game extends Canvas implements Runnable{
 	int WIDTH= 160;
 	int HEIGHT=WIDTH/12*9;
 	//scale to easily change size while keeping ratio
-	int SCALE = 7;
+	int SCALE = 6;
 	
 	//instance of the class
 	public static Game instance;
 	
 	//Multiplayer object for sending data from other classes
 	public static MultiPlayer multiplayer;
+	
+	//done generating world
+	public boolean doneGenerating = false;
 
 	/**
 	 * the image that contains everything
@@ -661,6 +664,7 @@ public class Game extends Canvas implements Runnable{
 	public static void main(String[] args) {
 		//multiplayer
 		String s = JOptionPane.showInputDialog("Please enter IP for multiplayer (or blank for no multiplayer)");
+		
 		if(!s.isEmpty())
 		{
 			multiplayer = new MultiPlayer(s);

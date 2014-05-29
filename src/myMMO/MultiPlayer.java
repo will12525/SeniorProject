@@ -112,7 +112,6 @@ public class MultiPlayer extends Thread
 				Packet01Move p01 = new Packet01Move(info);
 				otherPlayer.setX(p01.getNewX());
 				otherPlayer.setY(p01.getNewY());
-				System.out.println("got move packet");
 				break;
 			
 			case 2:
@@ -123,6 +122,7 @@ public class MultiPlayer extends Thread
 				Packet03TileUpdate p03 = new Packet03TileUpdate(info);
 				Tile t = p03.getTile();
 				Game.level.setTile(t.getX(), t.getY(), t.getId());
+				System.out.println("setting at " + t.getX() + " " + t.getY());
 				break;
 			
 			case 4: 

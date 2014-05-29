@@ -227,7 +227,6 @@ public class PlayerEntity extends Entity {
 		{
 			//System.out.println(xa + "  " + ya);
 			new Packet01Move("1:" + getX() + ":" + getY()).send(Game.multiplayer.getOutput());
-			System.out.println("sending move packet");
 		}
 		
 		if(health<=0)

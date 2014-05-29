@@ -9,7 +9,6 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.PointerInfo;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +20,9 @@ import myMMO.biome.Biome;
 import myMMO.entity.Entity;
 import myMMO.entity.FakePlayerEntity;
 import myMMO.entity.PlayerEntity;
+import myMMO.packet.Packet03TileUpdate;
 import myMMO.tile.Tile;
 import myMMO.tile.tiles.GrassTile;
-import myMMO.tile.tiles.LogTile;
-import myMMO.tile.tiles.PlowedDirt;
 import myMMO.tile.tiles.VoidTile;
 
 @SuppressWarnings("all")
@@ -173,8 +171,14 @@ public class Level
 			}
 		}
 
+		//it is a new tile, add it to the list
 		Tile t = Tile.createTile(x,  y, id);
 		tiles.add(t);
+		
+		//if the level is done generating (we are placing blocks or something) send updates
+		//to the server to be redistributed
+		Packet03TileUpdate p03 = new Packet03TileUpdate("3:" + x + ":" + y + ":" + id);
+		p03.send(Game.instance.multiplayer.getOutput());
 	}
 
 	public Tile getTile(int x, int y)
@@ -285,14 +289,7 @@ public class Level
 	}
 	public void setTile(int x,int y,Tile tile)
 	{
-		for(int i=0;i<tiles.size();i++)
-		{
-			if(tiles.get(i).getX() == x && tiles.get(i).getY() == y)
-			{
-				tiles.set(i,tile);
-
-			}
-		}		
+		setTile(x, y, tile.getId());	
 	}
 
 	public void destroyTile()

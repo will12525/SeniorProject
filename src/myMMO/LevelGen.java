@@ -100,6 +100,8 @@ public class LevelGen {
 			level.addItem(rock);
 		}
 
+		System.out.println("Done generating level");
+		Game.instance.doneGenerating = true;
 	}
 
 	public static void addMorePosXTiles(int newXMax,int origXMax,int currentYMax,int currentYMin,Level level)

@@ -34,7 +34,7 @@ import myMMO.packet.Packet02Disconnect;
  * The game!
  */
 public class Game extends Canvas implements Runnable{
-
+//test
 	private static final long serialVersionUID = 1L;
 
 	//the frame the game is in

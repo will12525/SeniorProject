@@ -9,6 +9,7 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.PointerInfo;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,10 @@ import myMMO.entity.Entity;
 import myMMO.entity.FakePlayerEntity;
 import myMMO.entity.PlayerEntity;
 import myMMO.tile.Tile;
+import myMMO.tile.tiles.GrassTile;
 import myMMO.tile.tiles.LogTile;
+import myMMO.tile.tiles.PlowedDirt;
+import myMMO.tile.tiles.VoidTile;
 
 @SuppressWarnings("all")
 public class Level
@@ -57,7 +61,7 @@ public class Level
 
 	public int width;
 	public int height;
-	private BufferedImage image;
+	public BufferedImage image;
 
 	public Level(Game game, String imagePath)
 	{
@@ -78,6 +82,8 @@ public class Level
 	{
 		return image;
 	}
+
+
 	private void loadLevelFromFile()
 	{
 		try
@@ -181,7 +187,7 @@ public class Level
 			}
 		}
 
-		return new LogTile(x, y);
+		return null;
 	}
 
 	public static List<Tile> getTiles()
@@ -232,18 +238,6 @@ public class Level
 		return null;//new OceanBiome(0,0,0,0);
 	}
 
-	public void levelGenPlace(Tile tile,int x,int y)
-	{
-		
-		for(int i=0;i<tiles.size();i++)
-		{
-			if(tiles.get(i).getX()==x&&tiles.get(i).getY()==y)
-			{
-				tiles.set(i, tile);
-			}
-		}
-	}
-	
 	public void placeTile()
 	{
 
@@ -289,6 +283,17 @@ public class Level
 			}
 		}
 	}
+	public void setTile(int x,int y,Tile tile)
+	{
+		for(int i=0;i<tiles.size();i++)
+		{
+			if(tiles.get(i).getX() == x && tiles.get(i).getY() == y)
+			{
+				tiles.set(i,tile);
+
+			}
+		}		
+	}
 
 	public void destroyTile()
 	{
@@ -315,10 +320,10 @@ public class Level
 					if(playersItem.getDestroyables()[k]==tile.getId())
 					{
 						Tile newTile =tile.getDestroyedVarient(playersItem);
-if(newTile==null)
-{return;
-
-}
+						if(newTile==null)
+						{
+							return;
+						}
 						tile.drop(this);
 						tiles.set(i, newTile);
 						if(playersItem.shouldDelete())
@@ -349,7 +354,7 @@ if(newTile==null)
 		for(Entity e : getEntities())
 		{
 			e.tick();
-			
+
 			if(e instanceof FakePlayerEntity)
 			{
 				//System.out.println(e.getX() + " " + e.getY());
@@ -370,11 +375,12 @@ if(newTile==null)
 		}
 
 
-
+		//	LevelGen.unloadChunks(player, this);
+		//LevelGen.generateChunks(player);
 
 		//generates more tiles as needed based on the players location
 
-		if((player.getX()>>3)>currentxMax-20)
+		/*if((player.getX()>>3)>currentxMax-20)
 		{
 			//this
 			currentxMax=currentxMax+8;
@@ -398,48 +404,64 @@ if(newTile==null)
 			//System.out.println(player.y+", "+currentyMin+" :player y smaller");
 			currentyMin=currentyMin-8;
 			LevelGen.addMoreNegYTiles(currentyMin,originalyMin,currentxMax,currentxMin,this);
-		}
+		}*/
 
-		/*
+
 		List<Tile> tilesToRemove = new ArrayList<Tile>();
-
+		List<Tile> tilesToAdd = new ArrayList<Tile>();
+		
 		if(tickCount % 20 == 0)
 		{
 			for(Tile t : tiles)
 			{
-				int x1 = player.x >> 3;
-				int x2 = t.getX() >> 3;
+				int x1 = (player.getX()>>3);
+				int x2 = (t.getX());
 
-				int y1 = player.y >> 3;
-				int y2 = t.getY() >> 3;
+				int y1 = (player.getY()>>3);
+				int y2 = (t.getY());
 
-				//int distance = (int) Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
 				int deltax = x2-x1;
 				int deltay = y2-y1;
 
 				deltax = deltax*deltax;
 				deltay = deltay*deltay;
 				double distance = Math.sqrt(deltax + deltay);
-				//System.out.println(distance);
-				System.out.println(x1 + " " + y1 + "   " + x2 + " " + y2);
 
-				if(distance > 25)
+				//System.out.println(x1 + " " + y1 + "   " + x2 + " " + y2+" "+t);
+
+				if(distance > 30&&!(t instanceof VoidTile))
 				{
+
+
 					tilesToRemove.add(t);
 				}
 			}
-
-			for(Tile t : tilesToRemove)
-			{
-				tiles.remove(t);
-			}
+			tiles.removeAll(tilesToRemove);
 
 			tilesToRemove.clear();
-
+			
+			
+			for(int pX=(player.getX()>>3)-15;pX<(player.getX()>>3)+15;pX++)
+			{
+				for(int pY=(player.getY()>>3)-15;pY<(player.getY()>>3)+15;pY++)
+				{
+				//	System.out.println((player.getX()>>3)+", "+(player.getY()>>3)+", "+pX+", "+pY);
+					
+					if(getTile(pX,pY)==null)
+					{
+						
+						tilesToAdd.add(new GrassTile(pX,pY));
+					
+					}
+			
+				}
+				
+			}
+			tiles.addAll(tilesToAdd);
+			tilesToAdd.clear();
+			
+			
 		}
-		 */
-
-
 		tickCount++;
 	}
 
@@ -541,6 +563,6 @@ if(newTile==null)
 		}
 	}
 
-	
+
 
 }

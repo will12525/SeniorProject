@@ -91,7 +91,7 @@ public class Game extends Canvas implements Runnable{
 	int WIDTH= 160;
 	int HEIGHT=WIDTH/12*9;
 	//scale to easily change size while keeping ratio
-	int SCALE = 6;
+	int SCALE = 7;
 	
 	//instance of the class
 	public static Game instance;
@@ -102,7 +102,7 @@ public class Game extends Canvas implements Runnable{
 	/**
 	 * the image that contains everything
 	 */
-	private BufferedImage image = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
+	public BufferedImage image = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 	/**
 	 * all the pixels on the image
 	 */
@@ -207,6 +207,7 @@ public class Game extends Canvas implements Runnable{
 			{
 				lastTimer+=1000;
 				System.out.println("Ticks: "+ticks+", frames: "+frames);
+				System.out.println(Level.getTiles().size());
 				frames=0;
 				ticks=0;
 			}

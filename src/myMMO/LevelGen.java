@@ -3,10 +3,18 @@ package myMMO;
 import items.Item;
 import items.RockItem;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
 
 import myMMO.biome.Biome;
 import myMMO.biome.ForestBiome;
+import myMMO.entity.PlayerEntity;
 import myMMO.tile.Tile;
 import myMMO.tile.tiles.FlowerTile;
 import myMMO.tile.tiles.GrassTile;
@@ -46,7 +54,7 @@ public class LevelGen {
 
 
 				Tile t=null;
-				
+
 				if(x == 0 && y == 0) 
 				{
 					//t = new PlankTile(0, 0);
@@ -57,39 +65,27 @@ public class LevelGen {
 					//t= new PlowedDirt(x,y);
 					t = new GrassTile(x, y);
 				}
-				
+
 				else if(x>1&&x<4&&y>0&&y<5)
 				{
 					//t=new SandTile(x,y);
 					t = new GrassTile(x, y);
 				}
-				
+
 				else
 				{
 					if(r<=1)
 					{
-
-
 						t=new FlowerTile(x,y);
-
 					}
 					else
 					{
-						if(level.getTile(x, y).getId()!=Tile.WATER)
-						{
+						
 							t= new GrassTile(x, y);
-						}
+						
 					}
 				}
 				level.addTile(t);
-
-
-
-				//Tile t = new LeafTile(x<<3, y<<3);
-
-				//Tile t= new DirtTile(x<<3, y<<3);
-
-
 
 			}
 		}
@@ -103,41 +99,6 @@ public class LevelGen {
 			rock.setY(6);
 			level.addItem(rock);
 		}
-	}
-
-
-	public static void spawnPond(Level level)
-	{
-		int r1= r.nextInt(level.getTiles().size());
-		int tileX= level.getTiles().get(r1).getX();
-		int tileY=level.getTiles().get(r1).getY();
-		System.out.println(tileX+", "+tileY);
-
-		Tile tile =new WaterTile(tileX,tileY);
-
-		level.levelGenPlace(tile,tileX, tileY);
-
-
-//I dont even get how this is working
-		for(int k = 0;k<level.getTiles().size();k++)
-		{
-			if(level.getTiles().get(k).getId()==Tile.WATER)
-			{
-				tileX=level.getTiles().get(k).getX()+1;
-				for(int gaahhh=0;gaahhh<6;gaahhh++)
-				{
-					
-				}
-				tileY=level.getTiles().get(k).getY();
-				level.levelGenPlace(new WaterTile(tileX,tileY), tileX, tileY);
-System.out.println(k);
-
-			}
-		}
-
-
-
-
 
 	}
 
@@ -246,6 +207,18 @@ System.out.println(k);
 
 		level.getTile(x,y);
 
+	}
+
+
+
+
+	public static void generateChunks(PlayerEntity player)
+	{
+
+	}
+	public static void unloadChunks(PlayerEntity player,Level level)
+	{
+		
 	}
 
 

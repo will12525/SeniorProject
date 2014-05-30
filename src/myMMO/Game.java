@@ -210,7 +210,7 @@ public class Game extends Canvas implements Runnable{
 			{
 				lastTimer+=1000;
 				System.out.println("Ticks: "+ticks+", frames: "+frames);
-				System.out.println(Level.getTiles().size());
+				//System.out.println(Level.getTiles().size());
 				frames=0;
 				ticks=0;
 			}
@@ -252,7 +252,7 @@ public class Game extends Canvas implements Runnable{
 		input = new KeyInputHandler(this);
 
 		//
-		level=new Level(this,"/levels/levelStart.png");
+		level=new Level(this,null/*"/levels/levelStart.png"*/);
 
 		//calls the method that generates a random x and y for the player to spawn on
 		/*if(playerNewX==0)

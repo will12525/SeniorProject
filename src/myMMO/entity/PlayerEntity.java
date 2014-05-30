@@ -3,12 +3,10 @@ package myMMO.entity;
 import items.ArrowItem;
 import items.BowItem;
 import items.HoeItem;
-import items.InvyItemBlank;
 import items.Item;
-import items.SeedItem;
+import items.RockItem;
 import items.SwordItem;
 import items.Tool;
-import items.WheatItem;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -16,8 +14,6 @@ import java.util.List;
 
 import myMMO.Collision;
 import myMMO.Colours;
-import myMMO.Display;
-import myMMO.Font;
 import myMMO.Game;
 import myMMO.KeyInputHandler;
 import myMMO.Level;
@@ -84,7 +80,8 @@ public class PlayerEntity extends Entity {
 			}
 			else
 			{
-				items.add(blankItems, new InvyItemBlank("empty"));
+				items.add(blankItems, new RockItem("rock"));
+				//items.add(blankItems, new InvyItemBlank("empty"));
 			}
 		}
 
@@ -225,6 +222,7 @@ public class PlayerEntity extends Entity {
 		//update server of player's new position
 		if(Game.multiplayer != null && Level.tickCount % 6 == 0)
 		{
+			System.out.println("move packet");
 			//System.out.println(xa + "  " + ya);
 			new Packet01Move("1:" + getX() + ":" + getY()).send(Game.multiplayer.getOutput());
 		}

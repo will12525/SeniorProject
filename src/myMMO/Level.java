@@ -182,13 +182,17 @@ public class Level
 			if(t.getX() == x && t.getY() == y)
 			{
 				t.setID(id);
+				
+				Packet03TileUpdate p03 = new Packet03TileUpdate("3:" + x + ":" + y + ":" + id);
+				p03.send(Game.instance.multiplayer.getOutput());
+				
 				return;
 			}
 		}
 
 		//it is a new tile, add it to the list
-		Tile t = Tile.createTile(x,  y, id);
-		tiles.add(t);
+		Tile tile = Tile.createTile(x,  y, id);
+		tiles.add(tile);
 
 		//if the level is done generating (we are placing blocks or something) send updates
 		//to the server to be redistributed
@@ -357,6 +361,7 @@ public class Level
 	//keep everything running
 	public void tick()
 	{
+		tickCount++;
 
 		for(Tile t : tiles)
 		{

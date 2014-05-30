@@ -29,7 +29,7 @@ public class LevelGen {
 	static Random r = new Random();
 
 	public static void createWorld(Level level,int xMax,int yMax,int xMin,int yMin)
-	{
+	{		
 		Random rand=new Random();
 		Biome b = new ForestBiome(xMin, xMax, yMin, yMax);
 		//System.out.println(b+", "+xMax+", "+xMin+", "+yMax+", "+yMin);

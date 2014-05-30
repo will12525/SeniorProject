@@ -220,7 +220,7 @@ public class PlayerEntity extends Entity {
 		}
 
 		//update server of player's new position
-		if(Game.multiplayer != null && Level.tickCount % 6 == 0)
+		if(Game.multiplayer != null && Level.tickCount % 6 == 0&&Game.multyPlayer)
 		{
 			//System.out.println("move packet");
 			new Packet01Move("1:" + getX() + ":" + getY()).send(Game.multiplayer.getOutput());

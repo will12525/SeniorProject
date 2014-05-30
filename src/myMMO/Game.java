@@ -68,6 +68,8 @@ public class Game extends Canvas implements Runnable{
 	public static boolean mouseHolding=false;
 	public static int mouseItemPosition=0;
 
+	public static boolean multyPlayer=false;
+
 	public long lastItemCheck=0;
 	public static int selectedBox=1;
 
@@ -92,13 +94,13 @@ public class Game extends Canvas implements Runnable{
 	int HEIGHT=WIDTH/12*9;
 	//scale to easily change size while keeping ratio
 	int SCALE = 6;
-	
+
 	//instance of the class
 	public static Game instance;
-	
+
 	//Multiplayer object for sending data from other classes
 	public static MultiPlayer multiplayer;
-	
+
 	//done generating world
 	public boolean doneGenerating = false;
 
@@ -119,7 +121,7 @@ public class Game extends Canvas implements Runnable{
 	{
 		//System.out.println(menu);
 		Game.menu=menu;
-		
+
 		if(menu!=null)
 		{
 			menu.init(instance, input);
@@ -282,13 +284,13 @@ public class Game extends Canvas implements Runnable{
 		}*/
 		skelly = new Skeleton("Skelly",30,30);
 		//level.addEntity(skelly);
-		
+
 		//TODO
 		//removing 
 		//turtle=new Turtle("turtle",10,10);
-		
+
 		//add each turtle
-		
+
 		//TODO also removing
 		//level.addEntity(turtle);
 
@@ -321,7 +323,7 @@ public class Game extends Canvas implements Runnable{
 	 */
 	public void getPlayerXY()
 	{//players x
-	/*	playerNewX=rand.nextInt((100)*8);
+		/*	playerNewX=rand.nextInt((100)*8);
 		//players y
 		playerNewY=rand.nextInt((100)*8);
 		//if the tile hes going to spawn on is water, this makes sure the swimming animation is playing
@@ -562,8 +564,8 @@ public class Game extends Canvas implements Runnable{
 					Player.setHoldItem(new InvyItemBlank("empty"),i);
 				}
 			}
-			
-			
+
+
 			item.renderInInventory(display,i);
 		}
 
@@ -619,8 +621,8 @@ public class Game extends Canvas implements Runnable{
 				}
 			}
 		}
-		
-		
+
+
 		if(mouseHas&&!mouseHolding&&allowCheck)
 		{
 
@@ -637,8 +639,8 @@ public class Game extends Canvas implements Runnable{
 			mouseHas=false;
 			mouseHolding=true;
 		}
-		
-		
+
+
 		//drops item if clicked outside inventory
 		if(mouseItemPosition==18&&level.getMouseItem().size()>0)
 		{
@@ -664,36 +666,39 @@ public class Game extends Canvas implements Runnable{
 	public static void main(String[] args) {
 		//multiplayer
 		String s = JOptionPane.showInputDialog("Please enter IP for multiplayer (or blank for no multiplayer)");
-		
+
 		if(!s.isEmpty())
 		{
 			multiplayer = new MultiPlayer(s);
+			multyPlayer=true;
 		}
-		
+
 
 		Game g = new Game();
 		instance = g;
 		g.start();
-		
-		//when the program exits, tell the server we are disconnecting
-		Runtime.getRuntime().addShutdownHook(new Thread(){
-			
-			@Override
-			public void run()
-			{
-				try
-				{
-					new Packet02Disconnect("2").send(Game.multiplayer.getOutput());
-				}
-				catch (NullPointerException e)
-				{
-					//no multiplayer,ignore the exception
-				}
-			}
-		});
-			
-		
 
+		//when the program exits, tell the server we are disconnecting
+		if(multyPlayer)
+		{
+			Runtime.getRuntime().addShutdownHook(new Thread(){
+
+				@Override
+				public void run()
+				{
+					try
+					{
+						new Packet02Disconnect("2").send(Game.multiplayer.getOutput());
+					}
+					catch (NullPointerException e)
+					{
+						//no multiplayer,ignore the exception
+					}
+				}
+			});
+
+
+		}
 	}
 
 

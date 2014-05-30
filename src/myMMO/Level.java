@@ -191,11 +191,11 @@ public class Level
 		for(int i = 0; i < tiles.size(); i++)
 		{
 			Tile t = tiles.get(i);
-			
+
 			if(t.getX() == x && t.getY() == y)
 			{
 				Tile tile = Tile.createTile(x, y, id);
-				
+
 				tiles.set(i, tile);
 				return;
 			}
@@ -306,10 +306,12 @@ public class Level
 			if(tiles.get(i).getX() == x && tiles.get(i).getY() == y && tiles.get(i).getId() != t.getId())
 			{
 				//send update packet
-				System.out.println("sending tile packet");
-				Packet03TileUpdate p03 = new Packet03TileUpdate("3:" + t.getX() + ":" + t.getY() + ":" + t.getId());
-				p03.send(Game.instance.multiplayer.getOutput());
-			
+				if(Game.multyPlayer)
+				{
+					System.out.println("sending tile packet");
+					Packet03TileUpdate p03 = new Packet03TileUpdate("3:" + t.getX() + ":" + t.getY() + ":" + t.getId());
+					p03.send(Game.instance.multiplayer.getOutput());
+				}
 				tiles.set(i, t);
 				player.changeItem(new InvyItemBlank("empty"), itemPosition);
 				player.setHoldItem(new InvyItemBlank("empty"),i);
@@ -451,10 +453,11 @@ public class Level
 
 		List<Tile> tilesToRemove = new ArrayList<Tile>();
 		List<Tile> tilesToAdd = new ArrayList<Tile>();
-
-		if(tickCount % 20 == 0)
+		//System.out.println(tickCount%20);
+		if((tickCount-1) % 20 == 0)
 		{
-			BufferedImage resizedBigImage=new BufferedImage(Math.abs(currentxMin)+currentxMax, Math.abs(currentyMin)+currentyMax,type);
+
+			BufferedImage resizedBigImage=new BufferedImage(Math.abs(currentxMin)+currentxMax+1000, Math.abs(currentyMin)+currentyMax+1000,type);
 
 
 			//	boolean newTiles=true;
@@ -462,7 +465,7 @@ public class Level
 			if((resizedBigImage.getHeight()>bigImage.getHeight())||(resizedBigImage.getWidth()>bigImage.getWidth()))
 			{
 
-				if(tilesToSave.size()>10000)
+				if(tilesToSave.size()>20000)
 				{
 					File f1= new File("C:/Users/William/Desktop/imgTestBig.png");
 					try {
@@ -476,7 +479,7 @@ public class Level
 					System.out.println("saving game");
 					//findTopLeftTile();
 
-				//	int[] levelColours=bigImage.getRGB(0, 0, bigImage.getWidth(), bigImage.getHeight(), null, 0, bigImage.getWidth());
+					//	int[] levelColours=bigImage.getRGB(0, 0, bigImage.getWidth(), bigImage.getHeight(), null, 0, bigImage.getWidth());
 					//this only transfers pixels from the original image to the new image
 					//System.out.println(xOffset+", "+yOffset);
 					System.out.println(resizedBigImage.getWidth()+", "+resizedBigImage.getHeight());
@@ -490,13 +493,15 @@ public class Level
 							//	System.exit(0);
 							//	System.out.println((x+Math.abs(currentxMin))+", "+(y+Math.abs(currentyMin)));
 							//black pixel
-							if(OIC!= 0xFF000000)
+							if(OIC!= -16777215&&OIC!=-16777216)
 							{
+								System.out.println(OIC);
+								//-16777216
 								System.out.println(x+", "+y);
 								//if(x+Math.abs(currentxMin)<bigImage.getWidth()&&y+Math.abs(currentyMin)<bigImage.getHeight())
 								{
 
-
+									System.out.println((x+Math.abs(currentxMin))+", "+(y+Math.abs(currentyMin)));
 									resizedBigImage.setRGB(x+Math.abs(currentxMin), y+Math.abs(currentyMin), 1);
 									//	resizedBigImage.setRGB(x+40, y, OIC);
 								}
@@ -591,7 +596,7 @@ public class Level
 
 
 		}
-		tickCount++;
+		tickCount=tickCount+1;
 
 	}
 

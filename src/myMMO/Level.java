@@ -177,15 +177,15 @@ public class Level
 
 	public void setTile(int x, int y, int id)
 	{
-		for(Tile t : tiles)
+		for(int i = 0; i < tiles.size(); i++)
 		{
+			Tile t = tiles.get(i);
+			
 			if(t.getX() == x && t.getY() == y)
 			{
-				t.setID(id);
+				Tile tile = Tile.createTile(x, y, id);
 				
-				Packet03TileUpdate p03 = new Packet03TileUpdate("3:" + x + ":" + y + ":" + id);
-				p03.send(Game.instance.multiplayer.getOutput());
-				
+				tiles.set(i, tile);
 				return;
 			}
 		}
@@ -193,11 +193,6 @@ public class Level
 		//it is a new tile, add it to the list
 		Tile tile = Tile.createTile(x,  y, id);
 		tiles.add(tile);
-
-		//if the level is done generating (we are placing blocks or something) send updates
-		//to the server to be redistributed
-		Packet03TileUpdate p03 = new Packet03TileUpdate("3:" + x + ":" + y + ":" + id);
-		p03.send(Game.instance.multiplayer.getOutput());
 	}
 
 	public Tile getTile(int x, int y)
@@ -299,6 +294,11 @@ public class Level
 		{
 			if(tiles.get(i).getX() == x && tiles.get(i).getY() == y && tiles.get(i).getId() != t.getId())
 			{
+				//send update packet
+				System.out.println("sending tile packet");
+				Packet03TileUpdate p03 = new Packet03TileUpdate("3:" + t.getX() + ":" + t.getY() + ":" + t.getId());
+				p03.send(Game.instance.multiplayer.getOutput());
+			
 				tiles.set(i, t);
 				player.changeItem(new InvyItemBlank("empty"), itemPosition);
 				player.setHoldItem(new InvyItemBlank("empty"),i);

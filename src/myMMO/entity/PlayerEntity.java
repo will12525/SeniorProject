@@ -222,8 +222,7 @@ public class PlayerEntity extends Entity {
 		//update server of player's new position
 		if(Game.multiplayer != null && Level.tickCount % 6 == 0)
 		{
-			System.out.println("move packet");
-			//System.out.println(xa + "  " + ya);
+			//System.out.println("move packet");
 			new Packet01Move("1:" + getX() + ":" + getY()).send(Game.multiplayer.getOutput());
 		}
 		
@@ -278,6 +277,7 @@ public class PlayerEntity extends Entity {
 		holdItem.doAction(this,Game.level);
 
 	}
+	
 	//MUY IMPORTANTE!!!!!
 	protected int getXTile() 
 	{

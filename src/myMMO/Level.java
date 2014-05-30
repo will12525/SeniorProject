@@ -374,7 +374,7 @@ public class Level
 	//keep everything running
 	public void tick()
 	{
-		tickCount++;
+		//tickCount++;
 
 		for(Tile t : tiles)
 		{
@@ -449,12 +449,13 @@ public class Level
 
 
 
-
+		//File f2= new File(Level.class.getResource("/levels/imgTestBig.png").getFile());
+		//System.out.println(f2);
 
 		List<Tile> tilesToRemove = new ArrayList<Tile>();
 		List<Tile> tilesToAdd = new ArrayList<Tile>();
 		//System.out.println(tickCount%20);
-		if((tickCount-1) % 20 == 0)
+		if((tickCount) % 20 == 0)
 		{
 
 			BufferedImage resizedBigImage=new BufferedImage(Math.abs(currentxMin)+currentxMax+1000, Math.abs(currentyMin)+currentyMax+1000,type);
@@ -467,7 +468,8 @@ public class Level
 
 				if(tilesToSave.size()>20000)
 				{
-					File f1= new File("C:/Users/William/Desktop/imgTestBig.png");
+				
+					File f1= new File(Level.class.getResource("/levels/imgTestBig.png").getFile());
 					try {
 						ImageIO.write(resizedBigImage, "png", f1);
 						//System.out.println("wrote file");
@@ -525,7 +527,7 @@ public class Level
 
 					tilesToSave.clear();
 					bigImage=resizedBigImage;
-					File f= new File("C:/Users/William/Desktop/imgTest.png");
+					File f= new File(Level.class.getResource("/levels/imgTest.png").getFile());
 					try {
 						ImageIO.write(bigImage, "png", f);
 						//System.out.println("wrote file");
@@ -596,7 +598,7 @@ public class Level
 
 
 		}
-		tickCount=tickCount+1;
+		tickCount++;
 
 	}
 

@@ -170,6 +170,7 @@ public class Game extends Canvas implements Runnable{
 	/**
 	 * the game, contains everything/calls needed things
 	 */
+	@SuppressWarnings("unused")
 	public void run()
 	{
 		long lastLoopTime = System.nanoTime();

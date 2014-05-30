@@ -21,6 +21,7 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import sun.awt.image.ToolkitImage;
 import myMMO.biome.Biome;
 import myMMO.entity.Entity;
 import myMMO.entity.FakePlayerEntity;
@@ -68,6 +69,16 @@ public class Level
 	public BufferedImage imageNegX;
 	public BufferedImage imageNegY;
 	public BufferedImage imageNegBoth;
+	int type = BufferedImage.TYPE_INT_RGB;
+	public BufferedImage bigImage=new BufferedImage(Math.abs(currentxMin)+currentxMax, Math.abs(currentyMin)+currentyMax,type);
+
+
+	int xOffset=0;
+	int yOffset=0;
+	int topxOff=0;
+	int topyOff=0;
+
+	List<Tile> tilesToSave= new ArrayList<Tile>();
 
 	public Level(Game game, String imagePath)
 	{
@@ -80,8 +91,8 @@ public class Level
 		}
 		else
 		{
-		LevelGen.createWorld(this,currentxMax,currentyMax,currentxMin,currentyMin);
-		//LevelGen.spawnPond(this);
+			LevelGen.createWorld(this,currentxMax,currentyMax,currentxMin,currentyMin);
+			//LevelGen.spawnPond(this);
 		}
 	}
 	public Image getImage()
@@ -108,19 +119,19 @@ public class Level
 	//levelColour is how each tile identifies with the tile on the jPeg
 	private void loadTiles()
 	{
-		
-		
+
+
 		for(int x=0;x<image.getWidth();x++)
 		{
 			for(int y=0;y<image.getHeight();y++)
 			{
 				int color =image.getRGB(x, y);
-				
+
 				Tile t = Tile.getTileFromColor(color,x,y);
 				tiles.add(t);
 			}
 		}
-		
+
 		/*		//loads each pixel from the imagePath and gets the color code into an array of ints
 		int[] tileColours =this.image.getRGB(0, 0, width, height, null, 0, width);
 
@@ -412,6 +423,7 @@ public class Level
 		//adds neg x tiles
 		if((player.getX()>>3)<currentxMin+20)
 		{
+
 			//System.out.println(player.x+", "+currentxMin+ " :player x smaller");
 			currentxMin=currentxMin-8;
 			whatToSave=1;
@@ -434,25 +446,102 @@ public class Level
 		}
 
 
+
+
+
 		List<Tile> tilesToRemove = new ArrayList<Tile>();
 		List<Tile> tilesToAdd = new ArrayList<Tile>();
 
-		/*if(tickCount % 20 == 0)
+		if(tickCount % 20 == 0)
 		{
-			/*switch(whatToSave)
-			{
-			case 0: saveTiles();
-			break;
-			case 1: saveNegXTiles();
-			break;
-			case 2: saveNegYTiles();
-			break;
-			case 3: saveBothNegTiles();
-			break;
+			BufferedImage resizedBigImage=new BufferedImage(Math.abs(currentxMin)+currentxMax, Math.abs(currentyMin)+currentyMax,type);
 
-			}*/
-			
-		/*	for(Tile t : tiles)
+
+			//	boolean newTiles=true;
+
+			if((resizedBigImage.getHeight()>bigImage.getHeight())||(resizedBigImage.getWidth()>bigImage.getWidth()))
+			{
+
+				if(tilesToSave.size()>10000)
+				{
+					File f1= new File("C:/Users/William/Desktop/imgTestBig.png");
+					try {
+						ImageIO.write(resizedBigImage, "png", f1);
+						//System.out.println("wrote file");
+					} catch (IOException e) {
+
+						e.printStackTrace();
+					}
+
+					System.out.println("saving game");
+					//findTopLeftTile();
+
+				//	int[] levelColours=bigImage.getRGB(0, 0, bigImage.getWidth(), bigImage.getHeight(), null, 0, bigImage.getWidth());
+					//this only transfers pixels from the original image to the new image
+					//System.out.println(xOffset+", "+yOffset);
+					System.out.println(resizedBigImage.getWidth()+", "+resizedBigImage.getHeight());
+					for(int x=0;x<bigImage.getWidth();x++)
+					{
+						for(int y=0;y<bigImage.getHeight();y++)
+						{
+							int OIC=bigImage.getRGB(x, y);
+
+							//	System.out.println(OIC);
+							//	System.exit(0);
+							//	System.out.println((x+Math.abs(currentxMin))+", "+(y+Math.abs(currentyMin)));
+							//black pixel
+							if(OIC!= 0xFF000000)
+							{
+								System.out.println(x+", "+y);
+								//if(x+Math.abs(currentxMin)<bigImage.getWidth()&&y+Math.abs(currentyMin)<bigImage.getHeight())
+								{
+
+
+									resizedBigImage.setRGB(x+Math.abs(currentxMin), y+Math.abs(currentyMin), 1);
+									//	resizedBigImage.setRGB(x+40, y, OIC);
+								}
+
+							}
+
+
+						}
+					}
+
+
+					for(Tile t:tilesToSave)
+					{
+						//System.out.println(xOffset+", "+yOffset);
+						//System.out.println(t.getY());
+						//System.out.println((t.getX()+t.getX())+", "+(t.getY()+t.getY()));
+						System.out.println(t.getX());
+						resizedBigImage.setRGB(t.getX()+Math.abs(currentxMin), t.getY()+Math.abs(currentyMin), t.getLevelColour());
+					}
+
+
+					tilesToSave.clear();
+					bigImage=resizedBigImage;
+					File f= new File("C:/Users/William/Desktop/imgTest.png");
+					try {
+						ImageIO.write(bigImage, "png", f);
+						//System.out.println("wrote file");
+					} catch (IOException e) {
+
+						e.printStackTrace();
+					}
+				}
+
+				System.out.println(tilesToSave.size());
+
+
+
+
+
+
+
+
+			}
+
+			for(Tile t : tiles)
 			{
 				int x1 = (player.getX()>>3);
 				int x2 = (t.getX());
@@ -477,7 +566,7 @@ public class Level
 				}
 			}
 			tiles.removeAll(tilesToRemove);
-
+			tilesToSave.addAll(tilesToRemove);
 			tilesToRemove.clear();
 
 
@@ -503,13 +592,6 @@ public class Level
 
 		}
 		tickCount++;
-
-
-*/
-		//adjust image sizes
-
-
-
 
 	}
 
@@ -573,219 +655,6 @@ public class Level
 
 		}
 	}
-
-	public void saveTiles()
-	{
-
-		int xOffset=0;
-		int yOffset=0;
-		int imgWidth=Math.abs(currentxMin)+currentxMax;
-		int imgHeight=Math.abs(currentyMin)+currentyMax;
-		
-		
-		File f= new File("C:/Users/William/Desktop/imgTest.png");
-		Image img = null;
-		try {
-			img = ImageIO.read(f);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		if(img==null)
-		{
-			image=(BufferedImage) resizeImage(image,imgWidth,imgHeight);
-		}
-		else
-		{
-		image=(BufferedImage) resizeImage(image,imgWidth,imgHeight);
-		}
-		for(Tile t:tiles)
-		{
-			int x=t.getX();
-			int y=t.getY();
-			int c=t.getLevelColour();
-
-			if(x<0)
-			{
-				continue;
-			}
-			if(y<0)
-			{
-				continue;	
-			}
-
-			image.setRGB(x, y, c);
-		}		
-
-		try {
-			ImageIO.write(image, "png", new File("C:/Users/William/Desktop/imgTest.png"));
-			System.out.println("wrote file");
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
-	}
-	public void saveNegXTiles()
-	{
-		int xOffset=0;
-		int yOffset=0;
-		int imgWidth=Math.abs(currentxMin)+currentxMax;
-		int imgHeight=Math.abs(currentyMin)+currentyMax;
-		File f= new File("C:/Users/William/Desktop/imgTestNegX.png");
-		Image img = null;
-		try {
-			img = ImageIO.read(f);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		if(img==null)
-		{
-			imageNegX=(BufferedImage) resizeImage(imageNegX,imgWidth,imgHeight);
-		}
-		else
-		{
-			imageNegX=(BufferedImage) resizeImage(img,imgWidth,imgHeight);
-		}
-		for(Tile t:tiles)
-		{
-			int x=t.getX();
-			int y=Math.abs(t.getY());
-			int c=t.getLevelColour();
-			
-			if(x>0)
-			{
-				continue;
-			}
-			if(y<0)
-			{
-				continue;	
-			}
-			x=Math.abs(x);
-			//System.out.println(imgWidth+", "+imgHeight+", "+(x+xOffset)+", "+(y+yOffset));
-
-			imageNegX.setRGB(x, y, c);
-		}
-		
-
-		try {
-			ImageIO.write(imageNegX, "png", new File("C:/Users/William/Desktop/imgTestNegX.png"));
-			System.out.println("wrote file");
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
-	}
-
-
-
-	public void saveNegYTiles()
-	{
-System.out.println("case 2");
-		int xOffset=0;
-		int yOffset=0;
-		int imgWidth=Math.abs(currentxMin)+currentxMax;
-		int imgHeight=Math.abs(currentyMin)+currentyMax;
-		image=(BufferedImage) resizeImage(image,imgWidth,imgHeight);
-
-		for(Tile t:tiles)
-		{
-			int x=t.getX();
-			int y=t.getY();
-			int c=t.getLevelColour();
-
-			if(x<0)
-			{
-				continue;
-			}
-			if(y<0)
-			{
-				continue;	
-			}
-			//System.out.println(imgWidth+", "+imgHeight+", "+(x+xOffset)+", "+(y+yOffset));
-
-			image.setRGB(x, y, c);
-		}
-
-
-		if(image==null)
-		{
-			System.out.println("null");
-			return;
-		}
-
-		try {
-			ImageIO.write(image, "png", new File("C:/Users/William/Desktop/imgTest.png"));
-			System.out.println("wrote file");
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
-	}
-
-	public void saveBothNegTiles()
-	{
-System.out.println("case 3");
-		int xOffset=0;
-		int yOffset=0;
-		int imgWidth=Math.abs(currentxMin)+currentxMax;
-		int imgHeight=Math.abs(currentyMin)+currentyMax;
-		image=(BufferedImage) resizeImage(image,imgWidth,imgHeight);
-
-		for(Tile t:tiles)
-		{
-			int x=t.getX();
-			int y=t.getY();
-			int c=t.getLevelColour();
-
-			if(x<0)
-			{
-				continue;
-			}
-			if(y<0)
-			{
-				continue;	
-			}
-			//System.out.println(imgWidth+", "+imgHeight+", "+(x+xOffset)+", "+(y+yOffset));
-
-			image.setRGB(x, y, c);
-		}
-
-		if(image==null)
-		{
-			System.out.println("null");
-			return;
-		}
-
-		try {
-			ImageIO.write(image, "png", new File("C:/Users/William/Desktop/imgTest.png"));
-			System.out.println("wrote file");
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
-	}
-
-	private Image resizeImage(Image originalImage, int biggerWidth, int biggerHeight) {
-		int type = BufferedImage.TYPE_INT_RGB;
-
-
-		BufferedImage resizedImage = new BufferedImage(biggerWidth, biggerHeight, type);
-		Graphics2D g = resizedImage.createGraphics();
-
-		g.setComposite(AlphaComposite.Src);
-		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-		g.drawImage(originalImage, 0, 0, biggerWidth, biggerHeight,null);
-		g.dispose();
-
-
-		return resizedImage;
-	}
-
-
 
 
 

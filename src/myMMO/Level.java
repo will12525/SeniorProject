@@ -15,6 +15,10 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -92,6 +96,14 @@ public class Level
 		else
 		{
 			LevelGen.createWorld(this,currentxMax,currentyMax,currentxMin,currentyMin);
+			File original = new File(Level.class.getResource("/levels/blank.png").getFile());
+			File destination = new File(Level.class.getResource("/levels/imgTest.png").getFile());
+			try {
+				Files.copy(original.toPath(),destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			//LevelGen.spawnPond(this);
 		}
 	}
@@ -518,7 +530,7 @@ public class Level
 								{
 									System.out.println(Math.abs(currentxMin));
 								//	System.out.println((x+Math.abs(currentxMin))+", "+(y+Math.abs(currentyMin)));
-									resizedBigImage.setRGB(x+Math.abs(currentxMin), y, OIC);
+									resizedBigImage.setRGB(x+Math.abs(currentxMin), y+Math.abs(currentyMin), OIC);
 									//	resizedBigImage.setRGB(x+40, y, OIC);
 								}
 

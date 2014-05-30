@@ -418,7 +418,7 @@ public class Level
 		{
 			//this
 			currentxMax=currentxMax+8;
-			whatToSave=0;
+		
 
 			//LevelGen.addMorePosXTiles(currentxMax,originalxMax,currentyMax,currentyMin,this);
 		}
@@ -428,7 +428,7 @@ public class Level
 
 			//System.out.println(player.x+", "+currentxMin+ " :player x smaller");
 			currentxMin=currentxMin-8;
-			whatToSave=1;
+		
 			//LevelGen.addMoreNegXTiles(currentxMin,originalxMin,currentyMax,currentyMin,this);
 		}
 
@@ -459,16 +459,21 @@ public class Level
 		{
 
 			BufferedImage resizedBigImage=new BufferedImage(Math.abs(currentxMin)+currentxMax+1000, Math.abs(currentyMin)+currentyMax+1000,type);
-
+			try {
+				bigImage=ImageIO.read(Level.class.getResource("/levels/imgTest.png"));
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
 			//	boolean newTiles=true;
 
 			if((resizedBigImage.getHeight()>bigImage.getHeight())||(resizedBigImage.getWidth()>bigImage.getWidth()))
 			{
 
-				if(tilesToSave.size()>20000)
+				if(tilesToSave.size()>3000)
 				{
-				
+
 					File f1= new File(Level.class.getResource("/levels/imgTestBig.png").getFile());
 					try {
 						ImageIO.write(resizedBigImage, "png", f1);
@@ -480,31 +485,40 @@ public class Level
 
 					System.out.println("saving game");
 					//findTopLeftTile();
-
 					//	int[] levelColours=bigImage.getRGB(0, 0, bigImage.getWidth(), bigImage.getHeight(), null, 0, bigImage.getWidth());
 					//this only transfers pixels from the original image to the new image
 					//System.out.println(xOffset+", "+yOffset);
+
+					File f3= new File(Level.class.getResource("/levels/bigImage.png").getFile());
+					try {
+						ImageIO.write(bigImage, "png", f3);
+						//System.out.println("wrote file");
+					} catch (IOException e) {
+
+						e.printStackTrace();
+					}
+
 					System.out.println(resizedBigImage.getWidth()+", "+resizedBigImage.getHeight());
 					for(int x=0;x<bigImage.getWidth();x++)
 					{
 						for(int y=0;y<bigImage.getHeight();y++)
 						{
 							int OIC=bigImage.getRGB(x, y);
-
-							//	System.out.println(OIC);
-							//	System.exit(0);
-							//	System.out.println((x+Math.abs(currentxMin))+", "+(y+Math.abs(currentyMin)));
+							//System.out.println(OIC+", X: "+x+", Y: "+y);
+							
+						
+							
 							//black pixel
-							if(OIC!= -16777215&&OIC!=-16777216)
+							if(OIC!=-16777216)
 							{
-								System.out.println(OIC);
+								///System.out.println(OIC);
 								//-16777216
-								System.out.println(x+", "+y);
+								//System.out.println(x+", "+y);
 								//if(x+Math.abs(currentxMin)<bigImage.getWidth()&&y+Math.abs(currentyMin)<bigImage.getHeight())
 								{
-
-									System.out.println((x+Math.abs(currentxMin))+", "+(y+Math.abs(currentyMin)));
-									resizedBigImage.setRGB(x+Math.abs(currentxMin), y+Math.abs(currentyMin), 1);
+									System.out.println(Math.abs(currentxMin));
+								//	System.out.println((x+Math.abs(currentxMin))+", "+(y+Math.abs(currentyMin)));
+									resizedBigImage.setRGB(x+Math.abs(currentxMin), y, OIC);
 									//	resizedBigImage.setRGB(x+40, y, OIC);
 								}
 
@@ -513,14 +527,15 @@ public class Level
 
 						}
 					}
-
+					originalxMin=currentxMin;
+					//System.exit(0);
 
 					for(Tile t:tilesToSave)
 					{
 						//System.out.println(xOffset+", "+yOffset);
 						//System.out.println(t.getY());
 						//System.out.println((t.getX()+t.getX())+", "+(t.getY()+t.getY()));
-						System.out.println(t.getX());
+						//System.out.println(t.getX());
 						resizedBigImage.setRGB(t.getX()+Math.abs(currentxMin), t.getY()+Math.abs(currentyMin), t.getLevelColour());
 					}
 
@@ -529,6 +544,7 @@ public class Level
 					bigImage=resizedBigImage;
 					File f= new File(Level.class.getResource("/levels/imgTest.png").getFile());
 					try {
+						
 						ImageIO.write(bigImage, "png", f);
 						//System.out.println("wrote file");
 					} catch (IOException e) {
@@ -537,8 +553,10 @@ public class Level
 					}
 				}
 
+				if(tilesToSave.size()>2500)
+				{
 				System.out.println(tilesToSave.size());
-
+				}
 
 
 

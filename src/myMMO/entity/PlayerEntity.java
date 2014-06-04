@@ -95,9 +95,7 @@ public class PlayerEntity extends Entity {
 			case 8:
 				items.add(blankItems, new ArrowItem("arrow"));
 				break;
-			case 9:
-				items.add(blankItems, new SandItem("sand"));
-				break;
+			
 
 			default: items.add(blankItems, new InvyItemBlank("empty"));
 			}

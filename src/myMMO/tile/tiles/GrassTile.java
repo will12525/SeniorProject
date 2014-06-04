@@ -2,6 +2,7 @@ package myMMO.tile.tiles;
 
 import java.util.Random;
 
+import items.DirtItem;
 import items.HoeItem;
 import items.Item;
 import items.SeedItem;
@@ -40,6 +41,14 @@ public class GrassTile extends BaseTile{
 				item.setCoolDown(30);
 				level.addItem(item);
 			}
+		}
+		else
+		{
+			item=new DirtItem("Dirt");
+			item.setX(xcoord);
+			item.setY(ycoord);
+			item.setCoolDown(30);
+			level.addItem(item);
 		}
 		
 		

@@ -8,6 +8,8 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -18,6 +20,8 @@ import myMMO.entity.PlayerEntity;
 import myMMO.tile.Tile;
 import myMMO.tile.tiles.FlowerTile;
 import myMMO.tile.tiles.GrassTile;
+import myMMO.tile.tiles.LeafTile;
+import myMMO.tile.tiles.LogTile;
 import myMMO.tile.tiles.PlankTile;
 import myMMO.tile.tiles.PlowedDirt;
 import myMMO.tile.tiles.SandTile;
@@ -80,9 +84,9 @@ public class LevelGen {
 					}
 					else
 					{
-						
-							t= new GrassTile(x, y);
-						
+
+						t= new GrassTile(x, y);
+
 					}
 				}
 				level.addTile(t);
@@ -92,118 +96,212 @@ public class LevelGen {
 
 
 
-		for(int rocky=0;rocky<20;rocky++)
+		/*for(int rocky=0;rocky<20;rocky++)
 		{
 			Item rock = new RockItem("Rock");
 			rock.setX((rocky)+8);
 			rock.setY(6);
 			level.addItem(rock);
-		}
+		}*/
 
 		System.out.println("Done generating level");
 		Game.instance.doneGenerating = true;
 	}
-
-	public static void addMorePosXTiles(int newXMax,int origXMax,int currentYMax,int currentYMin,Level level)
+	public static void addWater(Level level, List<Tile> tilesToAdd, int x,int y)
 	{
-		for(int x=origXMax;x<=newXMax;x++)
+		int pondSize=r.nextInt(2);
+		if(pondSize==0)
 		{
-			for(int y=currentYMin;y<=currentYMax;y++)
-			{
-				Tile t=null;
-				if(newXMax>100)
-				{
-					t=new StoneTile(x,y);
-				}
-				else
-				{
-					t =new GrassTile(x,y);
-				}
-				level.addTile(t);
-				//System.out.println(x+", "+y+" Tile: "+t);
-
-			}
-		}
-		level.originalxMax=newXMax;
-	}
-	public static void addMoreNegXTiles(int newXMin,int origXMin,int currentYMax,int currentYMin,Level level)
-	{
-		for(int x=origXMin;x>=newXMin;x--)
-		{
-			for(int y=currentYMin;y<=currentYMax;y++)
+			for(int k=0;k<2;k++)
 			{
 
-				Tile t=null;
-				if(newXMin<-100)
-				{
-					t=new StoneTile(x,y);
-				}
-				else
-				{
-					t =new GrassTile(x,y);
-				}
-
-
-				//Tile t =new GrassTile(x,y);
-				level.addTile(t);
-				//System.out.println(x+", "+y+" Tile: "+t);
+				addStuff(level,tilesToAdd,new WaterTile(x+k,y),x+k,y);
 
 			}
-		}
-		level.originalxMin=newXMin;
-	}
 
 
-
-	public static void addMorePosYTiles(int newYMax,int origYMax,int currentXMax,int currentXMin,Level level)
-	{
-		for(int x=currentXMin;x<=currentXMax;x++)
-		{
-			for(int y=origYMax;y<=newYMax;y++)
+			addStuff(level,tilesToAdd,new WaterTile(x-1,y+1),x-1,y+1);
+			for(int k=0;k<3;k++)
 			{
 
-				Tile t=null;
-				if(newYMax>100)
-				{
-					t=new StoneTile(x,y);
-				}
-				else
-				{
-					t =new GrassTile(x,y);
-				}
-
-				//	Tile t =new GrassTile(x,y);
-				level.addTile(t);
-				//System.out.println(x+", "+y+" Tile: "+t);
+				addStuff(level,tilesToAdd,new WaterTile(x+k,y+1),x+k,y+1);
 
 			}
+			addStuff(level,tilesToAdd,new WaterTile(x,y+2),x,y+2);
+			addStuff(level,tilesToAdd,new WaterTile(x+1,y+2),x+1,y+2);
+
+
 		}
-		level.originalyMax=newYMax;
-	}
 
-
-	public static void addMoreNegYTiles(int newYMin,int origYMin,int currentXMax,int currentXMin,Level level)
-	{
-		for(int x=currentXMin;x<=currentXMax;x++)
+		if(pondSize==1)
 		{
-			for(int y=origYMin;y>=newYMin;y--)
+			for(int k=0;k<4;k++)
 			{
-				Tile t=null;
-				if(newYMin<-100)
-				{
-					t=new StoneTile(x,y);
-				}
-				else
-				{
-					t =new GrassTile(x,y);
-				}
-				level.addTile(t);
-				//System.out.println(x+", "+y+" Tile: "+t);
-				//maybe
+
+
+				addStuff(level,tilesToAdd,new WaterTile(x+k,y),x+k,y);
 			}
+
+			addStuff(level,tilesToAdd,new WaterTile(x-1,y+1),x-1,y+1);
+
+			for(int k=0;k<5;k++)
+			{
+
+				addStuff(level,tilesToAdd,new WaterTile(x+k,y+1),x+k,y+1);
+			}
+
+
+			addStuff(level,tilesToAdd,new WaterTile(x-1,y+2),x-1,y+2);
+
+
+			addStuff(level,tilesToAdd,new WaterTile(x-2,y+2),x-2,y+2);
+
+
+			addStuff(level,tilesToAdd,new WaterTile(x-1,y+3),x-1,y+3);
+
+
+			addStuff(level,tilesToAdd,new WaterTile(x-2,y+3),x-2,y+3);
+
+			for(int k=0;k<6;k++)
+			{			
+				addStuff(level,tilesToAdd,new WaterTile(x+k,y+3),x+k,y+3);
+				addStuff(level,tilesToAdd,new WaterTile(x+k,y+2),x+k,y+2);
+			}
+
+			addStuff(level,tilesToAdd,new WaterTile(x-1,y+4),x-1,y+4);
+
+			for(int k=0;k<5;k++)
+			{
+				addStuff(level,tilesToAdd,new WaterTile(x+k,y+4),x+k,y+4);
+			}
+
+			for(int k=0;k<4;k++)
+			{
+				addStuff(level,tilesToAdd,new WaterTile(x+k,y+5),x+k,y+5);
+			}
+
 		}
-		level.originalyMin=newYMin;
+
 	}
+	public static void addStone(Level level, List<Tile> tilesToAdd,int x, int y)
+	{
+		int blockSize=r.nextInt(2);
+		if(blockSize==0)
+		{
+			for(int k=0;k<2;k++)
+			{
+
+				addStuff(level,tilesToAdd,new StoneTile(x+k,y),x+k,y);
+
+			}
+
+
+			addStuff(level,tilesToAdd,new StoneTile(x-1,y+1),x-1,y+1);
+			for(int k=0;k<3;k++)
+			{
+
+				addStuff(level,tilesToAdd,new StoneTile(x+k,y+1),x+k,y+1);
+
+			}
+			addStuff(level,tilesToAdd,new StoneTile(x,y+2),x,y+2);
+			addStuff(level,tilesToAdd,new StoneTile(x+1,y+2),x+1,y+2);
+
+
+		}
+
+		if(blockSize==1)
+		{
+			for(int k=0;k<4;k++)
+			{
+
+
+				addStuff(level,tilesToAdd,new StoneTile(x+k,y),x+k,y);
+			}
+
+			addStuff(level,tilesToAdd,new StoneTile(x-1,y+1),x-1,y+1);
+
+			for(int k=0;k<5;k++)
+			{
+
+				addStuff(level,tilesToAdd,new StoneTile(x+k,y+1),x+k,y+1);
+			}
+
+
+			addStuff(level,tilesToAdd,new StoneTile(x-1,y+2),x-1,y+2);
+
+
+			addStuff(level,tilesToAdd,new StoneTile(x-2,y+2),x-2,y+2);
+
+
+			addStuff(level,tilesToAdd,new StoneTile(x-1,y+3),x-1,y+3);
+
+
+			addStuff(level,tilesToAdd,new StoneTile(x-2,y+3),x-2,y+3);
+
+			for(int k=0;k<6;k++)
+			{			
+				addStuff(level,tilesToAdd,new StoneTile(x+k,y+3),x+k,y+3);
+				addStuff(level,tilesToAdd,new WaterTile(x+k,y+2),x+k,y+2);
+			}
+
+			addStuff(level,tilesToAdd,new StoneTile(x-1,y+4),x-1,y+4);
+
+			for(int k=0;k<5;k++)
+			{
+				addStuff(level,tilesToAdd,new StoneTile(x+k,y+4),x+k,y+4);
+			}
+
+			for(int k=0;k<4;k++)
+			{
+				addStuff(level,tilesToAdd,new StoneTile(x+k,y+5),x+k,y+5);
+			}
+
+		}
+	}
+	public static void addSand(Level level,List<Tile> tilesToAdd,int x,int y)
+	{
+		Tile xPlus=level.getTile(x+1, y);
+		Tile yPlus=level.getTile(x, y+1);
+		Tile xMin=level.getTile(x-1, y);
+		Tile yMin=level.getTile(x, y-1);
+
+		if(!(xPlus instanceof WaterTile))
+		{
+			addStuff(level,tilesToAdd,new SandTile(x+1,y),x+1,y);
+		}
+		if(!(yPlus instanceof WaterTile))
+		{
+			addStuff(level,tilesToAdd,new SandTile(x,y+1),x,y+1);
+		}
+		if(!(xMin instanceof WaterTile))
+		{
+			addStuff(level,tilesToAdd,new SandTile(x-1,y),x-1,y);
+		}
+		if(!(yMin instanceof WaterTile))
+		{
+			addStuff(level,tilesToAdd,new SandTile(x,y-1),x,y-1);
+		}
+
+	}
+	public static void addStuff(Level level,List<Tile> tilesToAdd,Tile t,int x,int y)
+	{
+		level.setTile(x, y, t);
+		tilesToAdd.add(t);
+	}
+
+	public static void trees(Level level,List<Tile> tilesToAdd,int x,int y)
+	{
+		addStuff(level,tilesToAdd,new LogTile(x,y),x,y);
+		addStuff(level,tilesToAdd,new LogTile(x,y-1),x,y-1);
+		addStuff(level,tilesToAdd,new LogTile(x,y-2),x,y-2);		
+		addStuff(level,tilesToAdd,new LeafTile(x,y-3),x,y-3);
+		addStuff(level,tilesToAdd,new LeafTile(x-1,y-2),x-1,y-2);
+		addStuff(level,tilesToAdd,new LeafTile(x+1,y-2),x+1,y-2);
+	}
+
+
+
+
 	public static void getTileBiome(Level level,int x,int y)
 	{
 
@@ -220,7 +318,7 @@ public class LevelGen {
 	}
 	public static void unloadChunks(PlayerEntity player,Level level)
 	{
-		
+
 	}
 
 

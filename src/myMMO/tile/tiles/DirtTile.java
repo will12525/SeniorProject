@@ -1,7 +1,9 @@
 package myMMO.tile.tiles;
 
+import items.DirtItem;
 import items.HoeItem;
 import items.Item;
+import items.RockItem;
 
 import java.util.Random;
 
@@ -24,9 +26,13 @@ public class DirtTile extends BaseTile{
 		{
 			for(int i = 0; i < Level.tiles.size(); i++)
 			{
+				
 				Tile tile = Level.tiles.get(i);
+				
+			
 				if(tile.getX() == xcoord && tile.getY() == ycoord)
 				{
+					
 					Level.tiles.set(i, new GrassTile(xcoord, ycoord));
 				}
 			}
@@ -50,7 +56,11 @@ public class DirtTile extends BaseTile{
 	}
 	public void drop(Level level) {
 		
-		
+		Item item=new DirtItem("Dirt");
+		item.setX(xcoord);
+		item.setY(ycoord);
+		item.setCoolDown(30);
+		level.addItem(item);
 	}
 
 }

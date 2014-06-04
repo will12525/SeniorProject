@@ -153,15 +153,15 @@ public class Skeleton extends Entity {
 	}
 
 	protected void drops() {
-		int r= random.nextInt(3);
-		for(int k =0;k<r;k++)
+		int r= random.nextInt(5);
+		/*for(int k =0;k<r;k++)
 		{
 			Item arrowItem=new ArrowItem("arrow");
 			arrowItem.setX(x>>3);
 			arrowItem.setY(y>>3);
 			arrowItem.setCoolDown(30);
 			Game.level.addItem(arrowItem);
-		}
+		}*/
 		if(r==2)
 		{
 			Item bow = new BowItem("Bow");

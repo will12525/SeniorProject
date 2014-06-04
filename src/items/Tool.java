@@ -3,6 +3,7 @@ package items;
 
 import myMMO.Level;
 import myMMO.entity.PlayerEntity;
+import myMMO.tile.Tile;
 
 
 public class Tool extends Item{
@@ -19,6 +20,13 @@ public class Tool extends Item{
 
 	public int[] getDestroyables()
 	{
+		return null;
+	}
+
+
+	
+	public Tile getTile(int newX, int newY) {
+		
 		return null;
 	}
 

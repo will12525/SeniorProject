@@ -1,6 +1,8 @@
 package myMMO.tile.tiles;
 
 import items.Item;
+import items.RockItem;
+import items.SandItem;
 import myMMO.Colours;
 import myMMO.Level;
 import myMMO.tile.BaseTile;
@@ -16,6 +18,11 @@ public class SandTile extends BaseTile{
 	}
 	
 	public void drop(Level level) {
-				
+		Item item=new SandItem("sand");
+		item.setX(xcoord);
+		item.setY(ycoord);
+		item.setCoolDown(30);
+		level.addItem(item);
 	}
+	
 }

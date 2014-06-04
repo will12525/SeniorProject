@@ -30,10 +30,13 @@ import myMMO.biome.Biome;
 import myMMO.entity.Entity;
 import myMMO.entity.FakePlayerEntity;
 import myMMO.entity.PlayerEntity;
+import myMMO.entity.Skeleton;
 import myMMO.packet.Packet03TileUpdate;
 import myMMO.tile.Tile;
+import myMMO.tile.tiles.FlowerTile;
 import myMMO.tile.tiles.GrassTile;
 import myMMO.tile.tiles.VoidTile;
+import myMMO.tile.tiles.WaterTile;
 
 @SuppressWarnings("all")
 public class Level
@@ -47,6 +50,8 @@ public class Level
 	private static PlayerEntity player;
 
 	public static List<Tile> tiles = new ArrayList<Tile>();
+	public static List<Tile> tilesToAdd = new ArrayList<Tile>();
+
 	private static List<Biome>biomes=new ArrayList<Biome>();
 	private static List<Item> items=new ArrayList<Item>();
 	private static List<Item> mouseItem= new ArrayList<Item>();
@@ -55,9 +60,9 @@ public class Level
 	private Random random = new Random();
 
 	public static int currentxMax=20;
-	public static int currentxMin=-20;
+	public static int currentxMin=0;
 	public static int currentyMax=20;
-	public static int currentyMin=-20;
+	public static int currentyMin=0;
 
 	public static int originalxMax= currentxMax;
 	public static int originalxMin=currentxMin;
@@ -96,14 +101,16 @@ public class Level
 		else
 		{
 			LevelGen.createWorld(this,currentxMax,currentyMax,currentxMin,currentyMin);
-			File original = new File(Level.class.getResource("/levels/blank.png").getFile());
+
+			//LevelGen.addSomeWater(this);
+			/*File original = new File(Level.class.getResource("/levels/blank.png").getFile());
 			File destination = new File(Level.class.getResource("/levels/imgTest.png").getFile());
 			try {
 				Files.copy(original.toPath(),destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			}*/
 			//LevelGen.spawnPond(this);
 		}
 	}
@@ -324,7 +331,9 @@ public class Level
 					Packet03TileUpdate p03 = new Packet03TileUpdate("3:" + t.getX() + ":" + t.getY() + ":" + t.getId());
 					p03.send(Game.instance.multiplayer.getOutput());
 				}
-				tiles.set(i, t);
+				setTile(x,y,t);
+
+				//tiles.set(i, t);
 				player.changeItem(new InvyItemBlank("empty"), itemPosition);
 				player.setHoldItem(new InvyItemBlank("empty"),i);
 
@@ -333,7 +342,8 @@ public class Level
 	}
 	public void setTile(int x,int y,Tile tile)
 	{
-		setTile(x, y, tile.getId());	
+		setTile(x, y, tile.getId());
+
 	}
 
 	public void destroyTile()
@@ -366,6 +376,7 @@ public class Level
 							return;
 						}
 						tile.drop(this);
+						setTile(x,y,newTile);
 						tiles.set(i, newTile);
 						if(playersItem.shouldDelete())
 						{
@@ -387,7 +398,7 @@ public class Level
 	public void tick()
 	{
 		//tickCount++;
-
+		boolean checkForSand=false;
 		for(Tile t : tiles)
 		{
 			t.tick();
@@ -418,165 +429,28 @@ public class Level
 		}
 
 
-		//	LevelGen.unloadChunks(player, this);
-		//LevelGen.generateChunks(player);
-
-		//generates more tiles as needed based on the players location
-
-
-		int whatToSave=0;
 		//adds pos x tiles
 		if((player.getX()>>3)>currentxMax-20)
 		{
-			//this
 			currentxMax=currentxMax+8;
-		
-
-			//LevelGen.addMorePosXTiles(currentxMax,originalxMax,currentyMax,currentyMin,this);
 		}
-		//adds neg x tiles
 		if((player.getX()>>3)<currentxMin+20)
 		{
-
-			//System.out.println(player.x+", "+currentxMin+ " :player x smaller");
 			currentxMin=currentxMin-8;
-		
-			//LevelGen.addMoreNegXTiles(currentxMin,originalxMin,currentyMax,currentyMin,this);
 		}
-
 		if((player.getY()>>3)>currentyMax-20)
 		{
-
 			currentyMax=currentyMax+8;
-			//whatToSave=2;
-			//LevelGen.addMorePosYTiles(currentyMax,originalyMax,currentxMax,currentxMin,this);
 		}
 		if((player.getY()>>3)<currentyMin+20)
 		{
-			//System.out.println(player.y+", "+currentyMin+" :player y smaller");
 			currentyMin=currentyMin-8;
-			//whatToSave=3;
-			//LevelGen.addMoreNegYTiles(currentyMin,originalyMin,currentxMax,currentxMin,this);
 		}
 
-
-
-		//File f2= new File(Level.class.getResource("/levels/imgTestBig.png").getFile());
-		//System.out.println(f2);
-
 		List<Tile> tilesToRemove = new ArrayList<Tile>();
-		List<Tile> tilesToAdd = new ArrayList<Tile>();
-		//System.out.println(tickCount%20);
+
 		if((tickCount) % 20 == 0)
 		{
-
-			BufferedImage resizedBigImage=new BufferedImage(Math.abs(currentxMin)+currentxMax+1000, Math.abs(currentyMin)+currentyMax+1000,type);
-			try {
-				bigImage=ImageIO.read(Level.class.getResource("/levels/imgTest.png"));
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-
-			//	boolean newTiles=true;
-
-			if((resizedBigImage.getHeight()>bigImage.getHeight())||(resizedBigImage.getWidth()>bigImage.getWidth()))
-			{
-
-				if(tilesToSave.size()>3000)
-				{
-
-					File f1= new File(Level.class.getResource("/levels/imgTestBig.png").getFile());
-					try {
-						ImageIO.write(resizedBigImage, "png", f1);
-						//System.out.println("wrote file");
-					} catch (IOException e) {
-
-						e.printStackTrace();
-					}
-
-					System.out.println("saving game");
-					//findTopLeftTile();
-					//	int[] levelColours=bigImage.getRGB(0, 0, bigImage.getWidth(), bigImage.getHeight(), null, 0, bigImage.getWidth());
-					//this only transfers pixels from the original image to the new image
-					//System.out.println(xOffset+", "+yOffset);
-
-					File f3= new File(Level.class.getResource("/levels/bigImage.png").getFile());
-					try {
-						ImageIO.write(bigImage, "png", f3);
-						//System.out.println("wrote file");
-					} catch (IOException e) {
-
-						e.printStackTrace();
-					}
-
-					System.out.println(resizedBigImage.getWidth()+", "+resizedBigImage.getHeight());
-					for(int x=0;x<bigImage.getWidth();x++)
-					{
-						for(int y=0;y<bigImage.getHeight();y++)
-						{
-							int OIC=bigImage.getRGB(x, y);
-							//System.out.println(OIC+", X: "+x+", Y: "+y);
-							
-						
-							
-							//black pixel
-							if(OIC!=-16777216)
-							{
-								///System.out.println(OIC);
-								//-16777216
-								//System.out.println(x+", "+y);
-								//if(x+Math.abs(currentxMin)<bigImage.getWidth()&&y+Math.abs(currentyMin)<bigImage.getHeight())
-								{
-									System.out.println(Math.abs(currentxMin));
-								//	System.out.println((x+Math.abs(currentxMin))+", "+(y+Math.abs(currentyMin)));
-									resizedBigImage.setRGB(x+Math.abs(currentxMin), y+Math.abs(currentyMin), OIC);
-									//	resizedBigImage.setRGB(x+40, y, OIC);
-								}
-
-							}
-
-
-						}
-					}
-					originalxMin=currentxMin;
-					//System.exit(0);
-
-					for(Tile t:tilesToSave)
-					{
-						//System.out.println(xOffset+", "+yOffset);
-						//System.out.println(t.getY());
-						//System.out.println((t.getX()+t.getX())+", "+(t.getY()+t.getY()));
-						//System.out.println(t.getX());
-						resizedBigImage.setRGB(t.getX()+Math.abs(currentxMin), t.getY()+Math.abs(currentyMin), t.getLevelColour());
-					}
-
-
-					tilesToSave.clear();
-					bigImage=resizedBigImage;
-					File f= new File(Level.class.getResource("/levels/imgTest.png").getFile());
-					try {
-						
-						ImageIO.write(bigImage, "png", f);
-						//System.out.println("wrote file");
-					} catch (IOException e) {
-
-						e.printStackTrace();
-					}
-				}
-
-				if(tilesToSave.size()>2500)
-				{
-				System.out.println(tilesToSave.size());
-				}
-
-
-
-
-
-
-
-			}
 
 			for(Tile t : tiles)
 			{
@@ -595,7 +469,7 @@ public class Level
 
 				//System.out.println(x1 + " " + y1 + "   " + x2 + " " + y2+" "+t);
 
-				if(distance > 30&&!(t instanceof VoidTile))
+				if(distance > 50&&!(t instanceof VoidTile))
 				{
 
 
@@ -615,23 +489,58 @@ public class Level
 
 					if(getTile(pX,pY)==null)
 					{
-
-						tilesToAdd.add(new GrassTile(pX,pY));
-
+						int r=random.nextInt(500);
+						if(r>3&&r<23)
+						{
+							tilesToAdd.add(new FlowerTile(pX,pY));
+						}
+						else if(r<3)
+						{
+							LevelGen.addWater(this,tilesToAdd,pX,pY);
+							checkForSand=true;
+							//tilesToAdd.add(new WaterTile(pX,pY));
+						}
+						else if(r>23&&r<35)
+						{
+							LevelGen.trees(this, tilesToAdd, pX, pY);
+						}
+						else if(r==35||r==36||r==37)
+						{
+							LevelGen.addStone(this,tilesToAdd,pX,pY);
+						}
+						else
+						{
+							tilesToAdd.add(new GrassTile(pX,pY));
+						}
 					}
 
 				}
 
 			}
+			if(checkForSand)
+			{
+				for(int k=0;k<tilesToAdd.size();k++)
+				{
+					if(tilesToAdd.get(k) instanceof WaterTile)
+					{
+						LevelGen.addSand(this,tilesToAdd,tilesToAdd.get(k).getX(),tilesToAdd.get(k).getY());
+					}
+				}
+			}
 			tiles.addAll(tilesToAdd);
 			tilesToAdd.clear();
 
 
+
 		}
+
 		tickCount++;
 
 	}
-
+	public List<Tile> getTilesToAdd()
+	{
+		return tilesToAdd;
+	}
 
 	public void renderTiles(Display display, int xoffset, int yoffset)
 	{
@@ -700,7 +609,7 @@ public class Level
 		int amount = random.nextInt(20)+10;
 		for(int spawning=0;spawning<=amount;spawning++)
 		{
-			//addEntity(new Skeleton(this,"skeleton",hostileSpawnX(),hostileSpawnY(),0,false));
+			addEntity(new Skeleton("skeleton",hostileSpawnX(),hostileSpawnY()));
 
 		}
 	}

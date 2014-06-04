@@ -3,6 +3,7 @@ package items;
 import myMMO.Colours;
 import myMMO.Level;
 import myMMO.entity.PlayerEntity;
+import myMMO.tile.Tile;
 
 public class ArrowItem extends Item{
 	private static int colours= Colours.get(-1,222,321,555);
@@ -17,6 +18,12 @@ public class ArrowItem extends Item{
 	{
 	
 		
+	}
+
+	@Override
+	public Tile getTile(int newX, int newY) {
+		
+		return null;
 	}
 
 }

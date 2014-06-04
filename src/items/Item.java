@@ -144,10 +144,8 @@ public abstract class Item {
 	{
 		this.y = y;
 	}
-	public Tile getTile(int newX,int newY)
-	{
-		return null;
-	}
+	public abstract Tile getTile(int newX,int newY);
+	
 	public int[] getDestroyables()
 	{
 		return null;

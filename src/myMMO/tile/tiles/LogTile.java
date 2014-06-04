@@ -1,6 +1,8 @@
 package myMMO.tile.tiles;
 
 import items.Item;
+import items.LogItem;
+import items.RockItem;
 import myMMO.Colours;
 import myMMO.Level;
 import myMMO.tile.SolidTile;
@@ -17,7 +19,11 @@ public class LogTile extends SolidTile{
 	}
 	
 	public void drop(Level level) {
-		
+		Item item=new LogItem("log");
+		item.setX(xcoord);
+		item.setY(ycoord);
+		item.setCoolDown(30);
+		level.addItem(item);
 		
 	}
 

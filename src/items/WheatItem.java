@@ -3,6 +3,7 @@ package items;
 import myMMO.Colours;
 import myMMO.Level;
 import myMMO.entity.PlayerEntity;
+import myMMO.tile.Tile;
 
 public class WheatItem extends Item{
 
@@ -18,6 +19,13 @@ public class WheatItem extends Item{
 	public void doAction(PlayerEntity player, Level level) {
 		
 		
+	}
+
+
+	
+	public Tile getTile(int newX, int newY) {
+		
+		return null;
 	}
 
 }

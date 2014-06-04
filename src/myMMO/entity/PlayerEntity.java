@@ -1,10 +1,14 @@
 package myMMO.entity;
 
 import items.ArrowItem;
+import items.AxeItem;
 import items.BowItem;
 import items.HoeItem;
+import items.InvyItemBlank;
 import items.Item;
+import items.PickaxeItem;
 import items.RockItem;
+import items.SandItem;
 import items.SwordItem;
 import items.Tool;
 
@@ -54,7 +58,7 @@ public class PlayerEntity extends Entity {
 	private static int yTile=28;
 
 	public PlayerEntity(int xOnMap, int yOnMap, KeyInputHandler input,String username,boolean isSwimming) {
-		super("Player", xOnMap, yOnMap, 2,"",xTile,yTile,colour);
+		super("Player", xOnMap, yOnMap, 1,"",xTile,yTile,colour);
 		//Level level, String name, int x, int y, int speed, String message,int xTile,int yTile, int colour
 		this.input=input;
 		this.username=username;
@@ -62,7 +66,42 @@ public class PlayerEntity extends Entity {
 		//this.y=yOnMap;
 		for(int blankItems=0;blankItems<15;blankItems++)
 		{
-			if(blankItems==0)
+			switch(blankItems)
+			{
+			case 0:
+				items.add(blankItems,new SwordItem("sword",1));
+				break;
+			case 1: 
+				items.add(blankItems,new HoeItem("hoe",1));
+				break;
+			case 2:
+				items.add(blankItems, new PickaxeItem("pickaxe"));
+				break;
+			case 3:
+				items.add(blankItems, new AxeItem("Axe"));
+				break;
+			case 4:
+				items.add(blankItems,new BowItem("Bow"));
+				break;
+			case 5:
+				items.add(blankItems, new ArrowItem("arrow"));
+				break;
+			case 6:
+				items.add(blankItems, new ArrowItem("arrow"));
+				break;
+			case 7:
+				items.add(blankItems, new ArrowItem("arrow"));
+				break;
+			case 8:
+				items.add(blankItems, new ArrowItem("arrow"));
+				break;
+			case 9:
+				items.add(blankItems, new SandItem("sand"));
+				break;
+
+			default: items.add(blankItems, new InvyItemBlank("empty"));
+			}
+			/*if(blankItems==0)
 			{
 				items.add(blankItems,new SwordItem("sword",1));
 			}
@@ -80,9 +119,9 @@ public class PlayerEntity extends Entity {
 			}
 			else
 			{
-				items.add(blankItems, new RockItem("rock"));
-				//items.add(blankItems, new InvyItemBlank("empty"));
-			}
+				//items.add(blankItems, new RockItem("rock"));
+				items.add(blankItems, new InvyItemBlank("empty"));
+			}*/
 		}
 
 	}
@@ -125,8 +164,9 @@ public class PlayerEntity extends Entity {
 	public void tick() {
 		int xa=0;
 		int ya=0;
-		Tile standingAt=Game.level.getTile(((x)>>3), ((y+8)>>3));
-	//	System.out.println(standingAt);
+		Tile standingAt=Game.level.getTile(((x)>>3), ((y)>>3));
+		//	System.out.println(standingAt);
+
 		if(standingAt instanceof SandTile)
 		{
 			if(System.currentTimeMillis()-soundPlay>=soundPlayWait)
@@ -134,13 +174,13 @@ public class PlayerEntity extends Entity {
 				Sound.sand.play();
 				soundPlay=System.currentTimeMillis();
 			}
-			
+
 		}
 
 		if(standingAt instanceof WaterTile)
 		{
 			isSwimming=true;
-		
+
 		}
 		else
 		{
@@ -225,7 +265,7 @@ public class PlayerEntity extends Entity {
 			//System.out.println("move packet");
 			new Packet01Move("1:" + getX() + ":" + getY()).send(Game.multiplayer.getOutput());
 		}
-		
+
 		if(health<=0)
 		{
 			this.holdItem=null;
@@ -277,7 +317,7 @@ public class PlayerEntity extends Entity {
 		holdItem.doAction(this,Game.level);
 
 	}
-	
+
 	//MUY IMPORTANTE!!!!!
 	protected int getXTile() 
 	{
@@ -290,10 +330,10 @@ public class PlayerEntity extends Entity {
 
 	protected void drops() {
 
-		
+
 	}
-	
-	
+
+
 }
 
 

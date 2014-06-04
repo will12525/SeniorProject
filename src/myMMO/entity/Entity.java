@@ -416,6 +416,10 @@ protected abstract void drops();
 		Tile newTile =Game.level.getTile((this.x+x+nextX)>>3,(this.y+y+nextY)>>3);
 		//Tile currentTile = level.getTile(x, y)
 		//System.out.println(this.x + "  " + x);
+		if(lastTile==null||newTile==null)
+		{
+			return false;
+		}
 		if(!lastTile.equals(newTile)&&newTile.isSolid())
 		{
 			return true;

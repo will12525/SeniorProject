@@ -23,7 +23,7 @@ public class InvyItemBlank extends Tool {
 	public int[] getDestroyables()
 	{
 		
-		return new int[] {Tile.DIRT,Tile.GRASS,Tile.WHEAT,Tile.PLOWED_DIRT,Tile.FLOWER_TILE,Tile.LEAVES,Tile.LOG,Tile.PLANK,Tile.SAND};
+		return new int[] {Tile.DIRT,Tile.GRASS,Tile.WHEAT,Tile.PLOWED_DIRT,Tile.FLOWER_TILE,Tile.LEAVES,Tile.LOG,Tile.PLANK,Tile.SAND,Tile.WATER};
 	}
 
 

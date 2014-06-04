@@ -287,12 +287,12 @@ public class Game extends Canvas implements Runnable{
 
 		//TODO
 		//removing 
-		//turtle=new Turtle("turtle",10,10);
+		turtle=new Turtle("turtle",10,10);
 
 		//add each turtle
 
 		//TODO also removing
-		//level.addEntity(turtle);
+		level.addEntity(turtle);
 
 		//generates monkeys, random amount between 3 and 5
 		/*for(int monk=0;monk<rand.nextInt(20)+10;monk++)

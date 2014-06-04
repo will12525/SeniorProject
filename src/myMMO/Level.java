@@ -333,7 +333,7 @@ public class Level
 				}
 				setTile(x,y,t);
 
-				//tiles.set(i, t);
+				tiles.set(i, t);
 				player.changeItem(new InvyItemBlank("empty"), itemPosition);
 				player.setHoldItem(new InvyItemBlank("empty"),i);
 
